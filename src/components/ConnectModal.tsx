@@ -31,7 +31,7 @@ export default function ConnectModal() {
     }
   };
 
-  const handleUserInteraction = () => {};
+  const handleUserInteraction = () => { };
 
   // Auto-close silently within 5 seconds (no UI countdown)
   useEffect(() => {
@@ -160,11 +160,11 @@ export default function ConnectModal() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[360px] rounded-2xl border border-white/25 p-4 sm:p-5 my-auto max-h-[92vh] overflow-y-auto text-white shadow-2xl"
+        className="relative  max-w-[260px] rounded-2xl border border-white/25 p-4 sm:p-5 my-auto max-h-[200vh] overflow-y-auto text-white shadow-2xl"
         style={{
           position: 'relative',
           zIndex: 10,
-          background: 'linear-gradient(145deg, #071E3D 0%, #004E9A 55%, #0284C7 100%)',
+          background: 'linear-gradient(145deg, #023b85ff 0%, #004E9A 55%, #0284C7 100%)',
           backgroundColor: '#0A2540',
           boxShadow: '0 20px 60px rgba(7,24,46,0.95), 0 0 35px rgba(0,212,255,0.3)',
         }}
@@ -178,11 +178,11 @@ export default function ConnectModal() {
           type="button"
           id="connect-modal-close-btn"
           onClick={handleClose}
-          className="group absolute top-3.5 right-3.5 z-50 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 hover:bg-rose-500 active:scale-90 border border-white/40 text-white transition-all cursor-pointer shadow-md select-none"
+          className="absolute top-4 right-4 z-[9999] flex h-10 w-10 items-center justify-center rounded-full bg-red-600 hover:bg-red-700 text-white shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 border border-red-700"
           aria-label="Close modal"
           title="Close (Esc)"
         >
-          <X className="h-4 w-4 stroke-[2.5]" />
+          <X className="h-5 w-5 stroke-[2.5]" />
         </button>
 
         {submitted ? (
