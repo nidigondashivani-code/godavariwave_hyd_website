@@ -428,7 +428,7 @@ export default function ConnectModal() {
               </span>
               <span className="flex items-center gap-1">
                 <Mail className="h-3 w-3 text-white" />
-                <span>info@godavariwave.com</span>
+                <span>hrhydgodavariwavetech@gmail.com</span>
               </span>
             </div>
           </div>
