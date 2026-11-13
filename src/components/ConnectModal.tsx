@@ -8,7 +8,6 @@ export default function ConnectModal() {
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const [selectedService, setSelectedService] = useState('Web & Mobile');
   const [formData, setFormData] = useState({
     name: '',
@@ -32,29 +31,24 @@ export default function ConnectModal() {
     }
   };
 
-  const handleUserInteraction = () => {
-    if (!isPaused) {
-      setIsPaused(true);
-    }
-  };
+  const handleUserInteraction = () => {};
 
-  // Auto-close silently after 5 seconds if left untouched (no UI countdown or banner)
+  // Auto-close silently within 5 seconds (no UI countdown)
   useEffect(() => {
-    if (!isOpen || isPaused || submitted) return;
+    if (!isOpen) return;
 
     const timer = setTimeout(() => {
       handleClose();
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [isOpen, isPaused, submitted]);
+  }, [isOpen, submitted]);
 
   useEffect(() => {
     setMounted(true);
 
     const handleOpenEvent = () => {
       setSubmitted(false);
-      setIsPaused(false);
       setIsOpen(true);
       if (modalRef.current) {
         modalRef.current.style.display = 'flex';
@@ -165,10 +159,8 @@ export default function ConnectModal() {
         initial={{ opacity: 0, scale: 0.94, y: 12 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-        onMouseEnter={handleUserInteraction}
-        onTouchStart={handleUserInteraction}
         onClick={(e) => e.stopPropagation()}
-        className="relative max-w-[360px] rounded-2xl border border-white/25 p-4 sm:p-5 my-auto max-h-[160dvh] overflow-y-auto text-white shadow-2xl"
+        className="relative w-full max-w-[360px] rounded-2xl border border-white/25 p-4 sm:p-5 my-auto max-h-[92vh] overflow-y-auto text-white shadow-2xl"
         style={{
           position: 'relative',
           zIndex: 10,
@@ -181,23 +173,16 @@ export default function ConnectModal() {
         <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-[#00D4FF]/20 blur-xl" />
         <div className="pointer-events-none absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-[#07182E]/50 blur-xl" />
 
-        {/* High-Contrast Close X Button on Right Side */}
+        {/* Close Button strictly on Top Right Corner */}
         <button
           type="button"
           id="connect-modal-close-btn"
           onClick={handleClose}
-          onPointerDown={handleClose}
-          onTouchEnd={handleClose}
-          className="group absolute top-3.5 right-3.5 z-[100] flex h-8 w-8 items-center justify-center rounded-full bg-white/20 hover:bg-red-500 active:scale-90 border border-white/40 text-white transition-all cursor-pointer shadow-md select-none"
+          className="group absolute top-3.5 right-3.5 z-50 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 hover:bg-rose-500 active:scale-90 border border-white/40 text-white transition-all cursor-pointer shadow-md select-none"
           aria-label="Close modal"
           title="Close (Esc)"
-          style={{
-            zIndex: 100,
-            cursor: 'pointer',
-            pointerEvents: 'auto',
-          }}
         >
-          <X className="h-4 w-4 pointer-events-none stroke-[2.5]" />
+          <X className="h-4 w-4 stroke-[2.5]" />
         </button>
 
         {submitted ? (
@@ -249,8 +234,8 @@ export default function ConnectModal() {
               )}
             </div>
 
-            {/* Navigation and Close X Button: Close on Right */}
-            <div className="pt-1 flex items-center justify-center gap-2 max-w-sm mx-auto">
+            {/* Navigation Button */}
+            <div className="pt-1 max-w-sm mx-auto">
               <button
                 type="button"
                 onClick={() => {
@@ -259,20 +244,10 @@ export default function ConnectModal() {
                   window.dispatchEvent(new Event('gw_route_change'));
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-xs font-bold text-[#004E9A] bg-white hover:bg-sky-50 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 text-xs font-bold text-[#004E9A] bg-white hover:bg-sky-50 shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer"
               >
                 <span>View in Dashboard (/lead)</span>
                 <ArrowRight className="h-3.5 w-3.5 text-[#004E9A]" />
-              </button>
-
-              <button
-                type="button"
-                onClick={handleClose}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/20 hover:bg-red-500 active:scale-90 border border-white/30 text-white transition-all cursor-pointer shadow-sm select-none"
-                aria-label="Close"
-                title="Close"
-              >
-                <X className="h-4 w-4 stroke-[2.5]" />
               </button>
             </div>
           </div>
@@ -308,8 +283,8 @@ export default function ConnectModal() {
                         setSelectedService(s);
                       }}
                       className={`rounded-md px-2.5 py-1 text-[10.5px] font-semibold transition-all cursor-pointer border ${selectedService === s
-                          ? 'bg-white text-[#004E9A] border-white shadow-sm font-bold'
-                          : 'bg-[#0B1F3A]/50 text-sky-100 border-white/20 hover:bg-[#0B1F3A]/80'
+                        ? 'bg-white text-[#004E9A] border-white shadow-sm font-bold'
+                        : 'bg-[#0B1F3A]/50 text-sky-100 border-white/20 hover:bg-[#0B1F3A]/80'
                         }`}
                     >
                       {s}
@@ -433,24 +408,14 @@ export default function ConnectModal() {
                 />
               </div>
 
-              {/* Action Buttons: Submit button on left, Close button on right */}
-              <div className="pt-1.5 flex items-center gap-2">
+              {/* Action Button: Full-width Submit button */}
+              <div className="pt-1.5">
                 <button
                   type="submit"
-                  className="relative group inline-flex items-center justify-center gap-1.5 rounded-lg py-2.5 px-4 text-xs font-bold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] hover:from-[#004E9A] hover:to-[#0066CC] shadow-[0_5px_15px_rgba(0,102,204,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer flex-1"
+                  className="w-full relative group inline-flex items-center justify-center gap-1.5 rounded-lg py-2.5 px-4 text-xs font-bold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] hover:from-[#004E9A] hover:to-[#0066CC] shadow-[0_5px_15px_rgba(0,102,204,0.35)] hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer"
                 >
                   <span>Submit to Lead Sheet</span>
                   <Send className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/20 hover:bg-red-500 active:scale-90 border border-white/30 text-white transition-all cursor-pointer shadow-sm select-none"
-                  aria-label="Close"
-                  title="Close"
-                >
-                  <X className="h-4 w-4 stroke-[2.5]" />
                 </button>
               </div>
             </form>
