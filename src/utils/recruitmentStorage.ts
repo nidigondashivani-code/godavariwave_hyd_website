@@ -639,6 +639,14 @@ export const saveApplication = (app: Omit<JobApplication, 'id' | 'appliedDate' |
       type: 'candidate',
       linkTab: 'recruitment'
     });
+
+    if (typeof window !== 'undefined') {
+      fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newApp)
+      }).catch((err) => console.warn('[Supabase Applications Save Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to save application:', e);
   }
@@ -651,6 +659,14 @@ export const updateApplication = (id: string, updates: Partial<JobApplication>):
   try {
     localStorage.setItem(APPS_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+
+    if (typeof window !== 'undefined') {
+      fetch('/api/applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated.find(a => a.id === id) || { id, ...updates })
+      }).catch((err) => console.warn('[Supabase Applications Update Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to update application:', e);
   }
@@ -662,8 +678,55 @@ export const deleteApplication = (id: string): void => {
   try {
     localStorage.setItem(APPS_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+
+    if (typeof window !== 'undefined') {
+      fetch(`/api/applications/${encodeURIComponent(id)}`, {
+        method: 'DELETE'
+      }).catch((err) => console.warn('[Supabase Applications Delete Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to delete application:', e);
+  }
+};
+
+export const syncApplicationsWithDatabase = async (): Promise<JobApplication[]> => {
+  if (typeof window === 'undefined') return getApplications();
+  try {
+    const res = await fetch('/api/applications');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const remoteApps: JobApplication[] = await res.json();
+
+    const localApps = getApplications();
+    if (remoteApps.length === 0 && localApps.length > 0) {
+      for (const item of localApps) {
+        await fetch('/api/applications', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item)
+        }).catch(() => {});
+      }
+      return localApps;
+    }
+
+    const remoteIdSet = new Set(remoteApps.map((a) => a.id));
+    const localOnly = localApps.filter((a) => !remoteIdSet.has(a.id));
+    if (localOnly.length > 0) {
+      for (const item of localOnly) {
+        await fetch('/api/applications', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item)
+        }).catch(() => {});
+      }
+    }
+
+    const merged = [...remoteApps, ...localOnly];
+    localStorage.setItem(APPS_KEY, JSON.stringify(merged));
+    window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+    return merged;
+  } catch (err) {
+    console.warn('[Database Applications Sync] Using local cached apps:', err);
+    return getApplications();
   }
 };
 
@@ -702,6 +765,14 @@ export const saveInterview = (interview: Omit<Interview, 'id'>): Interview => {
       type: 'interview',
       linkTab: 'recruitment'
     });
+
+    if (typeof window !== 'undefined') {
+      fetch('/api/interviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newInt)
+      }).catch((err) => console.warn('[Supabase Interviews Save Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to save interview:', e);
   }
@@ -714,6 +785,14 @@ export const updateInterview = (id: string, updates: Partial<Interview>): void =
   try {
     localStorage.setItem(INTERVIEWS_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+
+    if (typeof window !== 'undefined') {
+      fetch('/api/interviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated.find(i => i.id === id) || { id, ...updates })
+      }).catch((err) => console.warn('[Supabase Interviews Update Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to update interview:', e);
   }
@@ -725,8 +804,55 @@ export const deleteInterview = (id: string): void => {
   try {
     localStorage.setItem(INTERVIEWS_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+
+    if (typeof window !== 'undefined') {
+      fetch(`/api/interviews/${encodeURIComponent(id)}`, {
+        method: 'DELETE'
+      }).catch((err) => console.warn('[Supabase Interviews Delete Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to delete interview:', e);
+  }
+};
+
+export const syncInterviewsWithDatabase = async (): Promise<Interview[]> => {
+  if (typeof window === 'undefined') return getInterviews();
+  try {
+    const res = await fetch('/api/interviews');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const remoteInts: Interview[] = await res.json();
+
+    const localInts = getInterviews();
+    if (remoteInts.length === 0 && localInts.length > 0) {
+      for (const item of localInts) {
+        await fetch('/api/interviews', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item)
+        }).catch(() => {});
+      }
+      return localInts;
+    }
+
+    const remoteIdSet = new Set(remoteInts.map((i) => i.id));
+    const localOnly = localInts.filter((i) => !remoteIdSet.has(i.id));
+    if (localOnly.length > 0) {
+      for (const item of localOnly) {
+        await fetch('/api/interviews', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item)
+        }).catch(() => {});
+      }
+    }
+
+    const merged = [...remoteInts, ...localOnly];
+    localStorage.setItem(INTERVIEWS_KEY, JSON.stringify(merged));
+    window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+    return merged;
+  } catch (err) {
+    console.warn('[Database Interviews Sync] Using local cached interviews:', err);
+    return getInterviews();
   }
 };
 

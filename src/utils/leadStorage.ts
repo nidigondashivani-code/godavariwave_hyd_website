@@ -330,6 +330,13 @@ export const saveLead = (
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('gw_latest_submitted_lead_id', newLead.id);
       window.dispatchEvent(new CustomEvent('gw_lead_updated', { detail: newLead }));
+      
+      // Asynchronously persist to Supabase PostgreSQL database
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newLead)
+      }).catch((err) => console.warn('[Supabase Leads Save Warning]:', err));
     }
   } catch (e) {
     console.error('Failed to save lead:', e);
@@ -343,6 +350,15 @@ export const updateLead = (id: string, updates: Partial<Lead>): void => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_lead_updated'));
+
+    // Persist update to Supabase PostgreSQL database
+    if (typeof window !== 'undefined') {
+      fetch(`/api/leads/${encodeURIComponent(id)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates)
+      }).catch((err) => console.warn('[Supabase Leads Update Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to update lead:', e);
   }
@@ -413,6 +429,14 @@ export const convertLeadToClient = (id: string, clientDetails?: Partial<Lead>): 
         read: false,
       }
     }));
+
+    if (convertedLead && typeof window !== 'undefined') {
+      fetch(`/api/leads/${encodeURIComponent(id)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(convertedLead)
+      }).catch((err) => console.warn('[Supabase Convert Lead Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to convert lead to client:', e);
   }
@@ -425,6 +449,12 @@ export const deleteLead = (id: string): void => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_lead_updated'));
+
+    if (typeof window !== 'undefined') {
+      fetch(`/api/leads/${encodeURIComponent(id)}`, {
+        method: 'DELETE'
+      }).catch((err) => console.warn('[Supabase Leads Delete Warning]:', err));
+    }
   } catch (e) {
     console.error('Failed to delete lead:', e);
   }
@@ -437,6 +467,12 @@ export const bulkDeleteLeads = (ids: string[]): void => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_lead_updated'));
+
+    if (typeof window !== 'undefined') {
+      ids.forEach((id) => {
+        fetch(`/api/leads/${encodeURIComponent(id)}`, { method: 'DELETE' }).catch(() => {});
+      });
+    }
   } catch (e) {
     console.error('Failed to bulk delete leads:', e);
   }
@@ -449,8 +485,97 @@ export const bulkUpdateLeads = (ids: string[], updates: Partial<Lead>): void => 
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_lead_updated'));
+
+    if (typeof window !== 'undefined') {
+      ids.forEach((id) => {
+        fetch(`/api/leads/${encodeURIComponent(id)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updates)
+        }).catch(() => {});
+      });
+    }
   } catch (e) {
     console.error('Failed to bulk update leads:', e);
+  }
+};
+
+// ----------------- SUPABASE DATABASE SYNC & HEALTH -----------------
+
+export interface DbHealth {
+  status: 'connected' | 'disconnected';
+  provider: string;
+  database: string;
+  user?: string;
+  host?: string;
+  latencyMs?: number;
+  counts?: {
+    leads: number;
+    applications: number;
+    interviews: number;
+  };
+}
+
+export const getDbHealth = async (): Promise<DbHealth> => {
+  try {
+    const res = await fetch('/api/health');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    return {
+      status: 'disconnected',
+      provider: 'Supabase PostgreSQL',
+      database: 'postgres',
+    };
+  }
+};
+
+export const syncLeadsWithDatabase = async (): Promise<Lead[]> => {
+  if (typeof window === 'undefined') return getLeads();
+  try {
+    const res = await fetch('/api/leads');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const remoteLeads: Lead[] = await res.json();
+
+    const localLeads = getLeads();
+
+    // If remote DB is empty and local has seed leads, push all to Supabase DB
+    if (remoteLeads.length === 0 && localLeads.length > 0) {
+      try {
+        await fetch('/api/leads/bulk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(localLeads)
+        });
+      } catch (e) {
+        console.warn('Initial bulk upload of leads failed:', e);
+      }
+      return localLeads;
+    }
+
+    // Merge remote DB leads with any local-only leads
+    const remoteIdSet = new Set(remoteLeads.map((l) => l.id));
+    const localOnly = localLeads.filter((l) => !remoteIdSet.has(l.id));
+
+    if (localOnly.length > 0) {
+      try {
+        await fetch('/api/leads/bulk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(localOnly)
+        });
+      } catch (e) {
+        console.warn('Syncing local-only leads failed:', e);
+      }
+    }
+
+    const merged = [...remoteLeads, ...localOnly];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+    window.dispatchEvent(new CustomEvent('gw_lead_updated'));
+    return merged;
+  } catch (err) {
+    console.warn('[Database Sync] Using local cached leads:', err);
+    return getLeads();
   }
 };
 
