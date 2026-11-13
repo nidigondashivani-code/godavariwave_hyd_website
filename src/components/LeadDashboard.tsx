@@ -129,6 +129,12 @@ import {
   getNotifications,
   markNotificationRead,
   markAllNotificationsRead,
+  clearAllNotifications,
+  deleteNotification,
+  bulkDeleteApplications,
+  clearAllApplications,
+  clearAllJobs,
+  clearAllInterviews,
   getUserRoles,
   updateUserRolePermission,
   syncApplicationsWithDatabase,
@@ -344,6 +350,7 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
 
   // Client Selection & Pagination
   const [selectedClientIds, setSelectedClientIds] = useState<string[]>([]);
+  const [editingClient, setEditingClient] = useState<Lead | null>(null);
   const [clientCurrentPage, setClientCurrentPage] = useState<number>(1);
   const [clientPageSize, setClientPageSize] = useState<number>(10);
   const [isClientAdvancedFiltersOpen, setIsClientAdvancedFiltersOpen] = useState<boolean>(false);
@@ -482,6 +489,8 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
   const [isCreateJobModalOpen, setIsCreateJobModalOpen] = useState<boolean>(false);
   const [isScheduleInterviewModalOpen, setIsScheduleInterviewModalOpen] = useState<boolean>(false);
   const [interviewApplication, setInterviewApplication] = useState<JobApplication | null>(null);
+  const [selectedAppIds, setSelectedAppIds] = useState<string[]>([]);
+  const [editingApplication, setEditingApplication] = useState<JobApplication | null>(null);
 
   // New Job Form State
   const [newJobData, setNewJobData] = useState({
@@ -712,6 +721,15 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
       return true;
     });
   }, [applications, candidateSearchQuery, candidatePositionFilter, candidateStatusFilter]);
+
+  const isAllAppsSelected = filteredApplications.length > 0 && filteredApplications.every((a) => selectedAppIds.includes(a.id));
+  const toggleSelectAllApps = () => {
+    if (isAllAppsSelected) setSelectedAppIds([]);
+    else setSelectedAppIds(filteredApplications.map((a) => a.id));
+  };
+  const toggleSelectAppRow = (id: string) => {
+    setSelectedAppIds((prev) => (prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]));
+  };
 
   const recruitmentKPIs = useMemo(() => {
     const totalApps = applications.length;
@@ -2138,6 +2156,23 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                       <Plus className="h-4 w-4" />
                       <span>+ New Client</span>
                     </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm('Are you sure you want to permanently clear all leads and client records from CRM? This cannot be undone.')) {
+                          clearAllLeads();
+                          refreshAllData();
+                          setSelectedClientIds([]);
+                          showToast('All CRM records cleared successfully');
+                        }
+                      }}
+                      className="h-10 px-3.5 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-300 font-bold text-xs hover:bg-rose-500/20 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 shadow-sm"
+                      title="Clear All Leads & Client Records"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                      <span>Clear All CRM</span>
+                    </button>
                   </div>
                 </div>
 
@@ -2260,6 +2295,92 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                     </select>
                   </div>
                 </div>
+
+                {/* Bulk Actions Bar for Clients */}
+                {selectedClientIds.length > 0 && (
+                  <div className="p-3.5 rounded-xl border border-[#00D4FF]/30 bg-[#0066CC]/20 flex items-center justify-between gap-4 animate-in fade-in flex-wrap">
+                    <div className="flex items-center gap-2 text-xs font-bold text-[#00D4FF]">
+                      <CheckSquare className="h-4 w-4" />
+                      <span>{selectedClientIds.length} Clients Selected</span>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs flex-wrap">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const target = leads.find((l) => selectedClientIds.includes(l.id));
+                          if (target) setDrawerClient(target);
+                        }}
+                        className="px-3.5 py-1.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
+                      >
+                        <Eye className="h-3.5 w-3.5" />
+                        <span>View</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const target = leads.find((l) => selectedClientIds.includes(l.id));
+                          if (target) setEditingClient(target);
+                        }}
+                        className="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
+                      >
+                        <Edit3 className="h-3.5 w-3.5" />
+                        <span>Edit</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          selectedClientIds.forEach(id => convertLeadToClient(id));
+                          refreshAllData();
+                          showToast(`Converted ${selectedClientIds.length} leads to Won Clients!`);
+                          setSelectedClientIds([]);
+                        }}
+                        className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold cursor-pointer transition-colors"
+                      >
+                        Convert Won
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          bulkUpdateLeads(selectedClientIds, { status: 'In Discussion' });
+                          refreshAllData();
+                          showToast(`Marked ${selectedClientIds.length} as In Discussion`);
+                          setSelectedClientIds([]);
+                        }}
+                        className="px-3.5 py-1.5 rounded-lg bg-[#0066CC] hover:bg-[#0052A3] text-white font-bold cursor-pointer transition-colors"
+                      >
+                        Mark Active
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (window.confirm(`Delete ${selectedClientIds.length} selected client records?`)) {
+                            bulkDeleteLeads(selectedClientIds);
+                            refreshAllData();
+                            showToast('Deleted selected records');
+                            setSelectedClientIds([]);
+                          }
+                        }}
+                        className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                        <span>Delete Selected</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setSelectedClientIds([])}
+                        className="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 font-bold cursor-pointer transition-colors"
+                      >
+                        ✕ Clear Selection
+                      </button>
+                    </div>
+                  </div>
+                )}
 
                 {/* The Leadsheet Connects Table */}
                 <div className="border border-white/15 rounded-2xl overflow-hidden shadow-2xl bg-[#07182E]/60">
@@ -2405,6 +2526,14 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                                     </button>
                                     <button
                                       type="button"
+                                      onClick={() => setEditingClient(client)}
+                                      className="p-1.5 rounded-lg border border-white/15 bg-white/5 text-amber-300 hover:bg-amber-500/20 hover:text-white"
+                                      title="Edit Client Details"
+                                    >
+                                      <Edit3 className="h-3.5 w-3.5" />
+                                    </button>
+                                    <button
+                                      type="button"
                                       onClick={() => {
                                         if (window.confirm(`Delete client record for ${client.name}?`)) {
                                           deleteLead(client.id);
@@ -2511,6 +2640,22 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                   >
                     <Plus className="h-4 w-4" />
                     <span>+ Add Lead</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm('Are you sure you want to permanently clear all leads from CRM? This cannot be undone.')) {
+                        clearAllLeads();
+                        refreshAllData();
+                        setSelectedClientIds([]);
+                        showToast('All CRM leads cleared');
+                      }
+                    }}
+                    className="px-4 py-2.5 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 hover:text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-sm"
+                    title="Clear All Leads"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    <span>Clear All Leads</span>
                   </button>
                 </div>
               </div>
@@ -2648,7 +2793,31 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                     <span>{selectedClientIds.length} Leads Selected</span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs">
+                  <div className="flex items-center gap-2 text-xs flex-wrap">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const target = leads.find((l) => selectedClientIds.includes(l.id));
+                        if (target) setDrawerClient(target);
+                      }}
+                      className="px-3.5 py-1.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
+                    >
+                      <Eye className="h-3.5 w-3.5" />
+                      <span>View</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const target = leads.find((l) => selectedClientIds.includes(l.id));
+                        if (target) setEditingClient(target);
+                      }}
+                      className="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
+                    >
+                      <Edit3 className="h-3.5 w-3.5" />
+                      <span>Edit</span>
+                    </button>
+
                     <button
                       type="button"
                       onClick={() => {
@@ -2683,9 +2852,18 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                           setSelectedClientIds([]);
                         }
                       }}
-                      className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold cursor-pointer transition-colors"
+                      className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
                     >
-                      Delete Selected
+                      <Trash2 className="h-3.5 w-3.5" />
+                      <span>Delete Selected</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setSelectedClientIds([])}
+                      className="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 font-bold cursor-pointer transition-colors"
+                    >
+                      ✕ Clear Selection
                     </button>
                   </div>
                 </div>
@@ -2846,6 +3024,14 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                                     title="View Full Inquiry"
                                   >
                                     <Eye className="h-3.5 w-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => setEditingClient(client)}
+                                    className="p-1.5 rounded-lg border border-white/15 bg-white/5 text-amber-300 hover:bg-amber-500/20 hover:text-white transition-colors"
+                                    title="Edit Lead Details"
+                                  >
+                                    <Edit3 className="h-3.5 w-3.5" />
                                   </button>
                                   <button
                                     type="button"
@@ -3174,6 +3360,22 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                       <Plus className="h-4 w-4" />
                       <span>+ Add Deal Lead</span>
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm('Are you sure you want to permanently clear all leads from CRM? This cannot be undone.')) {
+                          clearAllLeads();
+                          refreshAllData();
+                          setSelectedClientIds([]);
+                          showToast('All CRM leads cleared');
+                        }
+                      }}
+                      className="px-4 py-2.5 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 hover:text-white text-xs font-bold transition-all flex items-center gap-2 shadow-sm cursor-pointer"
+                      title="Clear All CRM Records"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      <span>Clear All CRM</span>
+                    </button>
                   </div>
                 </div>
 
@@ -3284,6 +3486,42 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                       <Plus className="h-4 w-4" />
                       <span>+ Create Job Opening</span>
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (recruitmentQuickTab === 'jobs') {
+                          if (window.confirm('Are you sure you want to clear all job openings?')) {
+                            clearAllJobs();
+                            refreshAllData();
+                            showToast('All job openings cleared');
+                          }
+                        } else if (recruitmentQuickTab === 'interviews') {
+                          if (window.confirm('Are you sure you want to clear all interview schedules?')) {
+                            clearAllInterviews();
+                            refreshAllData();
+                            showToast('All interviews cleared');
+                          }
+                        } else {
+                          if (window.confirm('Are you sure you want to permanently clear all candidate applications? This action cannot be undone.')) {
+                            clearAllApplications();
+                            refreshAllData();
+                            setSelectedAppIds([]);
+                            showToast('All candidate applications cleared');
+                          }
+                        }
+                      }}
+                      className="h-11 px-4 rounded-xl border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 hover:text-white font-bold text-xs transition-all cursor-pointer shadow-sm flex items-center gap-1.5"
+                      title="Clear All in Recruitment"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      <span>
+                        {recruitmentQuickTab === 'jobs'
+                          ? 'Clear All Jobs'
+                          : recruitmentQuickTab === 'interviews'
+                          ? 'Clear All Interviews'
+                          : 'Clear All Applications'}
+                      </span>
+                    </button>
                   </div>
                 </div>
 
@@ -3342,91 +3580,192 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
 
               {/* Tab 1: Applications */}
               {(recruitmentQuickTab === 'applications' || recruitmentQuickTab === 'candidates') && (
-                <div className="border border-white/15 rounded-2xl bg-[#0E2646] shadow-xl overflow-hidden">
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse text-xs">
-                      <thead>
-                        <tr className="bg-[#07182E] border-b border-white/10 text-slate-300 font-bold">
-                          <th className="py-3.5 px-4">Candidate ID</th>
-                          <th className="py-3.5 px-4">Candidate Name</th>
-                          <th className="py-3.5 px-4">Applied Position</th>
-                          <th className="py-3.5 px-4">Experience</th>
-                          <th className="py-3.5 px-4 text-center">Status / Stage</th>
-                          <th className="py-3.5 px-4">Recruiter</th>
-                          <th className="py-3.5 px-4">Applied Date</th>
-                          <th className="py-3.5 px-4 text-right">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-white/10 font-medium text-white">
-                        {filteredApplications.map((app) => (
-                          <tr
-                            key={app.id}
-                            onClick={() => setDrawerCandidate(app)}
-                            className="hover:bg-white/5 cursor-pointer transition-colors"
-                          >
-                            <td className="py-3.5 px-4 font-mono font-bold text-[#38BDF8]">{app.candidateId}</td>
-                            <td className="py-3.5 px-4">
-                              <p className="font-bold text-white">{app.name}</p>
-                              <p className="text-[11px] text-slate-300 font-mono">{app.email} · {app.phone}</p>
-                            </td>
-                            <td className="py-3.5 px-4 font-semibold text-[#38BDF8]">{app.position}</td>
-                            <td className="py-3.5 px-4 font-mono text-[11px] text-slate-300">{app.experienceLevel} {app.experienceYears ? `(${app.experienceYears})` : ''}</td>
-                            <td className="py-3.5 px-4 text-center" onClick={(e) => e.stopPropagation()}>
-                              <select
-                                value={app.status}
-                                onChange={(e) => {
-                                  updateApplication(app.id, { status: e.target.value as any });
-                                  refreshAllData();
-                                  showToast(`Candidate status updated to ${e.target.value}`);
-                                }}
-                                className="px-2.5 py-1 rounded-full border border-white/20 bg-[#07182E] text-[10px] font-mono font-bold text-[#38BDF8] cursor-pointer focus:outline-none"
-                              >
-                                <option value="New">New</option>
-                                <option value="Reviewing">Reviewing</option>
-                                <option value="Shortlisted">Shortlisted</option>
-                                <option value="Interview Scheduled">Interview Scheduled</option>
-                                <option value="Offered">Offered</option>
-                                <option value="Hired">Hired</option>
-                                <option value="Rejected">Rejected</option>
-                              </select>
-                            </td>
-                            <td className="py-3.5 px-4 text-slate-200 font-semibold">{app.assignedRecruiter}</td>
-                            <td className="py-3.5 px-4 font-mono text-[11px] text-slate-400">
-                              {new Date(app.appliedDate).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
-                            </td>
-                            <td className="py-3.5 px-4 text-right" onClick={(e) => e.stopPropagation()}>
-                              <div className="flex items-center justify-end gap-1.5">
-                                <button
-                                  type="button"
-                                  onClick={() => openHREmailForCandidate(app)}
-                                  className="p-1.5 rounded-lg border border-white/15 bg-white/5 text-[#38BDF8] hover:bg-white/15 hover:text-white"
-                                  title="Send Email from HR (hrhydgodavariwavetech@gmail.com)"
-                                >
-                                  <Mail className="h-3.5 w-3.5" />
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setInterviewApplication(app);
-                                    setIsScheduleInterviewModalOpen(true);
-                                  }}
-                                  className="px-2.5 py-1 rounded-lg bg-[#0066CC] hover:bg-[#0052A3] text-white text-[10px] font-bold"
-                                >
-                                  Interview
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => setDrawerCandidate(app)}
-                                  className="p-1.5 rounded-lg border border-white/15 bg-white/5 text-slate-300 hover:bg-white/15 hover:text-white"
-                                >
-                                  <Eye className="h-3.5 w-3.5" />
-                                </button>
-                              </div>
-                            </td>
+                <div className="space-y-4">
+                  {/* Bulk Actions Bar for Applications */}
+                  {selectedAppIds.length > 0 && (
+                    <div className="p-3.5 rounded-xl border border-[#00D4FF]/30 bg-[#0066CC]/20 flex items-center justify-between gap-4 animate-in fade-in flex-wrap">
+                      <div className="flex items-center gap-2 text-xs font-bold text-[#00D4FF]">
+                        <CheckSquare className="h-4 w-4" />
+                        <span>{selectedAppIds.length} Candidates Selected</span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-xs flex-wrap">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const target = applications.find((a) => selectedAppIds.includes(a.id));
+                            if (target) setDrawerCandidate(target);
+                          }}
+                          className="px-3.5 py-1.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
+                        >
+                          <Eye className="h-3.5 w-3.5" />
+                          <span>View</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const target = applications.find((a) => selectedAppIds.includes(a.id));
+                            if (target) setEditingApplication(target);
+                          }}
+                          className="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
+                        >
+                          <Edit3 className="h-3.5 w-3.5" />
+                          <span>Edit</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (window.confirm(`Delete ${selectedAppIds.length} selected candidate applications?`)) {
+                              bulkDeleteApplications(selectedAppIds);
+                              refreshAllData();
+                              showToast('Deleted selected applications');
+                              setSelectedAppIds([]);
+                            }
+                          }}
+                          className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold cursor-pointer transition-colors flex items-center gap-1.5"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                          <span>Delete Selected</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setSelectedAppIds([])}
+                          className="px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 font-bold cursor-pointer transition-colors"
+                        >
+                          ✕ Clear Selection
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="border border-white/15 rounded-2xl bg-[#0E2646] shadow-xl overflow-hidden">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left border-collapse text-xs">
+                        <thead>
+                          <tr className="bg-[#07182E] border-b border-white/10 text-slate-300 font-bold">
+                            <th className="py-3.5 px-4 w-10">
+                              <input
+                                type="checkbox"
+                                checked={isAllAppsSelected}
+                                onChange={toggleSelectAllApps}
+                                className="rounded text-[#0066CC] cursor-pointer"
+                              />
+                            </th>
+                            <th className="py-3.5 px-4">Candidate ID</th>
+                            <th className="py-3.5 px-4">Candidate Name</th>
+                            <th className="py-3.5 px-4">Applied Position</th>
+                            <th className="py-3.5 px-4">Experience</th>
+                            <th className="py-3.5 px-4 text-center">Status / Stage</th>
+                            <th className="py-3.5 px-4">Recruiter</th>
+                            <th className="py-3.5 px-4">Applied Date</th>
+                            <th className="py-3.5 px-4 text-right">Actions</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody className="divide-y divide-white/10 font-medium text-white">
+                          {filteredApplications.map((app) => (
+                            <tr
+                              key={app.id}
+                              onClick={() => setDrawerCandidate(app)}
+                              className={cn('hover:bg-white/5 cursor-pointer transition-colors', selectedAppIds.includes(app.id) && 'bg-[#0066CC]/20')}
+                            >
+                              <td className="py-3.5 px-4 w-10" onClick={(e) => e.stopPropagation()}>
+                                <input
+                                  type="checkbox"
+                                  checked={selectedAppIds.includes(app.id)}
+                                  onChange={() => toggleSelectAppRow(app.id)}
+                                  className="rounded text-[#0066CC] cursor-pointer"
+                                />
+                              </td>
+                              <td className="py-3.5 px-4 font-mono font-bold text-[#38BDF8]">{app.candidateId}</td>
+                              <td className="py-3.5 px-4">
+                                <p className="font-bold text-white">{app.name}</p>
+                                <p className="text-[11px] text-slate-300 font-mono">{app.email} · {app.phone}</p>
+                              </td>
+                              <td className="py-3.5 px-4 font-semibold text-[#38BDF8]">{app.position}</td>
+                              <td className="py-3.5 px-4 font-mono text-[11px] text-slate-300">{app.experienceLevel} {app.experienceYears ? `(${app.experienceYears})` : ''}</td>
+                              <td className="py-3.5 px-4 text-center" onClick={(e) => e.stopPropagation()}>
+                                <select
+                                  value={app.status}
+                                  onChange={(e) => {
+                                    updateApplication(app.id, { status: e.target.value as any });
+                                    refreshAllData();
+                                    showToast(`Candidate status updated to ${e.target.value}`);
+                                  }}
+                                  className="px-2.5 py-1 rounded-full border border-white/20 bg-[#07182E] text-[10px] font-mono font-bold text-[#38BDF8] cursor-pointer focus:outline-none"
+                                >
+                                  <option value="New">New</option>
+                                  <option value="Reviewing">Reviewing</option>
+                                  <option value="Shortlisted">Shortlisted</option>
+                                  <option value="Interview Scheduled">Interview Scheduled</option>
+                                  <option value="Offered">Offered</option>
+                                  <option value="Hired">Hired</option>
+                                  <option value="Rejected">Rejected</option>
+                                </select>
+                              </td>
+                              <td className="py-3.5 px-4 text-slate-200 font-semibold">{app.assignedRecruiter}</td>
+                              <td className="py-3.5 px-4 font-mono text-[11px] text-slate-400">
+                                {new Date(app.appliedDate).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
+                              </td>
+                              <td className="py-3.5 px-4 text-right" onClick={(e) => e.stopPropagation()}>
+                                <div className="flex items-center justify-end gap-1.5">
+                                  <button
+                                    type="button"
+                                    onClick={() => openHREmailForCandidate(app)}
+                                    className="p-1.5 rounded-lg border border-white/15 bg-white/5 text-[#38BDF8] hover:bg-white/15 hover:text-white"
+                                    title="Send Email from HR (hrhydgodavariwavetech@gmail.com)"
+                                  >
+                                    <Mail className="h-3.5 w-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setInterviewApplication(app);
+                                      setIsScheduleInterviewModalOpen(true);
+                                    }}
+                                    className="px-2.5 py-1 rounded-lg bg-[#0066CC] hover:bg-[#0052A3] text-white text-[10px] font-bold"
+                                  >
+                                    Interview
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => setDrawerCandidate(app)}
+                                    className="p-1.5 rounded-lg border border-white/15 bg-white/5 text-slate-300 hover:bg-white/15 hover:text-white"
+                                    title="View Candidate Profile"
+                                  >
+                                    <Eye className="h-3.5 w-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => setEditingApplication(app)}
+                                    className="p-1.5 rounded-lg border border-white/15 bg-white/5 text-amber-300 hover:bg-amber-500/20 hover:text-white"
+                                    title="Edit Candidate Details"
+                                  >
+                                    <Edit3 className="h-3.5 w-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      if (window.confirm(`Delete candidate application for ${app.name}?`)) {
+                                        deleteApplication(app.id);
+                                        refreshAllData();
+                                        showToast(`Application for ${app.name} deleted`);
+                                      }
+                                    }}
+                                    className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10"
+                                    title="Delete Application"
+                                  >
+                                    <Trash2 className="h-3.5 w-3.5" />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               )}
@@ -3736,17 +4075,34 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                   <h2 className="font-display text-2xl font-bold text-white">Live Activity & Notifications</h2>
                   <p className="text-xs text-slate-300">Audit logs for client inquiries, candidate resumes, and meetings.</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    markAllNotificationsRead();
-                    refreshAllData();
-                    showToast('All notifications marked as read');
-                  }}
-                  className="px-4 py-2 rounded-xl border border-white/15 bg-white/5 text-xs font-bold text-[#38BDF8] hover:bg-white/15 hover:text-white transition-all cursor-pointer"
-                >
-                  Mark All Read
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      markAllNotificationsRead();
+                      refreshAllData();
+                      showToast('All notifications marked as read');
+                    }}
+                    className="px-4 py-2 rounded-xl border border-white/15 bg-white/5 text-xs font-bold text-[#38BDF8] hover:bg-white/15 hover:text-white transition-all cursor-pointer"
+                  >
+                    Mark All Read
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm('Are you sure you want to clear all notifications?')) {
+                        clearAllNotifications();
+                        refreshAllData();
+                        showToast('All notifications cleared');
+                      }
+                    }}
+                    className="px-4 py-2 rounded-xl border border-rose-500/30 bg-rose-500/10 text-xs font-bold text-rose-300 hover:bg-rose-500/20 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 shadow-xs"
+                    title="Clear All Notifications"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                    <span>Clear All</span>
+                  </button>
+                </div>
               </div>
 
               <div className="divide-y divide-white/10 text-xs">
@@ -3758,14 +4114,35 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-sm text-white">{n.title}</span>
-                        <span className="text-[11px] font-mono text-slate-400">
-                          {new Date(n.timestamp).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[11px] font-mono text-slate-400">
+                            {new Date(n.timestamp).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteNotification(n.id);
+                              refreshAllData();
+                            }}
+                            className="text-slate-400 hover:text-rose-400 p-1 rounded-md hover:bg-white/10 transition-colors"
+                            title="Delete notification"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
                       </div>
                       <p className="text-slate-300 mt-0.5">{n.message}</p>
                     </div>
                   </div>
                 ))}
+                {notifications.length === 0 && (
+                  <div className="py-12 text-center text-slate-400 space-y-2">
+                    <Bell className="h-8 w-8 mx-auto text-slate-500 opacity-40" />
+                    <p className="font-semibold text-sm text-slate-300">No active notifications</p>
+                    <p className="text-xs text-slate-500">Your notifications feed is completely clear.</p>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -5351,6 +5728,326 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                     className="px-6 py-2.5 rounded-lg font-bold bg-[#0066CC] hover:bg-[#0052A3] text-white cursor-pointer shadow-md transition-all"
                   >
                     Confirm Schedule
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ========================================================= */}
+      {/* MODAL: EDIT CLIENT / LEAD                                 */}
+      {/* ========================================================= */}
+      <AnimatePresence>
+        {editingClient && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              style={{ backgroundColor: '#FFFFFF', color: '#0F172A' }}
+              className="w-full max-w-lg p-6 sm:p-7 space-y-4 max-h-[92vh] overflow-y-auto border border-slate-200 rounded-2xl shadow-2xl text-slate-900"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                <div className="flex items-center gap-2">
+                  <Edit3 className="h-5 w-5 text-[#0066CC]" />
+                  <h3 className="font-display font-bold text-lg text-slate-900">Edit Client / Lead Details</h3>
+                </div>
+                <button type="button" onClick={() => setEditingClient(null)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  updateLead(editingClient.id, editingClient);
+                  refreshAllData();
+                  showToast(`Updated details for ${editingClient.name}`);
+                  setEditingClient(null);
+                }}
+                className="space-y-4 text-xs font-semibold text-slate-700"
+              >
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 mb-1">Client Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingClient.name}
+                    onChange={(e) => setEditingClient({ ...editingClient, name: e.target.value })}
+                    className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Company / Organization</label>
+                    <input
+                      type="text"
+                      value={editingClient.company || ''}
+                      onChange={(e) => setEditingClient({ ...editingClient, company: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Service / Requirement</label>
+                    <input
+                      type="text"
+                      value={editingClient.service || ''}
+                      onChange={(e) => setEditingClient({ ...editingClient, service: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Email Address *</label>
+                    <input
+                      type="email"
+                      required
+                      value={editingClient.email}
+                      onChange={(e) => setEditingClient({ ...editingClient, email: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Phone Number *</label>
+                    <input
+                      type="text"
+                      required
+                      value={editingClient.phone}
+                      onChange={(e) => setEditingClient({ ...editingClient, phone: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Pipeline Status</label>
+                    <select
+                      value={editingClient.status}
+                      onChange={(e) => setEditingClient({ ...editingClient, status: e.target.value as any })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    >
+                      <option value="New">New</option>
+                      <option value="In Discussion">In Discussion</option>
+                      <option value="Proposal Sent">Proposal Sent</option>
+                      <option value="Negotiation">Negotiation</option>
+                      <option value="Converted">Converted</option>
+                      <option value="Lost">Lost</option>
+                      <option value="Archived">Archived</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Priority</label>
+                    <select
+                      value={editingClient.priority}
+                      onChange={(e) => setEditingClient({ ...editingClient, priority: e.target.value as any })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    >
+                      <option value="High">High</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Low">Low</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Deal Value (₹)</label>
+                    <input
+                      type="number"
+                      value={editingClient.revenue || 0}
+                      onChange={(e) => setEditingClient({ ...editingClient, revenue: Number(e.target.value) })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 mb-1">Notes / Internal Summary</label>
+                  <textarea
+                    rows={3}
+                    value={editingClient.notes || ''}
+                    onChange={(e) => setEditingClient({ ...editingClient, notes: e.target.value })}
+                    className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                  />
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200">
+                  <button
+                    type="button"
+                    onClick={() => setEditingClient(null)}
+                    className="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 rounded-lg bg-[#0066CC] hover:bg-[#0052A3] text-white font-bold shadow-md cursor-pointer"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ========================================================= */}
+      {/* MODAL: EDIT CANDIDATE APPLICATION                        */}
+      {/* ========================================================= */}
+      <AnimatePresence>
+        {editingApplication && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              style={{ backgroundColor: '#FFFFFF', color: '#0F172A' }}
+              className="w-full max-w-lg p-6 sm:p-7 space-y-4 max-h-[92vh] overflow-y-auto border border-slate-200 rounded-2xl shadow-2xl text-slate-900"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                <div className="flex items-center gap-2">
+                  <Edit3 className="h-5 w-5 text-[#0066CC]" />
+                  <h3 className="font-display font-bold text-lg text-slate-900">Edit Candidate Application</h3>
+                </div>
+                <button type="button" onClick={() => setEditingApplication(null)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  updateApplication(editingApplication.id, editingApplication);
+                  refreshAllData();
+                  showToast(`Updated candidate: ${editingApplication.name}`);
+                  setEditingApplication(null);
+                }}
+                className="space-y-4 text-xs font-semibold text-slate-700"
+              >
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 mb-1">Candidate Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingApplication.name}
+                    onChange={(e) => setEditingApplication({ ...editingApplication, name: e.target.value })}
+                    className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Email Address *</label>
+                    <input
+                      type="email"
+                      required
+                      value={editingApplication.email}
+                      onChange={(e) => setEditingApplication({ ...editingApplication, email: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Phone Number *</label>
+                    <input
+                      type="text"
+                      required
+                      value={editingApplication.phone}
+                      onChange={(e) => setEditingApplication({ ...editingApplication, phone: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 mb-1">Applied Position *</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingApplication.position}
+                    onChange={(e) => setEditingApplication({ ...editingApplication, position: e.target.value })}
+                    className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Application Status</label>
+                    <select
+                      value={editingApplication.status}
+                      onChange={(e) => setEditingApplication({ ...editingApplication, status: e.target.value as any })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    >
+                      <option value="New">New</option>
+                      <option value="Reviewing">Reviewing</option>
+                      <option value="Shortlisted">Shortlisted</option>
+                      <option value="Interview Scheduled">Interview Scheduled</option>
+                      <option value="Offered">Offered</option>
+                      <option value="Hired">Hired</option>
+                      <option value="Rejected">Rejected</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Assigned Recruiter</label>
+                    <input
+                      type="text"
+                      value={editingApplication.assignedRecruiter || 'Renusri'}
+                      onChange={(e) => setEditingApplication({ ...editingApplication, assignedRecruiter: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Experience Level</label>
+                    <select
+                      value={editingApplication.experienceLevel}
+                      onChange={(e) => setEditingApplication({ ...editingApplication, experienceLevel: e.target.value as any })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    >
+                      <option value="Fresher">Fresher</option>
+                      <option value="Experienced">Experienced</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Experience Years</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 2.5 Yrs"
+                      value={editingApplication.experienceYears || ''}
+                      onChange={(e) => setEditingApplication({ ...editingApplication, experienceYears: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 mb-1">Recruiter Notes</label>
+                  <textarea
+                    rows={3}
+                    value={editingApplication.notes || ''}
+                    onChange={(e) => setEditingApplication({ ...editingApplication, notes: e.target.value })}
+                    className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                  />
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200">
+                  <button
+                    type="button"
+                    onClick={() => setEditingApplication(null)}
+                    className="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 rounded-lg bg-[#0066CC] hover:bg-[#0052A3] text-white font-bold shadow-md cursor-pointer"
+                  >
+                    Save Changes
                   </button>
                 </div>
               </form>

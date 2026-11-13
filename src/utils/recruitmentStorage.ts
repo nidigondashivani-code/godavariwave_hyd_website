@@ -591,6 +591,15 @@ export const deleteJob = (id: string): void => {
   }
 };
 
+export const clearAllJobs = (): void => {
+  try {
+    localStorage.setItem(JOBS_KEY, JSON.stringify([]));
+    window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+  } catch (e) {
+    console.error('Failed to clear jobs:', e);
+  }
+};
+
 export const duplicateJob = (id: string): void => {
   const existing = getJobs();
   const target = existing.find((j) => j.id === id);
@@ -686,6 +695,40 @@ export const deleteApplication = (id: string): void => {
     }
   } catch (e) {
     console.error('Failed to delete application:', e);
+  }
+};
+
+export const bulkDeleteApplications = (ids: string[]): void => {
+  const idSet = new Set(ids);
+  const existing = getApplications();
+  const updated = existing.filter((a) => !idSet.has(a.id));
+  try {
+    localStorage.setItem(APPS_KEY, JSON.stringify(updated));
+    window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+
+    if (typeof window !== 'undefined') {
+      ids.forEach((id) => {
+        fetch(`/api/applications/${encodeURIComponent(id)}`, { method: 'DELETE' }).catch(() => {});
+      });
+    }
+  } catch (e) {
+    console.error('Failed to bulk delete applications:', e);
+  }
+};
+
+export const clearAllApplications = (): void => {
+  const existing = getApplications();
+  try {
+    localStorage.setItem(APPS_KEY, JSON.stringify([]));
+    window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+
+    if (typeof window !== 'undefined') {
+      existing.forEach((a) => {
+        fetch(`/api/applications/${encodeURIComponent(a.id)}`, { method: 'DELETE' }).catch(() => {});
+      });
+    }
+  } catch (e) {
+    console.error('Failed to clear applications:', e);
   }
 };
 
@@ -812,6 +855,40 @@ export const deleteInterview = (id: string): void => {
     }
   } catch (e) {
     console.error('Failed to delete interview:', e);
+  }
+};
+
+export const bulkDeleteInterviews = (ids: string[]): void => {
+  const idSet = new Set(ids);
+  const existing = getInterviews();
+  const updated = existing.filter((i) => !idSet.has(i.id));
+  try {
+    localStorage.setItem(INTERVIEWS_KEY, JSON.stringify(updated));
+    window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+
+    if (typeof window !== 'undefined') {
+      ids.forEach((id) => {
+        fetch(`/api/interviews/${encodeURIComponent(id)}`, { method: 'DELETE' }).catch(() => {});
+      });
+    }
+  } catch (e) {
+    console.error('Failed to bulk delete interviews:', e);
+  }
+};
+
+export const clearAllInterviews = (): void => {
+  const existing = getInterviews();
+  try {
+    localStorage.setItem(INTERVIEWS_KEY, JSON.stringify([]));
+    window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
+
+    if (typeof window !== 'undefined') {
+      existing.forEach((i) => {
+        fetch(`/api/interviews/${encodeURIComponent(i.id)}`, { method: 'DELETE' }).catch(() => {});
+      });
+    }
+  } catch (e) {
+    console.error('Failed to clear interviews:', e);
   }
 };
 
@@ -995,6 +1072,26 @@ export const markAllNotificationsRead = (): void => {
     window.dispatchEvent(new CustomEvent('gw_notification_updated'));
   } catch (e) {
     console.error('Failed to mark all read:', e);
+  }
+};
+
+export const clearAllNotifications = (): void => {
+  try {
+    localStorage.setItem(NOTIFS_KEY, JSON.stringify([]));
+    window.dispatchEvent(new CustomEvent('gw_notification_updated'));
+  } catch (e) {
+    console.error('Failed to clear all notifications:', e);
+  }
+};
+
+export const deleteNotification = (id: string): void => {
+  const existing = getNotifications();
+  const updated = existing.filter((n) => n.id !== id);
+  try {
+    localStorage.setItem(NOTIFS_KEY, JSON.stringify(updated));
+    window.dispatchEvent(new CustomEvent('gw_notification_updated'));
+  } catch (e) {
+    console.error('Failed to delete notification:', e);
   }
 };
 

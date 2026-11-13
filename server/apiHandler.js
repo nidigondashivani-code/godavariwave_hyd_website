@@ -120,10 +120,17 @@ export async function handleApiRequest(req, res, next) {
     }
 
     const appMatch = pathname.match(/^\/api\/applications\/([^/]+)$/);
-    if (appMatch && method === 'DELETE') {
+    if (appMatch) {
       const id = decodeURIComponent(appMatch[1]);
-      const result = await deleteApplication(id);
-      return sendJson(res, 200, result);
+      if (method === 'PUT') {
+        const body = await parseJsonBody(req);
+        const saved = await saveApplication({ ...body, id });
+        return sendJson(res, 200, saved);
+      }
+      if (method === 'DELETE') {
+        const result = await deleteApplication(id);
+        return sendJson(res, 200, result);
+      }
     }
 
     // 4. Interviews endpoints

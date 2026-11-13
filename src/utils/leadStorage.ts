@@ -580,9 +580,16 @@ export const syncLeadsWithDatabase = async (): Promise<Lead[]> => {
 };
 
 export const clearAllLeads = (): void => {
+  const existing = getLeads();
   try {
     localStorage.removeItem(STORAGE_KEY);
     window.dispatchEvent(new CustomEvent('gw_lead_updated'));
+
+    if (typeof window !== 'undefined') {
+      existing.forEach((l) => {
+        fetch(`/api/leads/${encodeURIComponent(l.id)}`, { method: 'DELETE' }).catch(() => {});
+      });
+    }
   } catch (e) {
     console.error('Failed to clear leads:', e);
   }

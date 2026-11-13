@@ -311,7 +311,7 @@ export async function saveApplication(app) {
     app.github || '',
     app.coverLetter || app.coverNote || '',
     JSON.stringify(app.skills || []),
-    app.rating || 0,
+    parseInt(app.rating, 10) || 0,
     app.notes || '',
     app.stage || 'Screening',
     JSON.stringify(app.timeline || []),
