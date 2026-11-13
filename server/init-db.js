@@ -142,3 +142,4 @@ export async function initDatabase() {
 if (process.argv[1] && process.argv[1].endsWith('init-db.js')) {
   initDatabase().catch(() => process.exit(1));
 }
+

@@ -152,3 +152,4 @@ export async function handleApiRequest(req, res, next) {
     return sendJson(res, 500, { error: err.message || 'Internal Server Error' });
   }
 }
+
