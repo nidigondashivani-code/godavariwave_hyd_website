@@ -95,9 +95,7 @@ import {
   convertLeadToClient,
   updateHRPassword,
   getHRPassword,
-  syncLeadsWithDatabase,
-  getDbHealth,
-  DbHealth
+  syncLeadsWithDatabase
 } from '../utils/leadStorage';
 
 import {
@@ -253,29 +251,14 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
   const [careersCMS, setCareersCMS] = useState<CareersCMSConfig>(() => getCareersCMS());
   const [userRoles, setUserRoles] = useState<RolePermission[]>(() => getUserRoles());
   const [notifications, setNotifications] = useState<CRMNotification[]>(() => getNotifications());
-  const [dbHealth, setDbHealth] = useState<DbHealth | null>(null);
-  const [isDbSyncing, setIsDbSyncing] = useState<boolean>(false);
 
-  // Initial Supabase PostgreSQL Synchronization & Live Health Polling
+  // Initial Background Database Synchronization
   useEffect(() => {
-    setIsDbSyncing(true);
-    getDbHealth().then((health) => setDbHealth(health));
-
     Promise.allSettled([
       syncLeadsWithDatabase(),
       syncApplicationsWithDatabase(),
       syncInterviewsWithDatabase()
-    ]).finally(() => {
-      setIsDbSyncing(false);
-      getDbHealth().then((health) => setDbHealth(health));
-    });
-
-    // Periodically re-check DB health every 45 seconds
-    const interval = setInterval(() => {
-      getDbHealth().then((health) => setDbHealth(health));
-    }, 45000);
-
-    return () => clearInterval(interval);
+    ]);
   }, []);
 
   const unreadNotificationsCount = useMemo(() => notifications.filter((n) => !n.read).length, [notifications]);
@@ -1674,49 +1657,8 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
             </button>
           </div>
 
-          {/* Right: DB Badge, Quick Actions, Notifications, Messages, Profile */}
+          {/* Right: Quick Actions, Notifications, Messages, Profile */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Supabase PostgreSQL Live Database Status Badge */}
-            <div
-              style={{
-                height: '40px',
-                backgroundColor: dbHealth?.status === 'connected' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)',
-                borderColor: dbHealth?.status === 'connected' ? 'rgba(16, 185, 129, 0.35)' : 'rgba(239, 68, 68, 0.35)',
-              }}
-              onClick={() => {
-                setIsDbSyncing(true);
-                Promise.allSettled([
-                  syncLeadsWithDatabase(),
-                  syncApplicationsWithDatabase(),
-                  syncInterviewsWithDatabase()
-                ]).finally(() => {
-                  setIsDbSyncing(false);
-                  getDbHealth().then(setDbHealth);
-                  showToast('Database synced with Supabase PostgreSQL!');
-                });
-              }}
-              className="hidden lg:flex items-center gap-2 px-3 rounded-xl border text-[11px] font-mono cursor-pointer hover:bg-white/5 transition-all select-none shadow-xs group"
-              title={`Supabase PostgreSQL | Host: ${dbHealth?.host || 'aws-0-ap-south-1.pooler.supabase.com'} | Database: ${dbHealth?.database || 'postgres'} | Click to manually re-sync`}
-            >
-              <span className="relative flex h-2 w-2">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${dbHealth?.status === 'connected' ? 'bg-emerald-400 opacity-75' : 'bg-rose-400 opacity-75'}`}></span>
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${dbHealth?.status === 'connected' ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
-              </span>
-              <span className={`font-semibold ${dbHealth?.status === 'connected' ? 'text-emerald-300' : 'text-rose-300'}`}>
-                {dbHealth?.status === 'connected' ? 'Supabase Live' : 'Supabase Offline'}
-              </span>
-              {dbHealth?.status === 'connected' && dbHealth.latencyMs !== undefined && (
-                <span className="text-[10px] text-emerald-400/80">
-                  {dbHealth.latencyMs}ms
-                </span>
-              )}
-              {isDbSyncing ? (
-                <span className="text-[11px] text-[#00D4FF] animate-spin">⟳</span>
-              ) : (
-                <span className="text-[10px] text-slate-400 group-hover:text-[#00D4FF] opacity-0 group-hover:opacity-100 transition-opacity">⟳</span>
-              )}
-            </div>
-
             {/* Quick Actions Dropdown */}
             <div className="relative">
               <button
