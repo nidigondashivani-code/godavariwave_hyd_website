@@ -236,6 +236,11 @@ export async function deleteLead(id) {
   return { success: true, id };
 }
 
+export async function clearAllLeadsDb() {
+  await pool.query('DELETE FROM public.leads');
+  return { success: true };
+}
+
 export async function bulkUpsertLeads(leads) {
   const results = [];
   for (const l of leads) {
@@ -326,6 +331,11 @@ export async function deleteApplication(id) {
   return { success: true, id };
 }
 
+export async function clearAllApplicationsDb() {
+  await pool.query('DELETE FROM public.applications');
+  return { success: true };
+}
+
 // ----------------- INTERVIEWS API -----------------
 
 export async function getAllInterviews() {
@@ -380,6 +390,11 @@ export async function saveInterview(item) {
 export async function deleteInterview(id) {
   await pool.query('DELETE FROM public.interviews WHERE id = $1', [id]);
   return { success: true, id };
+}
+
+export async function clearAllInterviewsDb() {
+  await pool.query('DELETE FROM public.interviews');
+  return { success: true };
 }
 
 // ----------------- HEALTH CHECK -----------------

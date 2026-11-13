@@ -615,30 +615,57 @@ export const duplicateJob = (id: string): void => {
 // JOB APPLICATIONS
 // -----------------------------------------------------------------
 
+const DUMMY_APP_IDS = new Set(['app-101', 'app-102', 'app-103', 'app-104', 'app-105']);
+
 export const getApplications = (): JobApplication[] => {
-  if (typeof window === 'undefined') return getInitialApplications();
+  if (typeof window === 'undefined') return [];
   try {
     const raw = localStorage.getItem(APPS_KEY);
     if (!raw) {
-      const init = getInitialApplications();
-      localStorage.setItem(APPS_KEY, JSON.stringify(init));
-      return init;
+      return [];
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed) || parsed.length === 0) return [];
+
+    // Filter out dummy mock applications and deduplicate by id
+    const seen = new Set<string>();
+    const realApps: JobApplication[] = [];
+    for (const a of parsed) {
+      if (a && a.id && !DUMMY_APP_IDS.has(a.id) && !seen.has(a.id)) {
+        seen.add(a.id);
+        realApps.push(a);
+      }
+    }
+    if (realApps.length !== parsed.length) {
+      localStorage.setItem(APPS_KEY, JSON.stringify(realApps));
+    }
+    return realApps;
   } catch (e) {
-    return getInitialApplications();
+    return [];
   }
 };
 
 export const saveApplication = (app: Omit<JobApplication, 'id' | 'appliedDate' | 'candidateId'>): JobApplication => {
   const existing = getApplications();
+
+  // Deduplication check: prevent duplicate applications submitted within 15 seconds
+  const recentDuplicate = existing.find(
+    (a) =>
+      a.email.toLowerCase() === app.email.toLowerCase() &&
+      a.position.toLowerCase() === app.position.toLowerCase() &&
+      Math.abs(Date.now() - new Date(a.appliedDate).getTime()) < 15000
+  );
+  if (recentDuplicate) {
+    return recentDuplicate;
+  }
+
   const newApp: JobApplication = {
     ...app,
     id: `app-${Date.now().toString().slice(-4)}`,
     candidateId: `cand-${Date.now().toString().slice(-4)}`,
     appliedDate: new Date().toISOString(),
   };
-  const updated = [newApp, ...existing];
+  const updated = [newApp, ...existing.filter((a) => a.id !== newApp.id)];
   try {
     localStorage.setItem(APPS_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
@@ -717,15 +744,12 @@ export const bulkDeleteApplications = (ids: string[]): void => {
 };
 
 export const clearAllApplications = (): void => {
-  const existing = getApplications();
   try {
     localStorage.setItem(APPS_KEY, JSON.stringify([]));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
 
     if (typeof window !== 'undefined') {
-      existing.forEach((a) => {
-        fetch(`/api/applications/${encodeURIComponent(a.id)}`, { method: 'DELETE' }).catch(() => {});
-      });
+      fetch('/api/applications', { method: 'DELETE' }).catch(() => {});
     }
   } catch (e) {
     console.error('Failed to clear applications:', e);
@@ -738,21 +762,27 @@ export const syncApplicationsWithDatabase = async (): Promise<JobApplication[]> 
     const res = await fetch('/api/applications');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const remoteApps: JobApplication[] = await res.json();
-
     const localApps = getApplications();
-    if (remoteApps.length === 0 && localApps.length > 0) {
-      for (const item of localApps) {
-        await fetch('/api/applications', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(item)
-        }).catch(() => {});
+
+    const seen = new Set<string>();
+    const merged: JobApplication[] = [];
+
+    for (const a of remoteApps) {
+      if (a && a.id && !DUMMY_APP_IDS.has(a.id) && !seen.has(a.id)) {
+        seen.add(a.id);
+        merged.push(a);
       }
-      return localApps;
     }
 
-    const remoteIdSet = new Set(remoteApps.map((a) => a.id));
-    const localOnly = localApps.filter((a) => !remoteIdSet.has(a.id));
+    const localOnly: JobApplication[] = [];
+    for (const a of localApps) {
+      if (a && a.id && !DUMMY_APP_IDS.has(a.id) && !seen.has(a.id)) {
+        seen.add(a.id);
+        merged.push(a);
+        localOnly.push(a);
+      }
+    }
+
     if (localOnly.length > 0) {
       for (const item of localOnly) {
         await fetch('/api/applications', {
@@ -763,7 +793,6 @@ export const syncApplicationsWithDatabase = async (): Promise<JobApplication[]> 
       }
     }
 
-    const merged = [...remoteApps, ...localOnly];
     localStorage.setItem(APPS_KEY, JSON.stringify(merged));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
     return merged;
@@ -777,28 +806,56 @@ export const syncApplicationsWithDatabase = async (): Promise<JobApplication[]> 
 // INTERVIEWS
 // -----------------------------------------------------------------
 
+const DUMMY_INT_IDS = new Set(['int-201', 'int-202', 'int-203', 'int-3540', 'int-3652', 'int-3649']);
+
 export const getInterviews = (): Interview[] => {
-  if (typeof window === 'undefined') return getInitialInterviews();
+  if (typeof window === 'undefined') return [];
   try {
     const raw = localStorage.getItem(INTERVIEWS_KEY);
     if (!raw) {
-      const init = getInitialInterviews();
-      localStorage.setItem(INTERVIEWS_KEY, JSON.stringify(init));
-      return init;
+      return [];
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed) || parsed.length === 0) return [];
+
+    // Filter out dummy mock interviews and deduplicate by id
+    const seen = new Set<string>();
+    const realInts: Interview[] = [];
+    for (const i of parsed) {
+      if (i && i.id && !DUMMY_INT_IDS.has(i.id) && !seen.has(i.id)) {
+        seen.add(i.id);
+        realInts.push(i);
+      }
+    }
+    if (realInts.length !== parsed.length) {
+      localStorage.setItem(INTERVIEWS_KEY, JSON.stringify(realInts));
+    }
+    return realInts;
   } catch (e) {
-    return getInitialInterviews();
+    return [];
   }
 };
 
 export const saveInterview = (interview: Omit<Interview, 'id'>): Interview => {
   const existing = getInterviews();
+
+  // Deduplication check: avoid double-booking identical interview within 15 seconds
+  const recentDuplicate = existing.find(
+    (i) =>
+      i.candidateName.toLowerCase() === interview.candidateName.toLowerCase() &&
+      i.position.toLowerCase() === interview.position.toLowerCase() &&
+      i.round === interview.round &&
+      i.dateTime === interview.dateTime
+  );
+  if (recentDuplicate) {
+    return recentDuplicate;
+  }
+
   const newInt: Interview = {
     ...interview,
     id: `int-${Date.now().toString().slice(-4)}`,
   };
-  const updated = [newInt, ...existing];
+  const updated = [newInt, ...existing.filter((i) => i.id !== newInt.id)];
   try {
     localStorage.setItem(INTERVIEWS_KEY, JSON.stringify(updated));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
@@ -877,15 +934,12 @@ export const bulkDeleteInterviews = (ids: string[]): void => {
 };
 
 export const clearAllInterviews = (): void => {
-  const existing = getInterviews();
   try {
     localStorage.setItem(INTERVIEWS_KEY, JSON.stringify([]));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
 
     if (typeof window !== 'undefined') {
-      existing.forEach((i) => {
-        fetch(`/api/interviews/${encodeURIComponent(i.id)}`, { method: 'DELETE' }).catch(() => {});
-      });
+      fetch('/api/interviews', { method: 'DELETE' }).catch(() => {});
     }
   } catch (e) {
     console.error('Failed to clear interviews:', e);
@@ -898,21 +952,27 @@ export const syncInterviewsWithDatabase = async (): Promise<Interview[]> => {
     const res = await fetch('/api/interviews');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const remoteInts: Interview[] = await res.json();
-
     const localInts = getInterviews();
-    if (remoteInts.length === 0 && localInts.length > 0) {
-      for (const item of localInts) {
-        await fetch('/api/interviews', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(item)
-        }).catch(() => {});
+
+    const seen = new Set<string>();
+    const merged: Interview[] = [];
+
+    for (const i of remoteInts) {
+      if (i && i.id && !DUMMY_INT_IDS.has(i.id) && !seen.has(i.id)) {
+        seen.add(i.id);
+        merged.push(i);
       }
-      return localInts;
     }
 
-    const remoteIdSet = new Set(remoteInts.map((i) => i.id));
-    const localOnly = localInts.filter((i) => !remoteIdSet.has(i.id));
+    const localOnly: Interview[] = [];
+    for (const i of localInts) {
+      if (i && i.id && !DUMMY_INT_IDS.has(i.id) && !seen.has(i.id)) {
+        seen.add(i.id);
+        merged.push(i);
+        localOnly.push(i);
+      }
+    }
+
     if (localOnly.length > 0) {
       for (const item of localOnly) {
         await fetch('/api/interviews', {
@@ -923,7 +983,6 @@ export const syncInterviewsWithDatabase = async (): Promise<Interview[]> => {
       }
     }
 
-    const merged = [...remoteInts, ...localOnly];
     localStorage.setItem(INTERVIEWS_KEY, JSON.stringify(merged));
     window.dispatchEvent(new CustomEvent('gw_recruitment_updated'));
     return merged;

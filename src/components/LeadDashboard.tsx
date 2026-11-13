@@ -53,6 +53,7 @@ import {
   List,
   BarChart3,
   PieChart,
+  UserPlus,
   Menu,
   Command,
   HelpCircle,
@@ -491,6 +492,19 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
   const [interviewApplication, setInterviewApplication] = useState<JobApplication | null>(null);
   const [selectedAppIds, setSelectedAppIds] = useState<string[]>([]);
   const [editingApplication, setEditingApplication] = useState<JobApplication | null>(null);
+  const [isAddCandidateModalOpen, setIsAddCandidateModalOpen] = useState<boolean>(false);
+  const [newCandidateData, setNewCandidateData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    position: 'Software Developer',
+    experienceLevel: 'Fresher' as 'Fresher' | 'Experienced',
+    experienceYears: '0 – 1 Years',
+    currentLocation: 'Hyderabad',
+    qualification: 'B.Tech / MCA',
+    skills: 'React, TypeScript, Node.js',
+    notes: 'Direct entry via HR dashboard',
+  });
 
   // New Job Form State
   const [newJobData, setNewJobData] = useState({
@@ -1929,7 +1943,7 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                   { key: 'active_leads', title: 'Active Leads', value: clientKPIs.activeLeads, growth: '+24.1% MoM', icon: Target, spark: [8, 12, 15, 17, 21, 25] },
                   { key: 'new', title: 'New Leads', value: clientKPIs.newLeads, growth: '+12.5% vs Q3', icon: Sparkles, spark: [5, 8, 9, 12, 14, 18] },
                   { key: 'revenue', title: 'Pipeline Revenue', value: formatINR(clientKPIs.revenue), growth: '+42.8% YoY', icon: TrendingUp, spark: [20, 35, 45, 60, 75, 95] },
-                  { key: 'projects', title: 'Active Projects', value: leads.filter((l) => Boolean(l.project)).length || 8, growth: '99.4% on track', icon: FolderKanban, spark: [4, 5, 5, 6, 7, 8] },
+                  { key: 'projects', title: 'Active Projects', value: leads.filter((l) => Boolean(l.project)).length, growth: 'Client Projects', icon: FolderKanban, spark: [2, 3, 4, 5, 6, 7] },
                   { key: 'meetings', title: 'Meetings Booked', value: clientKPIs.meetings, growth: 'High Conversion', icon: CalendarDays, spark: [3, 4, 6, 7, 8, 10] },
                   { key: 'interviews', title: 'Interviews Scheduled', value: recruitmentKPIs.interviewsCount, growth: '4 Rounds / Day', icon: Video, spark: [2, 3, 5, 4, 6, 7] },
                   { key: 'applications', title: 'Talent Applications', value: recruitmentKPIs.totalApps, growth: '+31.2% this week', icon: GraduationCap, spark: [10, 16, 22, 28, 34, 42] },
@@ -3472,6 +3486,14 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                   <div className="flex items-center gap-3">
                     <button
                       type="button"
+                      onClick={() => setIsAddCandidateModalOpen(true)}
+                      className="h-11 px-4 rounded-xl border border-[#0066CC]/40 bg-[#0066CC]/20 text-[#38BDF8] hover:bg-[#0066CC]/30 font-bold text-xs transition-all cursor-pointer shadow-sm flex items-center gap-1.5"
+                    >
+                      <UserPlus className="h-4 w-4" />
+                      <span>+ Add Candidate</span>
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => setIsScheduleInterviewModalOpen(true)}
                       className="h-11 px-4 rounded-xl border border-white/15 bg-white/5 text-white font-bold text-xs hover:bg-white/10 transition-all cursor-pointer shadow-sm flex items-center gap-1.5"
                     >
@@ -3665,12 +3687,23 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-white/10 font-medium text-white">
-                          {filteredApplications.map((app) => (
-                            <tr
-                              key={app.id}
-                              onClick={() => setDrawerCandidate(app)}
-                              className={cn('hover:bg-white/5 cursor-pointer transition-colors', selectedAppIds.includes(app.id) && 'bg-[#0066CC]/20')}
-                            >
+                          {filteredApplications.length === 0 ? (
+                            <tr>
+                              <td colSpan={9} className="py-12 text-center text-slate-400">
+                                <div className="flex flex-col items-center justify-center space-y-2">
+                                  <GraduationCap className="h-8 w-8 text-slate-500 opacity-40" />
+                                  <p className="font-semibold text-sm text-slate-300">No candidate applications found</p>
+                                  <p className="text-xs text-slate-500 mt-1">New applications submitted through the Careers portal will appear here automatically.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          ) : (
+                            filteredApplications.map((app) => (
+                              <tr
+                                key={app.id}
+                                onClick={() => setDrawerCandidate(app)}
+                                className={cn('hover:bg-white/5 cursor-pointer transition-colors', selectedAppIds.includes(app.id) && 'bg-[#0066CC]/20')}
+                              >
                               <td className="py-3.5 px-4 w-10" onClick={(e) => e.stopPropagation()}>
                                 <input
                                   type="checkbox"
@@ -3762,7 +3795,8 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                                 </div>
                               </td>
                             </tr>
-                          ))}
+                          ))
+                        )}
                         </tbody>
                       </table>
                     </div>
@@ -6048,6 +6082,190 @@ export default function LeadDashboard({ onBackToSite }: LeadDashboardProps) {
                     className="px-5 py-2 rounded-lg bg-[#0066CC] hover:bg-[#0052A3] text-white font-bold shadow-md cursor-pointer"
                   >
                     Save Changes
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ========================================================= */}
+      {/* MODAL: ADD CANDIDATE                                      */}
+      {/* ========================================================= */}
+      <AnimatePresence>
+        {isAddCandidateModalOpen && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              style={{ backgroundColor: '#FFFFFF', color: '#0F172A' }}
+              className="w-full max-w-lg p-6 sm:p-7 space-y-4 max-h-[92vh] overflow-y-auto border border-slate-200 rounded-2xl shadow-2xl text-slate-900"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                <div className="flex items-center gap-2">
+                  <UserPlus className="h-5 w-5 text-[#0066CC]" />
+                  <h3 className="font-display font-bold text-lg text-slate-900">Add Candidate to Pipeline</h3>
+                </div>
+                <button type="button" onClick={() => setIsAddCandidateModalOpen(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  saveApplication({
+                    name: newCandidateData.name,
+                    email: newCandidateData.email,
+                    phone: newCandidateData.phone,
+                    position: newCandidateData.position,
+                    experienceLevel: newCandidateData.experienceLevel,
+                    experienceYears: newCandidateData.experienceYears,
+                    currentLocation: newCandidateData.currentLocation,
+                    qualification: newCandidateData.qualification,
+                    skills: newCandidateData.skills.split(',').map((s) => s.trim()).filter(Boolean),
+                    status: 'New',
+                    assignedRecruiter: 'Renusri',
+                    notes: newCandidateData.notes,
+                    stage: 'Screening',
+                  });
+                  refreshAllData();
+                  showToast(`Candidate ${newCandidateData.name} added successfully!`);
+                  setIsAddCandidateModalOpen(false);
+                  setNewCandidateData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    position: 'Software Developer',
+                    experienceLevel: 'Fresher',
+                    experienceYears: '0 – 1 Years',
+                    currentLocation: 'Hyderabad',
+                    qualification: 'B.Tech / MCA',
+                    skills: 'React, TypeScript, Node.js',
+                    notes: 'Direct entry via HR dashboard',
+                  });
+                }}
+                className="space-y-4 text-xs font-semibold text-slate-700"
+              >
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 mb-1">Candidate Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Rahul Sharma"
+                    value={newCandidateData.name}
+                    onChange={(e) => setNewCandidateData({ ...newCandidateData, name: e.target.value })}
+                    className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Email Address *</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="e.g. rahul@example.com"
+                      value={newCandidateData.email}
+                      onChange={(e) => setNewCandidateData({ ...newCandidateData, email: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Phone Number *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. +91 98765 43210"
+                      value={newCandidateData.phone}
+                      onChange={(e) => setNewCandidateData({ ...newCandidateData, phone: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Position *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Software Developer"
+                      value={newCandidateData.position}
+                      onChange={(e) => setNewCandidateData({ ...newCandidateData, position: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Experience Level</label>
+                    <select
+                      value={newCandidateData.experienceLevel}
+                      onChange={(e) => setNewCandidateData({ ...newCandidateData, experienceLevel: e.target.value as any })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    >
+                      <option value="Fresher">Fresher</option>
+                      <option value="Experienced">Experienced</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Experience Years</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 1.5 Yrs"
+                      value={newCandidateData.experienceYears}
+                      onChange={(e) => setNewCandidateData({ ...newCandidateData, experienceYears: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">Current Location</label>
+                    <input
+                      type="text"
+                      value={newCandidateData.currentLocation}
+                      onChange={(e) => setNewCandidateData({ ...newCandidateData, currentLocation: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 mb-1">Skills (comma separated)</label>
+                  <input
+                    type="text"
+                    value={newCandidateData.skills}
+                    onChange={(e) => setNewCandidateData({ ...newCandidateData, skills: e.target.value })}
+                    className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 mb-1">Recruiter Notes</label>
+                  <textarea
+                    rows={2}
+                    value={newCandidateData.notes}
+                    onChange={(e) => setNewCandidateData({ ...newCandidateData, notes: e.target.value })}
+                    className="w-full p-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#0066CC]"
+                  />
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200">
+                  <button
+                    type="button"
+                    onClick={() => setIsAddCandidateModalOpen(false)}
+                    className="px-4 py-2 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 rounded-lg bg-[#0066CC] hover:bg-[#0052A3] text-white font-bold shadow-md cursor-pointer"
+                  >
+                    Add Candidate
                   </button>
                 </div>
               </form>

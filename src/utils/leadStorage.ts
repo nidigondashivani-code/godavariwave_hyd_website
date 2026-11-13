@@ -56,7 +56,10 @@ const STORAGE_KEY = 'gw_lead_sheet_data';
 const AUTH_KEY = 'gw_hr_lead_auth';
 
 // IDs of initial dummy mock records to purge so dashboard reflects strictly real client submissions
-const DUMMY_SEED_IDS = new Set(['lead-1001', 'lead-1002', 'lead-1003', 'lead-1004', 'lead-1005']);
+const DUMMY_SEED_IDS = new Set([
+  'lead-1001', 'lead-1002', 'lead-1003', 'lead-1004', 'lead-1005',
+  'lead-sample-1', 'lead-sample-2', 'lead-sample-3', 'lead-sample-4', 'lead-sample-5', 'lead-sample-6', 'lead-sample-7'
+]);
 
 export const seedSampleLeads = (): Lead[] => {
   const sampleLeads: Lead[] = [
@@ -288,16 +291,20 @@ export const getLeads = (): Lead[] => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      return seedSampleLeads();
+      return [];
     }
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed) || parsed.length === 0) {
-      return seedSampleLeads();
+      return [];
     }
-    // Filter out any dummy mock leads so only real visitor/client submissions remain
-    const realLeads = parsed.filter((l: Lead) => l && l.id && !DUMMY_SEED_IDS.has(l.id));
-    if (realLeads.length === 0) {
-      return seedSampleLeads();
+    // Filter out any dummy mock leads and deduplicate by id
+    const seen = new Set<string>();
+    const realLeads: Lead[] = [];
+    for (const l of parsed) {
+      if (l && l.id && !DUMMY_SEED_IDS.has(l.id) && !l.id.startsWith('lead-sample-') && !seen.has(l.id)) {
+        seen.add(l.id);
+        realLeads.push(l);
+      }
     }
     if (realLeads.length !== parsed.length) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(realLeads));
@@ -305,7 +312,7 @@ export const getLeads = (): Lead[] => {
     return realLeads;
   } catch (e) {
     console.error('Failed to read leads from localStorage:', e);
-    return seedSampleLeads();
+    return [];
   }
 };
 
@@ -316,6 +323,18 @@ export const saveLead = (
   }
 ): Lead => {
   const existing = getLeads();
+
+  // Deduplication check: if a lead with same email & phone was submitted in last 15s, avoid duplicate
+  const recentDuplicate = existing.find(
+    (l) =>
+      l.email.toLowerCase() === leadData.email.toLowerCase() &&
+      l.phone.replace(/\D/g, '') === leadData.phone.replace(/\D/g, '') &&
+      Math.abs(Date.now() - new Date(l.submittedAt).getTime()) < 15000
+  );
+  if (recentDuplicate) {
+    return recentDuplicate;
+  }
+
   const newLead: Lead = {
     id: `lead-${Date.now().toString().slice(-6)}`,
     submittedAt: new Date().toISOString(),
@@ -324,7 +343,7 @@ export const saveLead = (
     ...leadData,
   };
 
-  const updated = [newLead, ...existing];
+  const updated = [newLead, ...existing.filter((l) => l.id !== newLead.id)];
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     if (typeof window !== 'undefined') {
@@ -536,26 +555,27 @@ export const syncLeadsWithDatabase = async (): Promise<Lead[]> => {
     const res = await fetch('/api/leads');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const remoteLeads: Lead[] = await res.json();
-
     const localLeads = getLeads();
 
-    // If remote DB is empty and local has seed leads, push all to Supabase DB
-    if (remoteLeads.length === 0 && localLeads.length > 0) {
-      try {
-        await fetch('/api/leads/bulk', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(localLeads)
-        });
-      } catch (e) {
-        console.warn('Initial bulk upload of leads failed:', e);
+    // Deduplicate and filter dummy IDs
+    const seen = new Set<string>();
+    const merged: Lead[] = [];
+
+    for (const l of remoteLeads) {
+      if (l && l.id && !DUMMY_SEED_IDS.has(l.id) && !l.id.startsWith('lead-sample-') && !seen.has(l.id)) {
+        seen.add(l.id);
+        merged.push(l);
       }
-      return localLeads;
     }
 
-    // Merge remote DB leads with any local-only leads
-    const remoteIdSet = new Set(remoteLeads.map((l) => l.id));
-    const localOnly = localLeads.filter((l) => !remoteIdSet.has(l.id));
+    const localOnly: Lead[] = [];
+    for (const l of localLeads) {
+      if (l && l.id && !DUMMY_SEED_IDS.has(l.id) && !l.id.startsWith('lead-sample-') && !seen.has(l.id)) {
+        seen.add(l.id);
+        merged.push(l);
+        localOnly.push(l);
+      }
+    }
 
     if (localOnly.length > 0) {
       try {
@@ -569,7 +589,6 @@ export const syncLeadsWithDatabase = async (): Promise<Lead[]> => {
       }
     }
 
-    const merged = [...remoteLeads, ...localOnly];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
     window.dispatchEvent(new CustomEvent('gw_lead_updated'));
     return merged;
@@ -580,15 +599,12 @@ export const syncLeadsWithDatabase = async (): Promise<Lead[]> => {
 };
 
 export const clearAllLeads = (): void => {
-  const existing = getLeads();
   try {
-    localStorage.removeItem(STORAGE_KEY);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
     window.dispatchEvent(new CustomEvent('gw_lead_updated'));
 
     if (typeof window !== 'undefined') {
-      existing.forEach((l) => {
-        fetch(`/api/leads/${encodeURIComponent(l.id)}`, { method: 'DELETE' }).catch(() => {});
-      });
+      fetch('/api/leads', { method: 'DELETE' }).catch(() => {});
     }
   } catch (e) {
     console.error('Failed to clear leads:', e);

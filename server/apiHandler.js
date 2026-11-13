@@ -3,13 +3,16 @@ import {
   saveLead, 
   updateLead, 
   deleteLead, 
+  clearAllLeadsDb,
   bulkUpsertLeads,
   getAllApplications, 
   saveApplication, 
   deleteApplication, 
+  clearAllApplicationsDb,
   getAllInterviews, 
   saveInterview, 
   deleteInterview, 
+  clearAllInterviewsDb,
   checkDbHealth 
 } from './db.js';
 
@@ -85,6 +88,11 @@ export async function handleApiRequest(req, res, next) {
       return sendJson(res, 201, saved);
     }
 
+    if (pathname === '/api/leads' && method === 'DELETE') {
+      const result = await clearAllLeadsDb();
+      return sendJson(res, 200, result);
+    }
+
     if (pathname === '/api/leads/bulk' && method === 'POST') {
       const body = await parseJsonBody(req);
       const list = Array.isArray(body) ? body : (body.leads || []);
@@ -119,6 +127,11 @@ export async function handleApiRequest(req, res, next) {
       return sendJson(res, 201, saved);
     }
 
+    if (pathname === '/api/applications' && method === 'DELETE') {
+      const result = await clearAllApplicationsDb();
+      return sendJson(res, 200, result);
+    }
+
     const appMatch = pathname.match(/^\/api\/applications\/([^/]+)$/);
     if (appMatch) {
       const id = decodeURIComponent(appMatch[1]);
@@ -143,6 +156,11 @@ export async function handleApiRequest(req, res, next) {
       const body = await parseJsonBody(req);
       const saved = await saveInterview(body);
       return sendJson(res, 201, saved);
+    }
+
+    if (pathname === '/api/interviews' && method === 'DELETE') {
+      const result = await clearAllInterviewsDb();
+      return sendJson(res, 200, result);
     }
 
     const intMatch = pathname.match(/^\/api\/interviews\/([^/]+)$/);
