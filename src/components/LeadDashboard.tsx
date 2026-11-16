@@ -1242,9 +1242,12 @@ ${req.notes || 'No special notes logged.'}
               <img src="/images/gw-logo-mark.png" alt="Godavari Wave Technologies" className="h-full w-full object-contain" />
             </div>
 
-            <div className="mt-5 space-y-1">
-              <h2 className="font-display text-2xl font-extrabold text-[#1E293B] tracking-tight">
-                Godavari Wave Technologies
+            <div className="mt-4 space-y-1">
+              <h2
+                style={{ color: '#082F49', fontSize: '16px' }}
+                className="font-display text-[16px] font-bold text-[#082F49] tracking-wider uppercase"
+              >
+                GODAVARI WAVE TECHNOLOGIES
               </h2>
               <p className="text-xs font-mono font-bold text-[#0066CC] uppercase tracking-wider">
                 Enterprise Management Portal
