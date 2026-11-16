@@ -169,7 +169,7 @@ export default function Services() {
             <div className="flex items-center gap-2 mb-4">
               <Waves className="h-4 w-4 text-[#0066CC]" />
               <p className="eyebrow text-[#0066CC]">
-                What We Do
+                Services
               </p>
             </div>
             <SplitText
@@ -178,9 +178,6 @@ export default function Services() {
               highlight={[3]}
             />
           </div>
-          <p className="max-w-sm text-base text-muted-foreground leading-relaxed md:text-lg">
-            From the first pixel to 24/7 cloud monitoring — every capability under one roof.
-          </p>
         </motion.div>
 
         {/* 6 Services Grid (Each appears as the wave passes) */}
