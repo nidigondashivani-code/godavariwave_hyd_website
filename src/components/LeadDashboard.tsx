@@ -1205,14 +1205,15 @@ ${req.notes || 'No special notes logged.'}
             radial-gradient(at 100% 0%, rgba(219, 234, 254, 0.7) 0px, transparent 50%),
             radial-gradient(at 50% 100%, rgba(240, 249, 255, 0.9) 0px, transparent 50%)
           `,
+          color: '#082F49',
         }}
-        className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden font-sans"
+        className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden font-sans text-[#082F49]"
       >
         {/* Subtle Ambient Shapes */}
         <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-blue-300/20 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-sky-300/20 blur-3xl pointer-events-none" />
 
-        <div className="w-full max-w-md relative z-10">
+        <div className="w-full max-w-md relative z-10 text-[#082F49]">
           <div className="mb-6 flex items-center justify-between">
             <button
               type="button"
@@ -1220,23 +1221,24 @@ ${req.notes || 'No special notes logged.'}
                 if (onBackToSite) onBackToSite();
                 else window.location.href = '/';
               }}
-              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#0066CC] hover:text-[#0052A3] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#082F49] hover:text-[#0052A3] transition-colors cursor-pointer"
             >
-              <ArrowLeft className="h-4 w-4" />
-              <span>Back to Main Website</span>
+              <ArrowLeft className="h-4 w-4 text-[#082F49]" />
+              <span className="text-[#082F49]">Back to Main Website</span>
             </button>
-            <span className="text-[11px] font-mono text-[#64748B] font-bold">Enterprise Suite v3.2</span>
+            <span className="text-[11px] font-mono text-[#082F49] font-bold">Enterprise Suite v3.2</span>
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             style={{
-              backgroundColor: '#FFFFFF',
-              borderColor: '#D8E7F5',
-              boxShadow: '0 25px 60px rgba(0, 102, 204, 0.12)',
+              backgroundColor: '#b5c6f1ff',
+              borderColor: '#c5dbefff',
+              boxShadow: '0 25px 60px rgba(8, 47, 73, 0.12)',
+              color: '#082F49',
             }}
-            className="p-8 sm:p-10 text-center rounded-[20px] border text-[#1E293B]"
+            className="p-8 sm:p-10 text-center rounded-[20px] border text-[#082F49]"
           >
             <div className="mx-auto h-20 w-20 rounded-2xl bg-white border border-[#D8E7F5] flex items-center justify-center p-2.5 shadow-md">
               <img src="/images/gw-logo-mark.png" alt="Godavari Wave Technologies" className="h-full w-full object-contain" />
@@ -1249,21 +1251,21 @@ ${req.notes || 'No special notes logged.'}
               >
                 GODAVARI WAVE TECHNOLOGIES
               </h2>
-              <p className="text-xs font-mono font-bold text-[#0066CC] uppercase tracking-wider">
+              <p className="text-xs font-mono font-bold text-[#082F49] uppercase tracking-wider">
                 Enterprise Management Portal
               </p>
-              <p className="text-xs text-[#64748B] pt-1">
+              <p className="text-xs text-[#082F49]/80 font-medium pt-1">
                 Enter your authorized HR credentials to access CRM and Recruitment workspaces.
               </p>
             </div>
 
             <form onSubmit={handleLoginSubmit} className="mt-6 space-y-4 text-left">
               <div>
-                <label className="block text-[11px] font-mono font-bold text-[#0066CC] uppercase mb-1">
+                <label className="block text-[11px] font-mono font-bold text-[#082F49] uppercase mb-1">
                   Portal Username
                 </label>
                 <div className="relative">
-                  <User className="h-4 w-4 absolute left-3.5 top-3.5 text-[#0066CC]" />
+                  <User className="h-4 w-4 absolute left-3.5 top-3.5 text-[#082F49]" />
                   <input
                     type="text"
                     value={usernameInput}
@@ -1275,19 +1277,19 @@ ${req.notes || 'No special notes logged.'}
                       borderRadius: '12px',
                       borderColor: '#D8E7F5',
                       backgroundColor: '#F8FAFC',
-                      color: '#1E293B',
+                      color: '#082F49',
                     }}
-                    className="w-full pl-10 pr-4 text-xs sm:text-sm border focus:bg-white focus:outline-none focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 font-mono font-semibold placeholder:text-slate-400"
+                    className="w-full pl-10 pr-4 text-xs sm:text-sm border focus:bg-white focus:outline-none focus:border-[#082F49] focus:ring-2 focus:ring-[#082F49]/20 font-mono font-semibold text-[#082F49] placeholder:text-[#082F49]/40"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] font-mono font-bold text-[#0066CC] uppercase mb-1">
+                <label className="block text-[11px] font-mono font-bold text-[#082F49] uppercase mb-1">
                   Access Password
                 </label>
                 <div className="relative">
-                  <Key className="h-4 w-4 absolute left-3.5 top-3.5 text-[#0066CC]" />
+                  <Key className="h-4 w-4 absolute left-3.5 top-3.5 text-[#082F49]" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={passwordInput}
@@ -1299,14 +1301,14 @@ ${req.notes || 'No special notes logged.'}
                       borderRadius: '12px',
                       borderColor: '#D8E7F5',
                       backgroundColor: '#F8FAFC',
-                      color: '#1E293B',
+                      color: '#082F49',
                     }}
-                    className="w-full pl-10 pr-10 text-xs sm:text-sm border focus:bg-white focus:outline-none focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 font-mono font-semibold placeholder:text-slate-400"
+                    className="w-full pl-10 pr-10 text-xs sm:text-sm border focus:bg-white focus:outline-none focus:border-[#082F49] focus:ring-2 focus:ring-[#082F49]/20 font-mono font-semibold text-[#082F49] placeholder:text-[#082F49]/40"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-3.5 text-[#64748B] hover:text-[#0066CC] cursor-pointer"
+                    className="absolute right-3.5 top-3.5 text-[#082F49] hover:text-[#0052A3] cursor-pointer"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -1324,10 +1326,10 @@ ${req.notes || 'No special notes logged.'}
                 type="submit"
                 style={{
                   height: '48px',
-                  background: 'linear-gradient(135deg, #0066CC 0%, #0052A3 100%)',
+                  background: 'linear-gradient(135deg, #082F49 0%, #0052A3 100%)',
                   borderRadius: '12px',
                 }}
-                className="w-full font-bold text-sm text-white shadow-lg shadow-[#0066CC]/25 hover:brightness-105 active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-2"
+                className="w-full font-bold text-sm text-white shadow-lg shadow-[#082F49]/25 hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-2"
               >
                 <Unlock className="h-4 w-4 text-white" />
                 <span>Sign In to Portal</span>
@@ -1335,8 +1337,8 @@ ${req.notes || 'No special notes logged.'}
             </form>
 
             <div className="mt-6 pt-5 border-t border-[#E5EDF5] text-center">
-              <p className="text-[11px] font-mono text-[#64748B] flex items-center justify-center gap-1.5">
-                <ShieldCheck className="h-3.5 w-3.5 text-[#0066CC]" />
+              <p className="text-[11px] font-mono text-[#082F49] font-bold flex items-center justify-center gap-1.5">
+                <ShieldCheck className="h-3.5 w-3.5 text-[#082F49]" />
                 <span>Restricted Administrator Access · Godavari Wave Technologies</span>
               </p>
             </div>
