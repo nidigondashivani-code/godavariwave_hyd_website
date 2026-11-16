@@ -8,7 +8,7 @@ const HeroWaveCanvas = lazy(() => import('./HeroWaveCanvas'));
 
 export default function Hero() {
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden">
+    <section id="home" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden">
       {/* 3D Wave & Monument Canvas - automatically applies particle morphing in background */}
       <div className="absolute inset-0 -z-0">
         <Suspense fallback={<div className="absolute inset-0 bg-background" />}>

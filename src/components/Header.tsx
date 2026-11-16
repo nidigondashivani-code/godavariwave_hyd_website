@@ -7,7 +7,12 @@ import { navLinks } from '../data/companyData';
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('');
+  const [activeSection, setActiveSection] = useState<string>(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      return window.location.hash;
+    }
+    return '#home';
+  });
 
   useEffect(() => {
     const calculateActiveSection = () => {
@@ -23,16 +28,16 @@ export default function Header() {
         return;
       }
 
-      // 2. If at top of page (Hero section before #services), clear active highlight
-      if (scrollY < 120) {
-        setActiveSection('');
+      // 2. If at top of page (Hero animations section), highlight #home
+      if (scrollY < 180) {
+        setActiveSection('#home');
         return;
       }
 
       // 3. Scan sections in page order
       // Trigger offset accounts for fixed navbar (approx 80px) plus visual margin
       const triggerOffset = 220;
-      let current = '';
+      let current = '#home';
 
       for (const link of navLinks) {
         const id = link.to.replace('#', '');
@@ -56,6 +61,8 @@ export default function Header() {
     const handleHashChange = () => {
       if (window.location.hash) {
         setActiveSection(window.location.hash);
+      } else {
+        setActiveSection('#home');
       }
     };
     window.addEventListener('hashchange', handleHashChange);
@@ -71,7 +78,11 @@ export default function Header() {
     setActiveSection(to);
     const targetId = to.replace('#', '');
     const el = document.getElementById(targetId);
-    if (el) {
+    if (to === '#home' || to === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.history.pushState(null, '', to);
+    } else if (el) {
       e.preventDefault();
       el.scrollIntoView({ behavior: 'smooth' });
       window.history.pushState(null, '', to);
@@ -80,9 +91,9 @@ export default function Header() {
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    setActiveSection('');
+    setActiveSection('#home');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.history.pushState(null, '', window.location.pathname);
+    window.history.pushState(null, '', '#home');
   };
 
   return (
