@@ -1270,7 +1270,7 @@ ${req.notes || 'No special notes logged.'}
                     type="text"
                     value={usernameInput}
                     onChange={(e) => setUsernameInput(e.target.value)}
-                    placeholder="Username (e.g. godavarihrdashboard)"
+                    placeholder="Enter Username"
                     required
                     style={{
                       height: '46px',
