@@ -8,78 +8,61 @@ const categories = ['All', 'E-commerce', 'Food', 'Mobility', 'Dashboards', 'Mark
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('All');
-  const [scrollDir, setScrollDir] = useState<'down' | 'up'>('down');
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Track scroll direction so cards come from bottom-to-top when scrolling down, and top-to-bottom when scrolling up
+  const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentScrollY = window.scrollY;
-          const diff = currentScrollY - lastScrollY;
-          if (Math.abs(diff) > 4) {
-            setScrollDir(diff > 0 ? 'down' : 'up');
-            lastScrollY = currentScrollY;
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Parallax flow while user scrolls across the portfolio
+  // Parallax flow while user scrolls across the portfolio on desktop
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start']
   });
 
-  const parallaxUp = useTransform(scrollYProgress, [0, 1], [35, -35]);
-  const parallaxDown = useTransform(scrollYProgress, [0, 1], [-35, 35]);
+  const parallaxUp = useTransform(scrollYProgress, [0, 1], [25, -25]);
+  const parallaxDown = useTransform(scrollYProgress, [0, 1], [-25, 25]);
 
   const filtered = activeCategory === 'All'
     ? portfolioProjects
     : portfolioProjects.filter((p) => p.cat === activeCategory);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-20 px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
+    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-20 px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
       <div className="mx-auto max-w-7xl">
-        {/* Header with scroll animation */}
+        {/* Header with consistent layout */}
         <motion.div
-          initial={{ opacity: 0, y: scrollDir === 'down' ? 50 : -50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
         >
           <div>
-            <p className="eyebrow mb-4">Portfolio</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground">
+            <p className="eyebrow mb-3">Portfolio</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
               Engineered for{' '}
               <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
                 real impact.
               </span>
             </h2>
           </div>
-          <p className="max-w-md text-sm sm:text-base text-muted-foreground md:text-lg">
+          <p className="max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
             A glimpse into production-grade consumer apps, logistics dispatchers, and SaaS platforms delivered by Godavari Wave.
           </p>
         </motion.div>
 
-        {/* Category Filter Pills */}
+        {/* Category Filter Pills (32px spacing to content) */}
         <motion.div
-          initial={{ opacity: 0, y: scrollDir === 'down' ? 40 : -40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 sm:mt-12 flex flex-wrap items-center gap-2"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+          className="mt-8 mb-8 flex flex-wrap items-center gap-2"
         >
           {categories.map((cat) => {
             const count = cat === 'All'
@@ -94,7 +77,7 @@ export default function Portfolio() {
                 onClick={() => setActiveCategory(cat)}
                 data-cursor="true"
                 className={cn(
-                  'relative rounded-full px-5 py-2.5 text-xs font-medium transition-colors duration-300',
+                  'relative rounded-full px-5 py-2.5 text-xs font-semibold transition-all duration-300 cursor-pointer',
                   isSelected
                     ? 'text-primary-foreground shadow-glow-sea'
                     : 'glass text-muted-foreground hover:text-foreground hover:scale-105'
@@ -123,9 +106,9 @@ export default function Portfolio() {
           })}
         </motion.div>
 
-        {/* Projects Grid with Dynamic Top-to-Bottom and Bottom-to-Top Wave Motion */}
+        {/* Projects Grid with 24px gap, 24px internal card padding, animated entrance */}
         <LayoutGroup id="portfolio-cards-layout">
-          <motion.div layout className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {filtered.map((item, idx) => {
                 const isLink = Boolean(item.link);
@@ -138,33 +121,31 @@ export default function Portfolio() {
                   <motion.div
                     layout
                     key={item.name}
-                    style={{ y: idx % 2 === 0 ? parallaxUp : parallaxDown }}
+                    style={{ y: isDesktop ? (idx % 2 === 0 ? parallaxUp : parallaxDown) : 0 }}
                     className="h-full"
                   >
                     <motion.div
                       initial={{
                         opacity: 0,
-                        y: scrollDir === 'down' ? 75 : -75,
-                        scale: 0.94
+                        y: 40
                       }}
                       whileInView={{
                         opacity: 1,
-                        y: 0,
-                        scale: 1
+                        y: 0
                       }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      viewport={{ once: false, amount: 0.12 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      viewport={{ once: true, amount: 0.15 }}
                       transition={{
-                        duration: 0.75,
-                        delay: (idx % 3) * 0.08,
-                        ease: [0.22, 1, 0.36, 1]
+                        duration: 0.6,
+                        delay: (idx % 3) * 0.1,
+                        ease: 'easeOut'
                       }}
                       className="h-full"
                     >
                       <CardWrapper
                         {...linkAttributes}
                         data-cursor="true"
-                        className="border-flow group relative flex h-[380px] sm:h-[440px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-[2rem] bg-ocean-raised [--flow-opacity:0] transition-all duration-500 hover:[--flow-opacity:1] hover:shadow-2xl"
+                        className="border-flow group relative flex h-[380px] sm:h-[440px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl bg-ocean-raised [--flow-opacity:0] transition-all duration-500 hover:[--flow-opacity:1] hover:shadow-2xl"
                       >
                         {/* Ambient Gradient Background */}
                         <div
@@ -184,7 +165,7 @@ export default function Portfolio() {
                               onError={(e) => {
                                 (e.target as HTMLElement).style.display = 'none';
                               }}
-                              className="absolute inset-0 h-full w-full object-cover opacity-60 transition-transform duration-[2.2s] ease-out group-hover:scale-110 group-hover:opacity-75"
+                              className="absolute inset-0 h-full w-full object-cover opacity-60 transition-transform duration-700 ease-out group-hover:scale-110 group-hover:opacity-75"
                             />
                           )}
 
@@ -207,17 +188,17 @@ export default function Portfolio() {
                           )}
 
                           {/* Top Category Tag Badge */}
-                          <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-20">
-                            <span className="glass rounded-full border border-glass-border/70 px-2.5 sm:px-3 py-0.5 sm:py-1 font-mono text-[0.62rem] sm:text-[0.68rem] tracking-wider text-secondary uppercase shadow-sm">
+                          <div className="absolute top-4 left-4 z-20">
+                            <span className="glass rounded-full border border-glass-border/70 px-3 py-1 font-mono text-[0.65rem] tracking-wider text-secondary uppercase shadow-sm">
                               {item.cat}
                             </span>
                           </div>
 
                           {/* Link Indicator in Top Right if live link */}
                           {isLink && (
-                            <div className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20">
-                              <span className="grid h-7 w-7 sm:h-8 sm:w-8 place-items-center rounded-full bg-glass text-muted-foreground backdrop-blur-md transition-all duration-300 group-hover:bg-flow group-hover:text-primary-foreground">
-                                <ExternalLink className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                            <div className="absolute top-4 right-4 z-20">
+                              <span className="grid h-8 w-8 place-items-center rounded-full bg-glass text-muted-foreground backdrop-blur-md transition-all duration-300 group-hover:bg-flow group-hover:text-primary-foreground">
+                                <ExternalLink className="h-3.5 w-3.5" />
                               </span>
                             </div>
                           )}
@@ -229,18 +210,18 @@ export default function Portfolio() {
                         {/* Vignette Shadow */}
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ocean via-ocean/40 to-transparent" />
 
-                        {/* Bottom Glass Card Sheet */}
-                        <div className="glass relative z-10 m-3 sm:m-4 rounded-2xl sm:rounded-[1.5rem] p-3.5 sm:p-5 transition-transform duration-500 group-hover:-translate-y-1">
-                          <div className="flex items-start justify-between gap-3 sm:gap-4">
+                        {/* Bottom Glass Card Sheet - 24px padding */}
+                        <div className="glass relative z-10 m-4 rounded-2xl p-6 transition-transform duration-500 group-hover:-translate-y-1">
+                          <div className="flex items-center justify-between gap-4">
                             <div className="flex-1 min-w-0">
-                              <p className="font-mono text-[0.6rem] sm:text-[0.65rem] tracking-wider text-accent uppercase">
+                              <p className="font-mono text-[0.65rem] tracking-wider text-accent uppercase">
                                 {item.type}
                               </p>
-                              <h3 className="mt-0.5 sm:mt-1 truncate font-display text-lg sm:text-xl md:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                              <h3 className="mt-1 truncate font-display text-lg sm:text-xl md:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors">
                                 {item.name}
                               </h3>
                               {item.desc && (
-                                <p className="mt-1.5 sm:mt-2 line-clamp-2 text-[11px] sm:text-xs leading-relaxed text-muted-foreground">
+                                <p className="mt-1.5 line-clamp-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
                                   {item.desc}
                                 </p>
                               )}
@@ -248,14 +229,14 @@ export default function Portfolio() {
 
                             {isLink ? (
                               <span
-                                className="grid h-8 w-8 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-full bg-flow text-primary-foreground shadow-glow-sea transition-transform duration-500 group-hover:rotate-45"
+                                className="grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-full bg-flow text-primary-foreground shadow-glow-sea transition-transform duration-500 group-hover:rotate-45"
                                 title="Visit live project"
                                 aria-hidden="true"
                               >
                                 <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5" />
                               </span>
                             ) : (
-                              <span className="mt-1 shrink-0 rounded-full bg-glass-strong border border-glass-border px-2 sm:px-2.5 py-0.5 sm:py-1 text-[0.6rem] sm:text-[0.65rem] font-mono text-muted-foreground">
+                              <span className="mt-1 shrink-0 rounded-full bg-glass-strong border border-glass-border px-2.5 py-1 text-xs font-mono text-muted-foreground">
                                 SaaS / ERP
                               </span>
                             )}

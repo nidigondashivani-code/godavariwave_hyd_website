@@ -26,7 +26,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden border-t border-glass-border mt-16 sm:mt-24 pt-20 sm:pt-28 md:pt-36 bg-[#0B1F3A]">
+    <footer className="relative overflow-hidden border-t border-glass-border mt-16 sm:mt-20 pt-20 md:pt-24 pb-12 bg-[#0B1F3A]">
       {/* Decorative Wave Headers */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 overflow-hidden" aria-hidden="true">
         <svg viewBox="0 0 2880 200" preserveAspectRatio="none" className="absolute top-0 left-0 h-full w-[200%]" style={{ opacity: 0.35 }}>
@@ -37,14 +37,14 @@ export default function Footer() {
         </svg>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-10 pt-6 sm:pt-8">
-        {/* Main Footer Grid with Bottom-to-Up Scroll Animation */}
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 md:px-8 lg:px-10">
+        {/* Main Footer Grid with Fade Up Scroll Animation */}
         <motion.div
           className="grid gap-12 sm:gap-16 lg:grid-cols-[1.4fr_1fr]"
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <div>
             <div className="flex items-center gap-2 mb-4">

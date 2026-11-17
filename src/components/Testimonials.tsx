@@ -54,86 +54,93 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
+    <section className="relative overflow-hidden px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
       {/* Background Oscillating Ribbon Waves */}
       <RibbonWaves className="top-1/2 h-[420px] -translate-y-1/3 opacity-70" count={6} />
 
       <div className="relative mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="mb-8 sm:mb-10"
         >
-          <p className="eyebrow mb-4">In their words</p>
+          <p className="eyebrow mb-3">In their words</p>
           <SplitText
             text="Voices from the current."
-            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground"
+            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
             highlight={[0]}
           />
+          <p className="mt-4 max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+            Real feedback from enterprise leaders, startup founders, and public sector partners across India.
+          </p>
         </motion.div>
 
-        <div className="mt-12 sm:mt-20 grid gap-6 lg:grid-cols-3">
+        {/* Testimonials Grid - 24px gap, 24px padding inside cards */}
+        <div className="grid gap-6 lg:grid-cols-3">
           {testimonials.map((item, idx) => {
             const isCurrent = activeIdx === idx;
 
             return (
               <motion.figure
                 key={idx}
-                initial={{ opacity: 0, y: 60 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.8, delay: idx * 0.16, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.6, delay: (idx % 3) * 0.1, ease: 'easeOut' }}
                 onMouseEnter={() => setActiveIdx(idx)}
-                className={cn('animate-float', idx === 1 && 'lg:mt-16')}
+                className={cn('w-full lg:animate-float', idx === 1 && 'lg:mt-8')}
                 style={{ animationDelay: `${-idx * 2}s` }}
                 data-cursor="true"
               >
                 <div
                   className={cn(
-                    'glass border-flow relative h-full rounded-2xl sm:rounded-[2rem] p-5 sm:p-7 md:p-8 transition-all duration-700',
-                    isCurrent ? '-translate-y-2 [--flow-opacity:1]' : '[--flow-opacity:0.15]'
+                    'glass border-flow relative h-full rounded-2xl sm:rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-500',
+                    isCurrent ? '-translate-y-1.5 [--flow-opacity:1] shadow-xl' : '[--flow-opacity:0.15]'
                   )}
                 >
-                  <div className="flex items-center justify-between">
-                    <Quote className="h-6 w-6 sm:h-8 sm:w-8 text-accent" />
-                    {/* Audio Equalizer Speech Visualizer Bars */}
-                    <div className="flex h-5 sm:h-6 items-end gap-1" aria-hidden="true">
-                      {[0, 1, 2, 3, 4].map((bar) => (
-                        <span
-                          key={bar}
-                          className={cn('w-1 rounded-full bg-sea-gradient', isCurrent ? 'speech-bar' : '')}
-                          style={{
-                            height: isCurrent ? '100%' : '25%',
-                            animationDelay: `${bar * 0.12}s`
-                          }}
-                        />
-                      ))}
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <Quote className="h-7 w-7 text-accent" />
+                      {/* Audio Equalizer Speech Visualizer Bars */}
+                      <div className="flex h-5 items-end gap-1" aria-hidden="true">
+                        {[0, 1, 2, 3, 4].map((bar) => (
+                          <span
+                            key={bar}
+                            className={cn('w-1 rounded-full bg-sea-gradient', isCurrent ? 'speech-bar' : '')}
+                            style={{
+                              height: isCurrent ? '100%' : '25%',
+                              animationDelay: `${bar * 0.12}s`
+                            }}
+                          />
+                        ))}
+                      </div>
                     </div>
+
+                    {/* Word-by-Word Animated Quote */}
+                    <blockquote className="mt-6 font-display text-base sm:text-lg leading-relaxed text-foreground">
+                      {item.quote.split(' ').map((word, wIdx) => (
+                        <motion.span
+                          key={wIdx}
+                          className="inline-block"
+                          animate={{ opacity: isCurrent ? 1 : 0.65 }}
+                          transition={{ delay: isCurrent ? wIdx * 0.03 : 0, duration: 0.4 }}
+                        >
+                          {word}&nbsp;
+                        </motion.span>
+                      ))}
+                    </blockquote>
                   </div>
 
-                  {/* Word-by-Word Animated Quote - scaled according to card size */}
-                  <blockquote className="mt-5 sm:mt-8 font-display text-base sm:text-lg md:text-xl leading-relaxed sm:leading-snug text-foreground">
-                    {item.quote.split(' ').map((word, wIdx) => (
-                      <motion.span
-                        key={wIdx}
-                        className="inline-block"
-                        animate={{ opacity: isCurrent ? 1 : 0.55 }}
-                        transition={{ delay: isCurrent ? wIdx * 0.03 : 0, duration: 0.4 }}
-                      >
-                        {word}&nbsp;
-                      </motion.span>
-                    ))}
-                  </blockquote>
-
-                  <figcaption className="mt-5 sm:mt-8 flex items-center gap-3 sm:gap-4 border-t border-glass-border pt-4 sm:pt-6">
-                    <span className="grid h-9 w-9 sm:h-11 sm:w-11 place-items-center rounded-full bg-flow font-display text-xs sm:text-base font-semibold text-primary-foreground shadow-glow-sea">
+                  <figcaption className="mt-6 flex items-center gap-3.5 border-t border-glass-border pt-5">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-flow font-display text-sm font-semibold text-primary-foreground shadow-glow-sea">
                       {item.name[0]}
                     </span>
-                    <span>
-                      <span className="block text-sm sm:text-base font-medium text-foreground">{item.name}</span>
-                      <span className="block text-xs sm:text-sm text-muted-foreground">{item.company}</span>
-                    </span>
+                    <div>
+                      <span className="block text-sm font-semibold text-foreground">{item.name}</span>
+                      <span className="block text-xs text-muted-foreground">{item.company}</span>
+                    </div>
                   </figcaption>
                 </div>
               </motion.figure>

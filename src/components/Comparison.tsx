@@ -17,35 +17,35 @@ export default function Comparison() {
   const [selectedTab, setSelectedTab] = useState<'gw' | 'trad'>('gw');
 
   return (
-    <section className="relative px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
+    <section className="relative px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 sm:gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            <p className="eyebrow mb-4">Why Godavari Wave</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground">
+            <p className="eyebrow mb-3">Why Godavari Wave</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
               Not another{' '}
               <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
                 IT vendor.
               </span>
             </h2>
-            <p className="mt-6 sm:mt-8 text-sm sm:text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="mt-4 max-w-[700px] text-base sm:text-lg leading-relaxed text-muted-foreground">
               We replace fragmented freelancers and rigid legacy IT firms with an agile, high-velocity engineering partner that cares about your bottom line.
             </p>
 
             {/* Toggle Pill */}
-            <div className="glass-soft mt-8 sm:mt-12 inline-flex rounded-full p-1 sm:p-1.5" role="tablist" aria-label="Comparison">
+            <div className="glass-soft mt-8 inline-flex rounded-full p-1 sm:p-1.5" role="tablist" aria-label="Comparison">
               <button
                 role="tab"
                 aria-selected={selectedTab === 'trad'}
                 onClick={() => setSelectedTab('trad')}
                 className={cn(
-                  'relative rounded-full px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-colors',
-                  selectedTab === 'trad' ? 'text-primary-foreground' : 'text-muted-foreground'
+                  'relative rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold transition-colors cursor-pointer',
+                  selectedTab === 'trad' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
                 {selectedTab === 'trad' && (
@@ -63,8 +63,8 @@ export default function Comparison() {
                 aria-selected={selectedTab === 'gw'}
                 onClick={() => setSelectedTab('gw')}
                 className={cn(
-                  'relative rounded-full px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-colors',
-                  selectedTab === 'gw' ? 'text-primary-foreground' : 'text-muted-foreground'
+                  'relative rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold transition-colors cursor-pointer',
+                  selectedTab === 'gw' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
                 {selectedTab === 'gw' && (
@@ -79,7 +79,7 @@ export default function Comparison() {
             </div>
           </motion.div>
 
-          {/* Comparison Progress Bars with Bottom-to-Up Staggered Animation */}
+          {/* Comparison Progress Bars - 24px gap, 24px inside padding */}
           <div className="grid gap-6">
             {comparisonMetrics.map((item, idx) => {
               const score = selectedTab === 'gw' ? item.gw : item.trad;
@@ -88,22 +88,22 @@ export default function Comparison() {
               return (
                 <motion.div
                   key={item.metric}
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.15 }}
-                  transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all duration-500 hover:border-sea/40"
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
+                  className="glass rounded-2xl p-6 transition-all duration-300 hover:border-sea/50 hover:-translate-y-0.5 shadow-md"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <span className="grid h-9 w-9 place-items-center rounded-xl bg-glass-strong border border-glass-border">
+                      <span className="grid h-10 w-10 place-items-center rounded-xl bg-glass-strong border border-glass-border">
                         {metricIcons[item.metric]}
                       </span>
-                      <span className="font-display text-lg font-semibold text-foreground">
+                      <span className="font-display text-base sm:text-lg font-semibold text-foreground">
                         {item.metric}
                       </span>
                     </div>
-                    <span className="font-mono text-sm font-semibold text-secondary">
+                    <span className="font-mono text-sm sm:text-base font-bold text-secondary">
                       {score}%
                     </span>
                   </div>
@@ -121,7 +121,7 @@ export default function Comparison() {
                     />
                   </div>
 
-                  <p className="mt-3 text-xs text-muted-foreground">
+                  <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                     {text}
                   </p>
                 </motion.div>
@@ -133,4 +133,3 @@ export default function Comparison() {
     </section>
   );
 }
-

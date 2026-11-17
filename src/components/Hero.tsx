@@ -2,13 +2,13 @@ import React, { Suspense, lazy } from 'react';
 import { ArrowUpRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { stats } from '../data/companyData';
-import { cn } from '../utils/cn';
+import CountUp from './CountUp';
 
 const HeroWaveCanvas = lazy(() => import('./HeroWaveCanvas'));
 
 export default function Hero() {
   return (
-    <section id="home" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden">
+    <section id="home" className="relative isolate flex min-h-[90vh] lg:min-h-[92vh] flex-col justify-between overflow-hidden">
       {/* 3D Wave & Monument Canvas - automatically applies particle morphing in background */}
       <div className="absolute inset-0 -z-0">
         <Suspense fallback={<div className="absolute inset-0 bg-background" />}>
@@ -19,15 +19,15 @@ export default function Hero() {
       {/* Gradient Vignette */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
 
-      {/* Hero Content */}
-      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pt-36 pb-16 md:px-10">
-        {/* Eyebrow */}
+      {/* Hero Content - Centered text alignment, max 700px width on description, strict spacing */}
+      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center text-center px-5 sm:px-6 pt-32 pb-12 md:px-8 lg:px-10">
+        {/* Eyebrow Badge (16px spacing to heading) */}
         <motion.p
-          className="eyebrow mb-6 sm:mb-8 flex flex-wrap items-center gap-2 sm:gap-3 text-[#38BDF8] text-[11px] sm:text-xs tracking-wider"
+          className="eyebrow mb-4 inline-flex items-center justify-center gap-2 sm:gap-2.5 text-[#38BDF8] text-[11px] sm:text-xs font-mono tracking-wider"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D4FF] opacity-70" />
@@ -36,13 +36,13 @@ export default function Hero() {
           <span>Godavari Wave Technologies · 2026 Hyderabad</span>
         </motion.p>
 
-        {/* Display Heading matching authentic website */}
+        {/* Display Heading matching authentic website (16px spacing to description) */}
         <motion.h1
-          className="text-3xl sm:text-5xl md:text-6xl lg:display-xl font-bold leading-[1.08] sm:leading-[0.98] max-w-6xl text-foreground"
-          initial={{ opacity: 0, y: 50 }}
+          className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold leading-[1.08] sm:leading-[1.02] max-w-4xl mx-auto text-foreground tracking-tight"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
         >
           Building{' '}
           <span className="bg-gradient-to-r from-[#0066CC] via-[#00D4FF] to-[#38BDF8] bg-clip-text text-transparent">
@@ -51,29 +51,29 @@ export default function Hero() {
           Digital Experiences
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* Subtitle - Maximum 700px width, consistent line height */}
         <motion.p
-          className="mt-6 sm:mt-8 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg md:text-xl"
+          className="mt-4 max-w-[700px] mx-auto text-base sm:text-lg md:text-xl text-white/85 leading-relaxed"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
         >
           Transforming businesses through AI, software development, cloud solutions and enterprise innovation — born on the Godavari, now scaling from Hyderabad.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons - 16px gap, mobile full width, lift & shadow hover */}
         <motion.div
-          className="pointer-events-auto mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto"
+          className="pointer-events-auto mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
         >
           <a
             href="#solutions"
             data-cursor="true"
-            className="group relative inline-flex h-12 sm:h-14 items-center justify-center overflow-hidden rounded-full bg-flow px-6 sm:px-8 text-sm sm:text-base font-medium text-primary-foreground shadow-glow-sea transition-all duration-500 hover:scale-[1.03] hover:shadow-glow-ember"
+            className="group relative inline-flex h-12 sm:h-14 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-[#0066CC] to-[#00D4FF] hover:from-[#004E9A] hover:to-[#0066CC] px-8 text-sm sm:text-base font-semibold text-white shadow-md shadow-[#0066CC]/30 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 w-full sm:w-auto"
           >
             <span>Explore Solutions</span>
             <ArrowUpRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -81,7 +81,7 @@ export default function Hero() {
           <a
             href="#portfolio"
             data-cursor="true"
-            className="glass group relative inline-flex h-12 sm:h-14 items-center justify-center overflow-hidden rounded-full px-6 sm:px-8 text-sm sm:text-base font-medium text-foreground transition-all duration-500 hover:bg-glass-strong hover:scale-[1.03]"
+            className="glass group relative inline-flex h-12 sm:h-14 items-center justify-center overflow-hidden rounded-full border border-white/20 px-8 text-sm sm:text-base font-semibold text-white hover:bg-white/10 hover:border-[#00D4FF]/40 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 w-full sm:w-auto"
           >
             <Play className="mr-2 h-4 w-4 text-[#00D4FF] transition-transform group-hover:scale-110" />
             <span>View Portfolio</span>
@@ -89,23 +89,29 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Metrics Floating Bar (Bottom to Up Scroll / Mount) */}
+      {/* Metrics Floating Bar - Cards fade upward, count up animation, 24px gap, 24px padding */}
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-10 md:px-10"
-        initial={{ opacity: 0, y: 60 }}
+        className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 pb-10 md:px-8 lg:px-10"
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.15 }}
-        transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
       >
-        <div className="glass grid grid-cols-2 gap-px overflow-hidden rounded-2xl sm:rounded-3xl md:grid-cols-4 border border-glass-border">
-          {stats.map((s) => (
-            <div key={s.label} className="p-4 sm:px-6 sm:py-5">
-              <div className="font-display text-2xl sm:text-3xl font-semibold text-foreground md:text-4xl">
-                <span>{s.value}</span>
-                <span className="text-[#00D4FF]">{s.suffix}</span>
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
+          {stats.map((s, idx) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
+              className="glass rounded-2xl p-5 sm:p-6 border border-glass-border shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#00D4FF]/40"
+            >
+              <div className="font-display text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
+                <CountUp value={s.value} suffix={s.suffix} duration={1.6} />
               </div>
-              <div className="mt-1 text-xs sm:text-sm text-muted-foreground">{s.label}</div>
-            </div>
+              <div className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium">{s.label}</div>
+            </motion.div>
           ))}
         </div>
       </motion.div>

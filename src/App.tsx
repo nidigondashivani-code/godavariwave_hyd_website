@@ -97,10 +97,6 @@ export default function App() {
           <Process />
           <Testimonials />
           <Careers />
-
-          {/* 200px vertical gap between Careers and Contact sections */}
-          <div className="h-[200px] w-full" aria-hidden="true" style={{ height: '200px' }} />
-
           <Contact />
         </main>
         <Footer />

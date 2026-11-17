@@ -136,7 +136,7 @@ export default function Careers() {
   };
 
   return (
-    <section id="careers" className="relative scroll-mt-20 px-4 sm:px-6 py-20 sm:py-28 md:py-36 bg-[#0B1F3A] overflow-hidden text-foreground">
+    <section id="careers" className="relative scroll-mt-20 px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24 bg-[#0B1F3A] overflow-hidden text-foreground">
       {/* Background Decorative Gradient Blobs */}
       <div className="pointer-events-none absolute -top-40 right-0 h-[450px] w-[450px] rounded-full bg-[#0066CC]/15 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-40 left-0 h-[450px] w-[450px] rounded-full bg-[#00D4FF]/10 blur-[130px]" />
@@ -361,8 +361,8 @@ export default function Careers() {
           </div>
         </div>
 
-        {/* Job Listings Grid with Generous Outer & Inner Margins on All Sides */}
-        <div className="mt-10 sm:mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
+        {/* Job Listings Grid with 24px Gap and 24px Internal Padding */}
+        <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredJobs.map((job) => {
               const isFresher = job.level === 'Fresher';
@@ -371,11 +371,12 @@ export default function Careers() {
                 <motion.div
                   key={job.id}
                   layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  className="group relative flex flex-col justify-between rounded-3xl border border-white/15 bg-gradient-to-b from-[#0B1F3A]/95 to-[#004E9A]/20 p-6 sm:p-9 md:p-10 backdrop-blur-xl shadow-xl hover:border-[#00D4FF]/50 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(0,102,204,0.35)]"
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/15 bg-gradient-to-b from-[#0B1F3A]/95 to-[#004E9A]/20 p-6 backdrop-blur-xl shadow-xl hover:border-[#00D4FF]/50 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(0,102,204,0.35)]"
                 >
                   <div>
                     {/* Header: Level Badge & Openings */}

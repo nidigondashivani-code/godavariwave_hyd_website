@@ -21,8 +21,8 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
 
-  const rotX = useSpring(useTransform(my, [0, 1], [8, -8]), { stiffness: 150, damping: 18 });
-  const rotY = useSpring(useTransform(mx, [0, 1], [-10, 10]), { stiffness: 150, damping: 18 });
+  const rotX = useSpring(useTransform(my, [0, 1], [6, -6]), { stiffness: 160, damping: 20 });
+  const rotY = useSpring(useTransform(mx, [0, 1], [-8, 8]), { stiffness: 160, damping: 20 });
 
   const px = useTransform(mx, (v) => `${v * 100}%`);
   const py = useTransform(my, (v) => `${v * 100}%`);
@@ -46,15 +46,15 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 70, clipPath: 'inset(14% 0% 14% 0% round 2rem)' }}
-      whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0% round 2rem)' }}
-      viewport={{ once: false, amount: 0.2 }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 1.2,
-        delay: i * 0.14,
-        ease: [0.22, 1, 0.36, 1]
+        duration: 0.6,
+        delay: (i % 3) * 0.1,
+        ease: 'easeOut'
       }}
-      className={cn('animate-float', i % 3 === 1 && 'lg:translate-y-16')}
+      className={cn('w-full lg:animate-float', i % 3 === 1 && 'lg:translate-y-8')}
       style={{
         animationDelay: `${-i * 1.3}s`,
         animationDuration: `${7 + (i % 3)}s`
@@ -65,6 +65,8 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={handleMouseLeave}
+        onTouchEnd={handleMouseLeave}
+        onTouchCancel={handleMouseLeave}
         onFocus={() => setHovered(true)}
         onBlur={() => setHovered(false)}
         tabIndex={0}
@@ -74,9 +76,9 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
           transformPerspective: 1200,
           ['--flow-opacity' as any]: hovered ? 1 : 0.25
         }}
-        animate={{ y: hovered ? -14 : 0 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-        className="glass border-flow group relative h-full min-h-[300px] sm:min-h-[340px] overflow-hidden rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 outline-none cursor-pointer"
+        animate={{ y: hovered ? -10 : 0 }}
+        transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+        className="glass border-flow group relative h-full min-h-[300px] sm:min-h-[340px] overflow-hidden rounded-2xl sm:rounded-3xl p-6 outline-none cursor-pointer flex flex-col justify-between"
         data-cursor="true"
       >
         {/* Wave Passing Shimmer Flare */}
@@ -84,48 +86,54 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
         {/* Mouse Spotlight */}
         <motion.div
-          className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           style={{ background: spotlightBg }}
         />
 
         {/* Card Header & Icon */}
-        <div className="relative flex items-start justify-between">
-          <motion.div
-            className="grid h-16 w-16 place-items-center rounded-2xl bg-sea-gradient text-primary-foreground shadow-glow-sea"
-            animate={hovered ? { rotate: [0, -12, 10, 0], scale: 1.08 } : { rotate: 0, scale: 1 }}
-            transition={{ duration: 0.9 }}
+        <div>
+          <div className="relative flex items-start justify-between">
+            <motion.div
+              className="grid h-14 w-14 sm:h-16 sm:w-16 place-items-center rounded-2xl bg-sea-gradient text-primary-foreground shadow-glow-sea"
+              animate={hovered ? { rotate: [0, -10, 8, 0], scale: 1.05 } : { rotate: 0, scale: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Icon className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.6} />
+            </motion.div>
+            <span className="font-display text-sm font-mono text-muted-foreground">0{i + 1}</span>
+          </div>
+
+          {/* Title & Short Summary */}
+          <h3 className="relative mt-8 font-display text-xl sm:text-2xl font-semibold text-foreground md:text-[1.65rem] tracking-tight">
+            {s.title}
+          </h3>
+          <p className="relative mt-3 text-muted-foreground leading-relaxed text-sm sm:text-base">
+            {s.short}
+          </p>
+
+          {/* Expanding Points on Hover */}
+          <motion.ul
+            className="relative mt-5 space-y-2 overflow-hidden text-sm"
+            initial={false}
+            animate={{
+              height: hovered ? 'auto' : 0,
+              opacity: hovered ? 1 : 0
+            }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Icon className="h-7 w-7" strokeWidth={1.6} />
-          </motion.div>
-          <span className="font-display text-sm font-mono text-muted-foreground">0{i + 1}</span>
+            {s.points.map((pt) => (
+              <li key={pt} className="flex items-center gap-3 text-foreground/85">
+                <span className="h-1 w-4 rounded-full bg-flow shrink-0" />
+                <span>{pt}</span>
+              </li>
+            ))}
+          </motion.ul>
         </div>
 
-        {/* Title & Short Summary */}
-        <h3 className="relative mt-10 font-display text-2xl font-semibold text-foreground md:text-[1.7rem]">
-          {s.title}
-        </h3>
-        <p className="relative mt-3 text-muted-foreground leading-relaxed">{s.short}</p>
-
-        {/* Expanding Points on Hover */}
-        <motion.ul
-          className="relative mt-6 space-y-2 overflow-hidden text-sm"
-          initial={false}
-          animate={{
-            height: hovered ? 'auto' : 0,
-            opacity: hovered ? 1 : 0
-          }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {s.points.map((pt) => (
-            <li key={pt} className="flex items-center gap-3 text-foreground/85">
-              <span className="h-1 w-4 rounded-full bg-flow" />
-              <span>{pt}</span>
-            </li>
-          ))}
-        </motion.ul>
-
         {/* Corner Indicator Arrow */}
-        <ArrowUpRight className="absolute right-8 bottom-8 h-5 w-5 text-mint opacity-40 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100 group-hover:text-[#00D4FF]" />
+        <div className="relative mt-6 flex justify-end">
+          <ArrowUpRight className="h-5 w-5 text-mint opacity-40 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100 group-hover:text-[#00D4FF]" />
+        </div>
       </motion.div>
     </motion.div>
   );
@@ -133,7 +141,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
 export default function Services() {
   return (
-    <section id="services" className="relative scroll-mt-20 px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44 overflow-hidden">
+    <section id="services" className="relative scroll-mt-20 px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24 overflow-hidden">
       {/* FLOWING DIGITAL WATER WAVE SWEEPING ACROSS SECTION */}
       <div className="pointer-events-none absolute inset-x-0 top-12 h-32 overflow-hidden opacity-40">
         <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-[200%] animate-pulse">
@@ -157,16 +165,16 @@ export default function Services() {
       </div>
 
       <div className="mx-auto max-w-7xl">
-        {/* Section Header with bottom-to-up scroll animation */}
+        {/* Section Header with consistent spacing */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="mb-8 sm:mb-10"
         >
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-3">
               <Waves className="h-4 w-4 text-[#0066CC]" />
               <p className="eyebrow text-[#0066CC]">
                 Services
@@ -174,14 +182,14 @@ export default function Services() {
             </div>
             <SplitText
               text="Six currents. One flow."
-              className="font-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl lg:text-6xl"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
               highlight={[3]}
             />
           </div>
         </motion.div>
 
-        {/* 6 Services Grid (Each appears as the wave passes) */}
-        <div className="mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:pb-16">
+        {/* 6 Services Grid - 24px gap, 24px inside card, animated on view */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <ServiceCard key={s.id} s={s} i={i} />
           ))}

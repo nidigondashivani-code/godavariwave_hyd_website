@@ -11,43 +11,50 @@ export default function Process() {
     if (!isAutoPlay) return;
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % processSteps.length);
-    }, 3200);
+    }, 3600);
     return () => clearInterval(interval);
   }, [isAutoPlay]);
 
   return (
-    <section className="relative px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
+    <section className="relative px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
       <div className="mx-auto max-w-7xl">
+        {/* Section Header */}
         <motion.div
           className="text-center"
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <p className="eyebrow mb-4">How we work</p>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground">
+          <p className="eyebrow mb-3">How we work</p>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
             Idea to impact,{' '}
             <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
               in one current.
             </span>
           </h2>
-          <p className="mx-auto mt-4 sm:mt-6 max-w-xl text-sm sm:text-base text-muted-foreground md:text-lg">
+          <p className="mx-auto mt-4 max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
             Our structured agile framework eliminates guesswork and turns complex ideas into market-ready realities.
           </p>
         </motion.div>
 
-        {/* Desktop Wave Navigation */}
+        {/* Desktop Connected Steps Navigation with Animated Connecting Line */}
         <motion.div
-          className="relative mt-20 hidden md:block"
-          initial={{ opacity: 0, y: 50 }}
+          className="relative mt-10 sm:mt-12 hidden md:block"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
         >
-          {/* Connecting Wave SVG */}
+          {/* Connecting Animated Line */}
           <div className="relative mx-auto flex max-w-5xl items-center justify-between">
-            <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-0.5 bg-gradient-to-r from-sea via-mint to-ember opacity-30" />
+            <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 h-1 bg-gradient-to-r from-sea via-mint to-ember opacity-30 rounded-full" />
+            <motion.div
+              className="absolute top-1/2 left-0 -translate-y-1/2 h-1 bg-gradient-to-r from-[#0066CC] to-[#00D4FF] rounded-full shadow-glow-sea transition-all duration-500"
+              style={{
+                width: `${(activeStep / (processSteps.length - 1)) * 100}%`
+              }}
+            />
 
             {processSteps.map((step, idx) => {
               const isActive = activeStep === idx;
@@ -59,14 +66,18 @@ export default function Process() {
                     setIsAutoPlay(false);
                     setActiveStep(idx);
                   }}
-                  className="group relative z-10 flex flex-col items-center focus:outline-none"
+                  onMouseEnter={() => {
+                    setIsAutoPlay(false);
+                    setActiveStep(idx);
+                  }}
+                  className="group relative z-10 flex flex-col items-center focus:outline-none cursor-pointer"
                 >
                   <motion.div
                     className={cn(
-                      'grid h-12 w-12 place-items-center rounded-full text-sm font-semibold transition-all duration-500',
+                      'grid h-12 w-12 place-items-center rounded-full text-sm font-semibold transition-all duration-300',
                       isActive
                         ? 'bg-flow text-primary-foreground shadow-glow-sea scale-125'
-                        : 'glass text-muted-foreground hover:text-foreground hover:scale-110'
+                        : 'glass text-muted-foreground hover:text-foreground hover:scale-110 hover:border-[#00D4FF]/40'
                     )}
                   >
                     0{idx + 1}
@@ -74,7 +85,7 @@ export default function Process() {
                   <span
                     className={cn(
                       'mt-4 font-display text-sm font-medium transition-colors',
-                      isActive ? 'text-secondary font-semibold' : 'text-muted-foreground'
+                      isActive ? 'text-secondary font-semibold' : 'text-muted-foreground group-hover:text-foreground'
                     )}
                   >
                     {step.title}
@@ -85,13 +96,13 @@ export default function Process() {
           </div>
         </motion.div>
 
-        {/* Active Step Display Card */}
+        {/* Active Step Display Card - 24px - 32px padding */}
         <motion.div
-          className="mt-16 mx-auto max-w-2xl"
-          initial={{ opacity: 0, y: 60 }}
+          className="mt-10 sm:mt-12 mx-auto max-w-2xl"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -99,16 +110,16 @@ export default function Process() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="glass border-flow rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 md:p-12 text-center [--flow-opacity:1]"
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="glass border-flow rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 text-center [--flow-opacity:1] shadow-xl"
             >
-              <span className="eyebrow text-xs text-secondary">
+              <span className="eyebrow text-xs text-secondary font-mono">
                 Step 0{activeStep + 1} of 0{processSteps.length}
               </span>
-              <h3 className="mt-4 font-display text-3xl font-semibold text-foreground md:text-4xl">
+              <h3 className="mt-3 font-display text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
                 {processSteps[activeStep].title}
               </h3>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+              <p className="mt-3 text-sm sm:text-base leading-relaxed text-muted-foreground max-w-[700px] mx-auto">
                 {processSteps[activeStep].text}
               </p>
             </motion.div>
@@ -117,11 +128,11 @@ export default function Process() {
 
         {/* Mobile Step Selectors */}
         <motion.div
-          className="mt-10 flex flex-wrap justify-center gap-2 md:hidden"
-          initial={{ opacity: 0, y: 40 }}
+          className="mt-8 flex flex-wrap justify-center gap-2 md:hidden"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.25 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           {processSteps.map((step, idx) => (
             <button
@@ -131,7 +142,7 @@ export default function Process() {
                 setActiveStep(idx);
               }}
               className={cn(
-                'rounded-full px-4 py-2 text-xs font-medium transition-all',
+                'rounded-full px-4 py-2 text-xs font-semibold transition-all cursor-pointer',
                 activeStep === idx
                   ? 'bg-flow text-primary-foreground shadow-glow-sea'
                   : 'glass text-muted-foreground'
@@ -145,4 +156,3 @@ export default function Process() {
     </section>
   );
 }
-
