@@ -35,7 +35,15 @@ export default function Portfolio() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Parallax flow while user scrolls across the portfolio
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // Parallax flow while user scrolls across the portfolio (active on desktop 3-col layout)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start']
@@ -138,14 +146,14 @@ export default function Portfolio() {
                   <motion.div
                     layout
                     key={item.name}
-                    style={{ y: idx % 2 === 0 ? parallaxUp : parallaxDown }}
+                    style={{ y: isDesktop ? (idx % 2 === 0 ? parallaxUp : parallaxDown) : 0 }}
                     className="h-full"
                   >
                     <motion.div
                       initial={{
                         opacity: 0,
-                        y: scrollDir === 'down' ? 75 : -75,
-                        scale: 0.94
+                        y: scrollDir === 'down' ? 40 : -40,
+                        scale: 0.96
                       }}
                       whileInView={{
                         opacity: 1,
@@ -153,7 +161,7 @@ export default function Portfolio() {
                         scale: 1
                       }}
                       exit={{ opacity: 0, scale: 0.9 }}
-                      viewport={{ once: false, amount: 0.12 }}
+                      viewport={{ once: true, amount: 0.1 }}
                       transition={{
                         duration: 0.75,
                         delay: (idx % 3) * 0.08,

@@ -46,15 +46,15 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 70, clipPath: 'inset(14% 0% 14% 0% round 2rem)' }}
-      whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0% round 2rem)' }}
-      viewport={{ once: false, amount: 0.2 }}
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{
-        duration: 1.2,
-        delay: i * 0.14,
+        duration: 0.6,
+        delay: i * 0.08,
         ease: [0.22, 1, 0.36, 1]
       }}
-      className={cn('animate-float', i % 3 === 1 && 'lg:translate-y-16')}
+      className={cn('lg:animate-float w-full', i % 3 === 1 && 'lg:translate-y-16')}
       style={{
         animationDelay: `${-i * 1.3}s`,
         animationDuration: `${7 + (i % 3)}s`
@@ -65,6 +65,8 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={handleMouseLeave}
+        onTouchEnd={handleMouseLeave}
+        onTouchCancel={handleMouseLeave}
         onFocus={() => setHovered(true)}
         onBlur={() => setHovered(false)}
         tabIndex={0}
@@ -76,7 +78,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         }}
         animate={{ y: hovered ? -14 : 0 }}
         transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-        className="glass border-flow group relative h-full min-h-[300px] sm:min-h-[340px] overflow-hidden rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 outline-none cursor-pointer"
+        className="glass border-flow group relative h-full min-h-[280px] sm:min-h-[340px] overflow-hidden rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 outline-none cursor-pointer flex flex-col justify-between w-full"
         data-cursor="true"
       >
         {/* Wave Passing Shimmer Flare */}
@@ -133,7 +135,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
 export default function Services() {
   return (
-    <section id="services" className="relative scroll-mt-20 px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44 overflow-hidden">
+    <section id="services" className="relative scroll-mt-20 px-4 sm:px-6 py-14 sm:py-24 md:py-36 lg:py-44 overflow-hidden">
       {/* FLOWING DIGITAL WATER WAVE SWEEPING ACROSS SECTION */}
       <div className="pointer-events-none absolute inset-x-0 top-12 h-32 overflow-hidden opacity-40">
         <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-[200%] animate-pulse">
@@ -159,14 +161,14 @@ export default function Services() {
       <div className="mx-auto max-w-7xl">
         {/* Section Header with bottom-to-up scroll animation */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 sm:mb-12 lg:mb-16"
         >
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
               <Waves className="h-4 w-4 text-[#0066CC]" />
               <p className="eyebrow text-[#0066CC]">
                 Services
@@ -174,14 +176,14 @@ export default function Services() {
             </div>
             <SplitText
               text="Six currents. One flow."
-              className="font-display text-4xl font-semibold tracking-tight text-foreground md:text-5xl lg:text-6xl"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground"
               highlight={[3]}
             />
           </div>
         </motion.div>
 
-        {/* 6 Services Grid (Each appears as the wave passes) */}
-        <div className="mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:pb-16">
+        {/* 6 Services Grid (Each appears cleanly aligned on all screen sizes) */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:pb-16 items-stretch">
           {services.map((s, i) => (
             <ServiceCard key={s.id} s={s} i={i} />
           ))}

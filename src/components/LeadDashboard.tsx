@@ -2507,7 +2507,10 @@ ${req.notes || 'No special notes logged.'}
                         backgroundColor: '#FFFFFF',
                         borderColor: '#D8E7F5',
                       }}
-                      className="p-4 rounded-[14px] border shadow-xs hover:border-[#0066CC] hover:shadow-[0_8px_20px_rgba(0,102,204,0.10)] hover:-translate-y-0.5 transition-all cursor-pointer group flex flex-col justify-between"
+                      className={cn(
+                        'p-4 rounded-[14px] border shadow-xs hover:border-[#0066CC] hover:shadow-[0_8px_20px_rgba(0,102,204,0.10)] hover:-translate-y-0.5 transition-all cursor-pointer group flex flex-col justify-between',
+                        idx === 4 && 'col-span-2 sm:col-span-1 lg:col-span-1'
+                      )}
                     >
                       <div className="flex items-center justify-between pb-2">
                         <span className="text-[11px] font-mono font-bold text-[#64748B] uppercase">{st.title}</span>
@@ -2570,7 +2573,7 @@ ${req.notes || 'No special notes logged.'}
               </div>
 
               {/* 4. Two Large Responsive Interactive Selection Cards */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-8 items-stretch">
                 {/* ------------------------------------------------- */}
                 {/* CARD 1: CRM & CLIENTS ACQUISITION                 */}
                 {/* ------------------------------------------------- */}
@@ -2580,7 +2583,7 @@ ${req.notes || 'No special notes logged.'}
                     borderColor: '#D8E7F5',
                     boxShadow: '0 8px 30px rgba(0, 102, 204, 0.08)',
                   }}
-                  className="rounded-[20px] border p-8 flex flex-col justify-between transition-all duration-300 hover:border-[#0066CC] hover:shadow-[0_20px_45px_rgba(0,102,204,0.18)] hover:-translate-y-1.5 group cursor-pointer relative overflow-hidden"
+                  className="rounded-[20px] border p-5 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-[#0066CC] hover:shadow-[0_20px_45px_rgba(0,102,204,0.18)] hover:-translate-y-1.5 group cursor-pointer relative overflow-hidden"
                   onClick={() => {
                     setSelectedSuite('crm');
                     setActiveModule('dashboard');
@@ -2614,20 +2617,20 @@ ${req.notes || 'No special notes logged.'}
                     </div>
 
                     {/* Live Metric Pills */}
-                    <div className="grid grid-cols-3 gap-3 pt-2">
-                      <div className="p-3.5 rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
-                        <span className="text-[11px] font-mono text-[#64748B] block font-medium">Leads</span>
-                        <span className="text-xl font-extrabold text-[#0066CC] font-mono block">{leads.length}</span>
+                    <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-2">
+                      <div className="p-2.5 sm:p-3.5 rounded-[12px] sm:rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
+                        <span className="text-[10px] sm:text-[11px] font-mono text-[#64748B] block font-medium">Leads</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-[#0066CC] font-mono block">{leads.length}</span>
                       </div>
-                      <div className="p-3.5 rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
-                        <span className="text-[11px] font-mono text-[#64748B] block font-medium">Clients</span>
-                        <span className="text-xl font-extrabold text-emerald-600 font-mono block">
+                      <div className="p-2.5 sm:p-3.5 rounded-[12px] sm:rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
+                        <span className="text-[10px] sm:text-[11px] font-mono text-[#64748B] block font-medium">Clients</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-emerald-600 font-mono block">
                           {leads.filter((l) => l.status === 'Converted').length}
                         </span>
                       </div>
-                      <div className="p-3.5 rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
-                        <span className="text-[11px] font-mono text-[#64748B] block font-medium">Projects</span>
-                        <span className="text-xl font-extrabold text-[#0052A3] font-mono block">{leads.length}</span>
+                      <div className="p-2.5 sm:p-3.5 rounded-[12px] sm:rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
+                        <span className="text-[10px] sm:text-[11px] font-mono text-[#64748B] block font-medium">Projects</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-[#0052A3] font-mono block">{leads.length}</span>
                       </div>
                     </div>
 
@@ -2653,7 +2656,7 @@ ${req.notes || 'No special notes logged.'}
                   </div>
 
                   {/* Primary Enter CRM Button */}
-                  <div className="pt-8">
+                  <div className="pt-6 sm:pt-8">
                     <button
                       type="button"
                       onClick={(e) => {
@@ -2685,7 +2688,7 @@ ${req.notes || 'No special notes logged.'}
                     borderColor: '#D8E7F5',
                     boxShadow: '0 8px 30px rgba(0, 102, 204, 0.08)',
                   }}
-                  className="rounded-[20px] border p-8 flex flex-col justify-between transition-all duration-300 hover:border-[#0066CC] hover:shadow-[0_20px_45px_rgba(0,102,204,0.18)] hover:-translate-y-1.5 group cursor-pointer relative overflow-hidden"
+                  className="rounded-[20px] border p-5 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:border-[#0066CC] hover:shadow-[0_20px_45px_rgba(0,102,204,0.18)] hover:-translate-y-1.5 group cursor-pointer relative overflow-hidden"
                   onClick={() => {
                     setSelectedSuite('recruitment');
                     setActiveModule('recruitment-dashboard');
@@ -2719,18 +2722,18 @@ ${req.notes || 'No special notes logged.'}
                     </div>
 
                     {/* Live Metric Pills */}
-                    <div className="grid grid-cols-3 gap-3 pt-2">
-                      <div className="p-3.5 rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
-                        <span className="text-[11px] font-mono text-[#64748B] block font-medium">Openings</span>
-                        <span className="text-xl font-extrabold text-[#0066CC] font-mono block">{jobs.length}</span>
+                    <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-2">
+                      <div className="p-2.5 sm:p-3.5 rounded-[12px] sm:rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
+                        <span className="text-[10px] sm:text-[11px] font-mono text-[#64748B] block font-medium">Openings</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-[#0066CC] font-mono block">{jobs.length}</span>
                       </div>
-                      <div className="p-3.5 rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
-                        <span className="text-[11px] font-mono text-[#64748B] block font-medium">Applicants</span>
-                        <span className="text-xl font-extrabold text-sky-600 font-mono block">{applications.length}</span>
+                      <div className="p-2.5 sm:p-3.5 rounded-[12px] sm:rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
+                        <span className="text-[10px] sm:text-[11px] font-mono text-[#64748B] block font-medium">Applicants</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-sky-600 font-mono block">{applications.length}</span>
                       </div>
-                      <div className="p-3.5 rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
-                        <span className="text-[11px] font-mono text-[#64748B] block font-medium">Interviews</span>
-                        <span className="text-xl font-extrabold text-[#0052A3] font-mono block">{interviews.length}</span>
+                      <div className="p-2.5 sm:p-3.5 rounded-[12px] sm:rounded-[14px] bg-[#F8FAFC] border border-[#D8E7F5] text-center space-y-0.5">
+                        <span className="text-[10px] sm:text-[11px] font-mono text-[#64748B] block font-medium">Interviews</span>
+                        <span className="text-lg sm:text-xl font-extrabold text-[#0052A3] font-mono block">{interviews.length}</span>
                       </div>
                     </div>
 
@@ -3717,6 +3720,7 @@ ${req.notes || 'No special notes logged.'}
                       key={idx}
                       className={cn(
                         'relative overflow-hidden rounded-[14px] p-4 text-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group cursor-default',
+                        idx === 6 && 'col-span-2 sm:col-span-1 lg:col-span-1',
                         `bg-gradient-to-br ${card.gradient}`
                       )}
                     >
