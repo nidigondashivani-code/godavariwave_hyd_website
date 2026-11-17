@@ -24,7 +24,7 @@ export default function Story() {
   const waveOpacity = useTransform(scrollYProgress, [0, 1], [0.18, 0.35]);
 
   return (
-    <section ref={containerRef} id="about" className="relative scroll-mt-20 overflow-hidden px-4 sm:px-6 py-28 sm:py-40 md:px-10 md:py-52 lg:py-60">
+    <section ref={containerRef} id="about" className="relative scroll-mt-20 overflow-hidden px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
       {/* Morphing Background Wave */}
       <svg
         className="pointer-events-none absolute inset-x-0 top-1/3 h-[70%] w-full"

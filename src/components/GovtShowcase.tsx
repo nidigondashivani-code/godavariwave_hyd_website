@@ -46,10 +46,10 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
         {/* Gradient Shadow Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-ocean via-ocean/30 to-transparent" />
 
-        {/* Bottom Glass Card - shifted inward towards the center with balanced alignment */}
-        <div className="glass absolute inset-x-4 sm:inset-x-6 bottom-4 sm:bottom-6 rounded-2xl sm:rounded-[1.75rem] px-6 sm:px-8 py-5 sm:py-7 transition-transform duration-700 group-hover:-translate-y-2">
-          <div className="flex items-center justify-between gap-3 sm:gap-4">
-            <div className="px-1 sm:px-2">
+        {/* Bottom Glass Card */}
+        <div className="glass absolute inset-x-3 sm:inset-x-4 bottom-3 sm:bottom-4 rounded-xl sm:rounded-[1.5rem] p-4 sm:p-6 transition-transform duration-700 group-hover:-translate-y-2">
+          <div className="flex items-start justify-between gap-3 sm:gap-4">
+            <div>
               <p className="eyebrow text-[0.65rem] text-secondary">{tag}</p>
               <h3 className="mt-1.5 sm:mt-2 font-display text-xl sm:text-2xl font-semibold text-foreground md:text-3xl">
                 {title}
@@ -61,7 +61,7 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
           </div>
 
           {text && (
-            <p className="mt-2.5 sm:mt-3 px-1 sm:px-2 max-h-0 overflow-hidden text-xs sm:text-sm text-muted-foreground opacity-0 transition-all duration-700 group-hover:max-h-24 group-hover:opacity-100">
+            <p className="mt-2.5 sm:mt-3 max-h-0 overflow-hidden text-xs sm:text-sm text-muted-foreground opacity-0 transition-all duration-700 group-hover:max-h-24 group-hover:opacity-100">
               {text}
             </p>
           )}
@@ -73,7 +73,7 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
 
 export default function GovtShowcase() {
   return (
-    <section id="solutions" className="relative scroll-mt-20 px-4 sm:px-6 py-28 sm:py-40 md:px-10 md:py-52 lg:py-60">
+    <section id="solutions" className="relative scroll-mt-20 px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -100,7 +100,7 @@ export default function GovtShowcase() {
         </motion.div>
 
         {/* Bento 12-Column Grid */}
-        <div className="mt-14 sm:mt-20 lg:mt-28 grid gap-8 sm:gap-10 md:grid-cols-12 pb-8 sm:pb-16 lg:pb-24">
+        <div className="mt-20 grid gap-6 md:grid-cols-12">
           {govtProjects.map((item, idx) => (
             <ShowcaseCard
               key={item.title}

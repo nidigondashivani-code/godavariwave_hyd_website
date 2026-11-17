@@ -55,7 +55,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-20 px-6 pt-24 pb-32 md:pt-32 md:pb-44 bg-[#0B1F3A]">
+    <section id="contact" className="relative scroll-mt-20 px-6 pt-16 pb-24 md:pt-20 md:pb-32 bg-[#0B1F3A]">
       <div className="mx-auto max-w-6xl">
         {/* Section Header: Left-aligned matching the screenshot */}
         <motion.div

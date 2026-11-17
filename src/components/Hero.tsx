@@ -91,7 +91,7 @@ export default function Hero() {
 
       {/* Metrics Floating Bar (Bottom to Up Scroll / Mount) */}
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-16 sm:pb-24 md:pb-28 md:px-10"
+        className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 pb-10 md:px-10"
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.15 }}

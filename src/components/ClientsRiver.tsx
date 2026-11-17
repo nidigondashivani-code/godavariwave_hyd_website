@@ -64,7 +64,7 @@ export default function ClientsRiver() {
   const row3 = clientLogos.slice(20);
 
   return (
-    <section className="relative overflow-hidden py-28 sm:py-40 md:py-52 lg:py-60">
+    <section className="relative overflow-hidden py-24 sm:py-32 md:py-44">
       {/* Background Ambient River Glow */}
       <div
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-full max-w-7xl bg-gradient-to-r from-transparent via-[#0066CC]/15 to-transparent blur-3xl"

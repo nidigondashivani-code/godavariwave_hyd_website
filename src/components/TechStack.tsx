@@ -17,7 +17,7 @@ export default function TechStack() {
   const [activeTab, setActiveTab] = useState<string | null>('ai');
 
   return (
-    <section id="technologies" className="relative px-4 sm:px-6 py-28 sm:py-40 md:px-10 md:py-52 lg:py-60">
+    <section id="technologies" className="relative px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

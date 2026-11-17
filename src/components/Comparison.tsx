@@ -17,7 +17,7 @@ export default function Comparison() {
   const [selectedTab, setSelectedTab] = useState<'gw' | 'trad'>('gw');
 
   return (
-    <section className="relative px-4 sm:px-6 py-28 sm:py-40 md:px-10 md:py-52 lg:py-60">
+    <section className="relative px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 sm:gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <motion.div
@@ -92,7 +92,7 @@ export default function Comparison() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.15 }}
                   transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="glass rounded-xl sm:rounded-2xl p-5 sm:p-7 md:p-8 transition-all duration-500 hover:border-sea/40"
+                  className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all duration-500 hover:border-sea/40"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -121,7 +121,7 @@ export default function Comparison() {
                     />
                   </div>
 
-                  <p className="mt-3.5 px-1 sm:px-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  <p className="mt-3 text-xs text-muted-foreground">
                     {text}
                   </p>
                 </motion.div>
