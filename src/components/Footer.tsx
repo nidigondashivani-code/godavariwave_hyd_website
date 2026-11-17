@@ -215,9 +215,9 @@ export default function Footer() {
         <HyderabadSkyline />
       </motion.div>
 
-      {/* Bottom Copyright Row */}
-      <div className="border-t border-glass-border/40 bg-[#061224] py-10 sm:py-12 mt-16 sm:mt-24 lg:mt-28">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-xs text-muted-foreground md:flex-row md:px-10">
+      {/* Bottom Copyright Row: Content below the invisible line moved down around 20px */}
+      <div className="border-t border-glass-border/40 bg-[#061224] pt-14 pb-10 sm:pt-16 sm:pb-12 mt-16 sm:mt-24 lg:mt-28">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-xs text-muted-foreground md:flex-row md:px-10 mt-5">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <img
               src="/images/gw-logo-mark.png"

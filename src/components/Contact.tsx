@@ -339,7 +339,8 @@ export default function Contact() {
                     <h4 className="font-display text-[20px] font-bold text-white mt-1">
                       {off.city}
                     </h4>
-                    <div className="mt-3 space-y-2.5 text-[14px] text-slate-300">
+                    {/* Address of Hyderabad office moved towards up side around 10px */}
+                    <div className={`mt-2 space-y-2 text-[14px] text-slate-300 ${off.city === 'Hyderabad' ? '-translate-y-[10px]' : ''}`}>
                       <div className="flex items-start gap-2.5 leading-relaxed">
                         <MapPin className="h-4 w-4 text-[#38BDF8] shrink-0 mt-0.5" />
                         <span className="break-words">{off.address}</span>
@@ -350,7 +351,7 @@ export default function Contact() {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-white/10">
+                  <div className="mt-3 pt-3 border-t border-white/10">
                     <a
                       href={off.map}
                       target="_blank"
@@ -367,7 +368,7 @@ export default function Contact() {
 
             {/* 3. Office Information Card on Tablet & Desktop (>=768px / md:flex): Interactive Selected Card */}
             <motion.div
-              className="hidden md:flex rounded-2xl bg-[#0F2442] border-white/10 border p-[22px] lg:p-[28px] shadow-2xl flex-col justify-between w-full"
+              className="hidden md:flex rounded-2xl bg-[#0F2442] border-white/10 border p-5 lg:p-6 shadow-2xl flex-col justify-between w-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
@@ -395,8 +396,8 @@ export default function Contact() {
                     {currentOffice.city}
                   </h3>
 
-                  {/* Location & Phone */}
-                  <div className="mt-3.5 space-y-2.5 text-sm text-slate-400">
+                  {/* Location & Phone: Address of Hyderabad office moved towards up side around 10px */}
+                  <div className={`mt-2 space-y-2 text-sm text-slate-400 ${currentOffice.city === 'Hyderabad' ? '-translate-y-[10px]' : ''}`}>
                     <div className="flex items-start gap-2.5 leading-relaxed">
                       <MapPin className="h-4 w-4 text-[#38BDF8] shrink-0 mt-0.5" />
                       <span className="break-words">{currentOffice.address}</span>
@@ -409,7 +410,7 @@ export default function Contact() {
                   </div>
 
                   {/* Open in Maps Link */}
-                  <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+                  <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2">
                     <a
                       href={currentOffice.map}
                       target="_blank"
@@ -438,10 +439,10 @@ export default function Contact() {
           </div>
 
           {/* ========================================================= */}
-          {/* RIGHT COLUMN: "Send us a message" Full Height Form Card */}
+          {/* RIGHT COLUMN: "Send us a message" Compact Reduced Form Card */}
           {/* ========================================================= */}
           <motion.div
-            className="rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-5 md:p-8 lg:p-10 shadow-2xl flex flex-col justify-between w-full"
+            className="rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-5 sm:p-6 md:p-7 shadow-2xl flex flex-col justify-between w-full"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
@@ -449,22 +450,22 @@ export default function Contact() {
           >
             <div>
               {/* Header Title & Subtitle */}
-              <h3 className="font-display text-[20px] md:text-2xl lg:text-3xl font-bold text-white tracking-tight">
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
                 Send us a message
               </h3>
-              <p className="mt-1.5 text-[14px] md:text-sm text-slate-400">
+              <p className="mt-1 text-xs sm:text-sm text-slate-400">
                 We'll promptly discuss your project with you.
               </p>
 
               {submitted ? (
-                <div className="py-12 md:py-16 text-center">
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#38BDF8]/20 border border-[#38BDF8]/40">
-                    <CheckCircle2 className="h-8 w-8 text-[#38BDF8]" />
+                <div className="py-8 sm:py-10 text-center">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#38BDF8]/20 border border-[#38BDF8]/40">
+                    <CheckCircle2 className="h-7 w-7 text-[#38BDF8]" />
                   </div>
-                  <h4 className="mt-4 font-display text-xl font-bold text-white">
+                  <h4 className="mt-3 font-display text-lg sm:text-xl font-bold text-white">
                     Message Sent!
                   </h4>
-                  <p className="mt-1.5 text-sm text-slate-400 max-w-sm mx-auto">
+                  <p className="mt-1 text-xs sm:text-sm text-slate-400 max-w-sm mx-auto">
                     Thank you, <span className="font-semibold text-white">{formData.name}</span>. Our team will review your inquiry and get back to you shortly.
                   </p>
                   <button
@@ -473,20 +474,20 @@ export default function Contact() {
                       setSubmitted(false);
                       setFormData({ name: '', email: '', phone: '', message: '' });
                     }}
-                    className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-xs font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_20px_rgba(32,178,170,0.35)] hover:scale-105 transition-all cursor-pointer"
+                    className="mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_20px_rgba(32,178,170,0.35)] hover:scale-105 transition-all cursor-pointer"
                   >
                     <span>Send another message</span>
                   </button>
                 </div>
               ) : (
-                /* Form with Minimal Clean Inputs: 50px pill/card on mobile (<768px), underline on tablet/desktop */
-                <form onSubmit={handleSubmit} className="mt-6 md:mt-8 space-y-4 md:space-y-7">
-                  {/* Row 1: FULL NAME & EMAIL (2 Columns on tablet/desktop, 1 column on mobile) */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                    <div className="space-y-1.5 md:space-y-2">
+                /* Compact Form with Reduced Element Sizes */
+                <form onSubmit={handleSubmit} className="mt-4 sm:mt-5 space-y-3 sm:space-y-4">
+                  {/* Row 1: FULL NAME & EMAIL */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                    <div className="space-y-1">
                       <label
                         htmlFor="name"
-                        className="block text-[14px] md:text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
+                        className="block text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
                       >
                         FULL NAME
                       </label>
@@ -498,14 +499,14 @@ export default function Contact() {
                         placeholder="Your full name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="h-[50px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-4 md:px-0 md:pb-2 text-[14px] md:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
+                        className="h-[42px] sm:h-[44px] md:h-[40px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-3.5 md:px-0 md:pb-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
                       />
                     </div>
 
-                    <div className="space-y-1.5 md:space-y-2">
+                    <div className="space-y-1">
                       <label
                         htmlFor="email"
-                        className="block text-[14px] md:text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
+                        className="block text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
                       >
                         EMAIL
                       </label>
@@ -517,16 +518,16 @@ export default function Contact() {
                         placeholder="yourname@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="h-[50px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-4 md:px-0 md:pb-2 text-[14px] md:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
+                        className="h-[42px] sm:h-[44px] md:h-[40px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-3.5 md:px-0 md:pb-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   {/* Row 2: PHONE (Full Width) */}
-                  <div className="space-y-1.5 md:space-y-2">
+                  <div className="space-y-1">
                     <label
-                        htmlFor="phone"
-                        className="block text-[14px] md:text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
+                      htmlFor="phone"
+                      className="block text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
                     >
                       PHONE
                     </label>
@@ -537,15 +538,15 @@ export default function Contact() {
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="h-[50px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-4 md:px-0 md:pb-2 text-[14px] md:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
+                      className="h-[42px] sm:h-[44px] md:h-[40px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-3.5 md:px-0 md:pb-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
                     />
                   </div>
 
                   {/* Row 3: YOUR PROJECT (Full Width Textarea) */}
-                  <div className="space-y-1.5 md:space-y-2">
+                  <div className="space-y-1">
                     <label
                       htmlFor="message"
-                      className="block text-[14px] md:text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
+                      className="block text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
                     >
                       YOUR PROJECT
                     </label>
@@ -553,38 +554,38 @@ export default function Contact() {
                       id="message"
                       name="message"
                       required
-                      rows={3}
+                      rows={2}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full min-h-[100px] md:min-h-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 p-4 md:p-0 md:pb-2 text-[14px] md:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all resize-none leading-relaxed"
+                      className="w-full min-h-[75px] sm:min-h-[80px] md:min-h-[70px] rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 p-3 md:p-0 md:pb-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all resize-none leading-relaxed"
                       placeholder="Tell us about your project requirements..."
                     />
                   </div>
 
                   {/* Submit Button: Full-width on mobile (<768px), auto on tablet/desktop */}
-                  <div className="pt-2">
+                  <div className="pt-1 sm:pt-2">
                     <button
                       type="submit"
                       data-cursor="true"
-                      className="w-full md:w-auto min-h-[50px] md:min-h-0 relative group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-[15px] md:text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_24px_rgba(0,102,204,0.4)] hover:shadow-[0_0_32px_rgba(0,212,255,0.5)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                      className="w-full md:w-auto min-h-[44px] sm:min-h-[46px] md:min-h-0 relative group inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_20px_rgba(0,102,204,0.35)] hover:shadow-[0_0_28px_rgba(0,212,255,0.45)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
                     >
                       <span>Send request</span>
-                      <Send className="h-4 w-4 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <Send className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </button>
                   </div>
                 </form>
               )}
             </div>
 
-            {/* Bottom Contact Details: Vertical stack with 56px min-height on mobile (<768px), 2-column grid on desktop */}
-            <div className="mt-8 md:mt-10 pt-6 border-t border-slate-800/80 flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-x-6 md:gap-y-3.5 text-[14px] md:text-xs text-slate-300 md:text-slate-400">
+            {/* Bottom Contact Details: Vertical stack with 46px min-height on mobile, 2-column grid on desktop */}
+            <div className="mt-5 sm:mt-6 pt-4 border-t border-slate-800/80 flex flex-col md:grid md:grid-cols-2 gap-2.5 md:gap-x-4 md:gap-y-2 text-xs text-slate-300 md:text-slate-400">
               {/* 1. Phone */}
               <a
                 href={`tel:${companyInfo.phones[0].replace(/\s/g, '')}`}
-                className="flex items-center gap-3.5 min-h-[56px] px-4 py-3 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
+                className="flex items-center gap-3 min-h-[46px] px-3.5 py-2.5 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
               >
-                <div className="flex h-10 w-10 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
-                  <Phone className="h-4 w-4 md:h-3.5 md:w-3.5 text-[#38BDF8]" />
+                <div className="flex h-8 w-8 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
+                  <Phone className="h-3.5 w-3.5 text-[#38BDF8]" />
                 </div>
                 <span className="whitespace-nowrap font-medium text-white md:text-slate-400">{companyInfo.phones[0]}</span>
               </a>
@@ -592,18 +593,18 @@ export default function Contact() {
               {/* 2. Primary Email */}
               <a
                 href={`mailto:${companyInfo.emails.info}`}
-                className="flex items-center gap-3.5 min-h-[56px] px-4 py-3 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
+                className="flex items-center gap-3 min-h-[46px] px-3.5 py-2.5 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
               >
-                <div className="flex h-10 w-10 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
-                  <Mail className="h-4 w-4 md:h-3.5 md:w-3.5 text-[#38BDF8]" />
+                <div className="flex h-8 w-8 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
+                  <Mail className="h-3.5 w-3.5 text-[#38BDF8]" />
                 </div>
                 <span className="break-all font-medium text-white md:text-slate-400">{companyInfo.emails.info}</span>
               </a>
 
               {/* 3. Business Hours */}
-              <div className="flex items-center gap-3.5 min-h-[56px] px-4 py-3 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 w-full">
-                <div className="flex h-10 w-10 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
-                  <Clock className="h-4 w-4 md:h-3.5 md:w-3.5 text-[#38BDF8]" />
+              <div className="flex items-center gap-3 min-h-[46px] px-3.5 py-2.5 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 w-full">
+                <div className="flex h-8 w-8 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
+                  <Clock className="h-3.5 w-3.5 text-[#38BDF8]" />
                 </div>
                 <span className="font-medium text-white md:text-slate-400">{companyInfo.hours}</span>
               </div>
@@ -611,10 +612,10 @@ export default function Contact() {
               {/* 4. HR Email */}
               <a
                 href={`mailto:${companyInfo.emails.hr}`}
-                className="flex items-center gap-3.5 min-h-[56px] px-4 py-3 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
+                className="flex items-center gap-3 min-h-[46px] px-3.5 py-2.5 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
               >
-                <div className="flex h-10 w-10 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
-                  <Mail className="h-4 w-4 md:h-3.5 md:w-3.5 text-[#38BDF8]" />
+                <div className="flex h-8 w-8 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
+                  <Mail className="h-3.5 w-3.5 text-[#38BDF8]" />
                 </div>
                 <span className="break-all font-medium text-white md:text-slate-400">{companyInfo.emails.hr}</span>
               </a>
