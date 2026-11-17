@@ -164,8 +164,8 @@ export default function Services() {
         </svg>
       </div>
 
-      <div className="mx-auto max-w-[1400px]">
-        {/* Section Header with consistent spacing: Label -> 12px -> Heading -> 18px -> Description -> 40px -> Cards */}
+      <div className="mx-auto max-w-[1450px]">
+        {/* Section Header with consistent spacing: Label -> 12px -> Heading (42px) -> 18px -> Description (18px) -> 40px -> Cards */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -182,10 +182,10 @@ export default function Services() {
             </div>
             <SplitText
               text="Six currents. One flow."
-              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
+              className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
               highlight={[3]}
             />
-            <p className="mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
               Helping businesses build modern digital products — from responsive web apps and cloud architecture to AI solutions and enterprise platforms.
             </p>
           </div>

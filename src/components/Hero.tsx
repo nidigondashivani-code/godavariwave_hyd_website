@@ -20,7 +20,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
 
       {/* Hero Content - Centered text alignment, max 700px width on description, strict spacing */}
-      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col items-center justify-center text-center px-5 md:px-8 lg:px-10 xl:px-12 pt-32 pb-14">
+      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[1450px] flex-1 flex-col items-center justify-center text-center px-5 md:px-8 lg:px-10 xl:px-12 pt-32 pb-14">
         {/* Eyebrow Badge (12px spacing to heading) */}
         <motion.p
           className="eyebrow mb-3 inline-flex items-center justify-center gap-2 sm:gap-2.5 text-[#38BDF8] text-[11px] sm:text-xs font-mono tracking-wider"
@@ -36,9 +36,9 @@ export default function Hero() {
           <span>Godavari Wave Technologies · 2026 Hyderabad</span>
         </motion.p>
 
-        {/* Display Heading matching authentic website (18px spacing to description) */}
+        {/* Display Heading: 60px on Desktop, 18px spacing to description */}
         <motion.h1
-          className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold leading-[1.08] sm:leading-[1.02] max-w-4xl mx-auto text-foreground tracking-tight"
+          className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[60px] font-bold leading-[1.1] max-w-4xl mx-auto text-foreground tracking-tight"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -51,9 +51,9 @@ export default function Hero() {
           Digital Experiences
         </motion.h1>
 
-        {/* Subtitle - Maximum 700px width, 18px from heading, consistent line height */}
+        {/* Subtitle - 18px typography scale, Maximum 700px width, 18px from heading */}
         <motion.p
-          className="mt-[18px] max-w-[700px] mx-auto text-base sm:text-lg md:text-xl text-white/85 leading-relaxed"
+          className="mt-[18px] max-w-[700px] mx-auto text-[16px] sm:text-[18px] text-white/85 leading-relaxed"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -91,7 +91,7 @@ export default function Hero() {
 
       {/* Metrics Floating Bar - Cards fade upward, count up animation, 32px desktop gap, 28px padding */}
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-10 xl:px-12 pb-14 sm:pb-20"
+        className="relative z-10 mx-auto w-full max-w-[1450px] px-5 md:px-8 lg:px-10 xl:px-12 pb-14 sm:pb-20"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}

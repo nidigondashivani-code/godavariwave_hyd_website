@@ -63,12 +63,12 @@ export default function ClientsRiver() {
     <section className="relative overflow-hidden py-[80px] md:py-[100px] lg:py-[120px] px-5 md:px-8 lg:px-10 xl:px-12">
       {/* Background Ambient River Glow */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-full max-w-[1400px] bg-gradient-to-r from-transparent via-[#0066CC]/15 to-transparent blur-3xl"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-full max-w-[1450px] bg-gradient-to-r from-transparent via-[#0066CC]/15 to-transparent blur-3xl"
         aria-hidden="true"
       />
 
       <motion.div
-        className="mx-auto max-w-[1400px] text-center"
+        className="mx-auto max-w-[1450px] text-center"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -79,13 +79,13 @@ export default function ClientsRiver() {
           480+ TRUSTED CLIENTS
         </div>
 
-        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+        <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white leading-[1.15]">
           A river of{' '}
           <span className="bg-gradient-to-r from-[#FFFFFF] via-[#38BDF8] to-[#00D4FF] bg-clip-text text-transparent">
             partners.
           </span>
         </h2>
-        <p className="mx-auto mt-[18px] max-w-[700px] text-base sm:text-lg text-sky-100/80 leading-relaxed">
+        <p className="mx-auto mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-sky-100/80 leading-relaxed">
           Powering ambitious startups, regional businesses, and government initiatives across Andhra Pradesh, Telangana, and global markets.
         </p>
       </motion.div>

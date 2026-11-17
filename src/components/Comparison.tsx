@@ -18,7 +18,7 @@ export default function Comparison() {
 
   return (
     <section className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1450px]">
         <div className="grid gap-12 sm:gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -27,13 +27,13 @@ export default function Comparison() {
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             <p className="eyebrow mb-3">Why Godavari Wave</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
               Not another{' '}
               <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
                 IT vendor.
               </span>
             </h2>
-            <p className="mt-[18px] max-w-[700px] text-base sm:text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] leading-relaxed text-muted-foreground">
               We replace fragmented freelancers and rigid legacy IT firms with an agile, high-velocity engineering partner that cares about your bottom line.
             </p>
 

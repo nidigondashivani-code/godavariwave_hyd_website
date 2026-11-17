@@ -33,8 +33,8 @@ export default function Portfolio() {
 
   return (
     <section ref={sectionRef} id="portfolio" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px]">
-      <div className="mx-auto max-w-[1400px]">
-        {/* Header with consistent layout: Label -> 12px -> Heading -> 18px -> Description */}
+      <div className="mx-auto max-w-[1450px]">
+        {/* Header with consistent layout: Label -> 12px -> Heading (42px) -> 18px -> Description (18px) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -44,14 +44,14 @@ export default function Portfolio() {
         >
           <div>
             <p className="eyebrow mb-3">Portfolio</p>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
               Engineered for{' '}
               <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
                 real impact.
               </span>
             </h2>
           </div>
-          <p className="max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed mt-[18px] lg:mt-0">
+          <p className="max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed mt-[18px] lg:mt-0">
             A glimpse into production-grade consumer apps, logistics dispatchers, and SaaS platforms delivered by Godavari Wave.
           </p>
         </motion.div>

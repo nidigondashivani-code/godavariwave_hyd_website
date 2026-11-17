@@ -42,7 +42,7 @@ export default function Story() {
         <motion.path d={wavePath} fill="url(#story-grad)" style={{ opacity: waveOpacity }} />
       </svg>
 
-      <div className="relative mx-auto grid max-w-[1400px] gap-12 sm:gap-16 lg:grid-cols-[1fr_1.1fr]">
+      <div className="relative mx-auto grid max-w-[1450px] gap-12 sm:gap-16 lg:grid-cols-[1fr_1.1fr]">
         {/* Sticky narrative column */}
         <div className="lg:sticky lg:top-32 lg:self-start">
           <motion.div
@@ -58,13 +58,13 @@ export default function Story() {
 
             <SplitText
               text="From the banks of the Godavari to the world."
-              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
+              className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
               highlight={[5]}
             />
           </motion.div>
 
           <motion.p
-            className="mt-[18px] max-w-[700px] text-base sm:text-lg leading-relaxed text-muted-foreground"
+            className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] leading-relaxed text-muted-foreground"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}

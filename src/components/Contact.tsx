@@ -56,7 +56,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px] bg-[#0B1F3A]">
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1450px]">
         {/* Section Header: Left-aligned with 40px spacing before cards */}
         <motion.div
           className="mb-10 sm:mb-12 text-left"

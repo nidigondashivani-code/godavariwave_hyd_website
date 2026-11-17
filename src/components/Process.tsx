@@ -17,7 +17,7 @@ export default function Process() {
 
   return (
     <section className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div
           className="text-center"
@@ -27,13 +27,13 @@ export default function Process() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <p className="eyebrow mb-3">How we work</p>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
             Idea to impact,{' '}
             <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
               in one current.
             </span>
           </h2>
-          <p className="mx-auto mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="mx-auto mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
             Our structured agile framework eliminates guesswork and turns complex ideas into market-ready realities.
           </p>
         </motion.div>

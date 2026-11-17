@@ -74,7 +74,7 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
 export default function GovtShowcase() {
   return (
     <section id="solutions" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -87,10 +87,10 @@ export default function GovtShowcase() {
             <p className="eyebrow mb-3">Selected work</p>
             <SplitText
               text="Platforms a state runs on."
-              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
+              className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
               highlight={[0]}
             />
-            <p className="mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
               Mission-critical governance portals, disaster response apps, and public distribution pipelines engineered for millions of citizens.
             </p>
           </div>

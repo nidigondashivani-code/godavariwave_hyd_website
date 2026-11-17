@@ -97,10 +97,10 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-8">
+    <header className="fixed inset-x-0 top-0 z-50 px-5 pt-4 md:px-8 xl:px-12">
       <div
         className={cn(
-          'mx-auto flex h-16 max-w-7xl items-center justify-between rounded-full px-4 transition-all duration-700 md:px-6',
+          'mx-auto flex h-16 max-w-[1450px] items-center justify-between rounded-full px-4 transition-all duration-700 md:px-6',
           scrolled ? 'glass border border-glass-border shadow-2xl' : 'border border-transparent'
         )}
       >
@@ -128,7 +128,7 @@ export default function Header() {
         </a>
 
         {/* Desktop Navigation with Active Section Highlight */}
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+        <nav className="hidden items-center gap-6 xl:gap-8 lg:flex" aria-label="Main">
           {navLinks.map((link) => {
             const isActive = activeSection === link.to;
 
@@ -221,7 +221,7 @@ export default function Header() {
 
           {/* Drawer Card */}
           <div className="glass fixed inset-x-4 top-24 z-50 max-h-[82dvh] overflow-y-auto rounded-3xl p-6 shadow-2xl lg:hidden">
-            <nav className="flex flex-col gap-2.5">
+            <nav className="flex flex-col gap-5">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.to;
 

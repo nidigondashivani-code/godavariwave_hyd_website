@@ -18,7 +18,7 @@ export default function TechStack() {
 
   return (
     <section id="technologies" className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
-      <div className="mx-auto max-w-[1400px]">
+      <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -28,13 +28,13 @@ export default function TechStack() {
           className="text-center"
         >
           <p className="eyebrow mb-3">Technologies</p>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
             Capsules of{' '}
             <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
               capability.
             </span>
           </h2>
-          <p className="mx-auto mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="mx-auto mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
             Click any capsule to explore our technical capabilities, frameworks, and production experience.
           </p>
         </motion.div>

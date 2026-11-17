@@ -58,7 +58,7 @@ export default function Testimonials() {
       {/* Background Oscillating Ribbon Waves */}
       <RibbonWaves className="top-1/2 h-[420px] -translate-y-1/3 opacity-70" count={6} />
 
-      <div className="relative mx-auto max-w-[1400px]">
+      <div className="relative mx-auto max-w-[1450px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -69,10 +69,10 @@ export default function Testimonials() {
           <p className="eyebrow mb-3">In their words</p>
           <SplitText
             text="Voices from the current."
-            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
+            className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
             highlight={[0]}
           />
-          <p className="mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
             Real feedback from enterprise leaders, startup founders, and public sector partners across India.
           </p>
         </motion.div>
