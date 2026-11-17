@@ -128,13 +128,13 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6 lg:gap-8 items-stretch w-full">
 
           {/* ========================================================= */}
-          {/* LEFT COLUMN: Map Card (Top) + Head Office Info Card (Bottom) */}
+          {/* LEFT COLUMN: Map Card (Top) + Office Locations (Bottom)    */}
           {/* ========================================================= */}
-          <div className="flex flex-col gap-5 sm:gap-6 justify-between w-full">
+          <div className="flex flex-col gap-5 md:gap-6 justify-between w-full">
 
-            {/* 1. Vector Map Card */}
+            {/* 1. Vector Map Card: 100% width, aspect-ratio preserved, rounded corners, no overflow */}
             <motion.div
-              className="relative aspect-[4/3] w-full min-h-[220px] sm:min-h-[400px] lg:min-h-[440px] rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-3 sm:p-6 overflow-hidden flex items-center justify-center shadow-2xl max-w-full"
+              className="relative aspect-[4/3] w-full min-h-[240px] md:min-h-[420px] lg:min-h-[440px] rounded-2xl md:rounded-3xl bg-[#0F2442] border-white/10 border p-3 md:p-6 overflow-hidden flex items-center justify-center shadow-2xl max-w-full"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
@@ -321,32 +321,58 @@ export default function Contact() {
               </button>
             </motion.div>
 
-            {/* 2. Office Information Card (Matches Screenshot Bottom Card) */}
+            {/* 2. Office Locations on Mobile (<768px): Stacked Vertically with 20px gap, 100% full width */}
+            <div className="flex flex-col gap-5 md:hidden w-full">
+              {offices.map((off) => (
+                <div
+                  key={off.city}
+                  className="w-full rounded-2xl bg-[#0F2442] border border-white/10 p-5 shadow-xl flex flex-col justify-between"
+                >
+                  <div>
+                    <span className="text-[11px] font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
+                      {off.city === 'Hyderabad'
+                        ? 'HYDERABAD OFFICE'
+                        : off.hq
+                          ? 'GLOBAL HEADQUARTERS'
+                          : 'REGIONAL BRANCH'}
+                    </span>
+                    <h4 className="font-display text-[20px] font-bold text-white mt-1">
+                      {off.city}
+                    </h4>
+                    <div className="mt-3 space-y-2.5 text-[14px] text-slate-300">
+                      <div className="flex items-start gap-2.5 leading-relaxed">
+                        <MapPin className="h-4 w-4 text-[#38BDF8] shrink-0 mt-0.5" />
+                        <span className="break-words">{off.address}</span>
+                      </div>
+                      <div className="flex items-center gap-2.5">
+                        <Phone className="h-4 w-4 text-[#38BDF8] shrink-0" />
+                        <span className="whitespace-nowrap font-medium text-white">{off.phone}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-white/10">
+                    <a
+                      href={off.map}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#38BDF8] hover:text-[#00D4FF] transition-colors min-h-[44px]"
+                    >
+                      <span>Open in Maps</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* 3. Office Information Card on Tablet & Desktop (>=768px / md:flex): Interactive Selected Card */}
             <motion.div
-              className="rounded-xl sm:rounded-2xl bg-[#0F2442] border-white/10 border p-5 sm:p-[22px] lg:p-[28px] shadow-2xl flex flex-col justify-between w-full"
+              className="hidden md:flex rounded-2xl bg-[#0F2442] border-white/10 border p-[22px] lg:p-[28px] shadow-2xl flex-col justify-between w-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Mobile Office Selector Pill Tabs */}
-              <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none sm:hidden mb-2">
-                {offices.map((off, idx) => (
-                  <button
-                    key={off.city}
-                    type="button"
-                    onClick={() => setSelectedOffice(idx)}
-                    className={`whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-medium transition-all cursor-pointer ${
-                      selectedOffice === idx
-                        ? 'bg-[#38BDF8] text-slate-950 font-semibold shadow-sm'
-                        : 'bg-white/5 text-slate-300 border border-white/10'
-                    }`}
-                  >
-                    {off.city}
-                  </button>
-                ))}
-              </div>
-
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentOffice.city}
@@ -356,7 +382,7 @@ export default function Contact() {
                   transition={{ duration: 0.2 }}
                 >
                   {/* Eyebrow Label: Shows Hyderabad Office by default */}
-                  <span className="text-[11px] sm:text-xs font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
+                  <span className="text-xs font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
                     {currentOffice.city === 'Hyderabad'
                       ? 'HYDERABAD OFFICE'
                       : currentOffice.hq
@@ -365,12 +391,12 @@ export default function Contact() {
                   </span>
 
                   {/* Office City Title */}
-                  <h3 className="font-display text-[20px] sm:text-2xl font-bold text-white mt-1">
+                  <h3 className="font-display text-2xl font-bold text-white mt-1">
                     {currentOffice.city}
                   </h3>
 
                   {/* Location & Phone */}
-                  <div className="mt-3.5 space-y-2.5 text-[14px] sm:text-sm text-slate-400">
+                  <div className="mt-3.5 space-y-2.5 text-sm text-slate-400">
                     <div className="flex items-start gap-2.5 leading-relaxed">
                       <MapPin className="h-4 w-4 text-[#38BDF8] shrink-0 mt-0.5" />
                       <span className="break-words">{currentOffice.address}</span>
@@ -415,7 +441,7 @@ export default function Contact() {
           {/* RIGHT COLUMN: "Send us a message" Full Height Form Card */}
           {/* ========================================================= */}
           <motion.div
-            className="rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-5 sm:p-8 md:p-10 shadow-2xl flex flex-col justify-between w-full"
+            className="rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-5 md:p-8 lg:p-10 shadow-2xl flex flex-col justify-between w-full"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
@@ -423,15 +449,15 @@ export default function Contact() {
           >
             <div>
               {/* Header Title & Subtitle */}
-              <h3 className="font-display text-[20px] sm:text-2xl md:text-3xl font-bold text-white tracking-tight">
+              <h3 className="font-display text-[20px] md:text-2xl lg:text-3xl font-bold text-white tracking-tight">
                 Send us a message
               </h3>
-              <p className="mt-1.5 text-[14px] sm:text-sm text-slate-400">
+              <p className="mt-1.5 text-[14px] md:text-sm text-slate-400">
                 We'll promptly discuss your project with you.
               </p>
 
               {submitted ? (
-                <div className="py-12 sm:py-16 text-center">
+                <div className="py-12 md:py-16 text-center">
                   <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#38BDF8]/20 border border-[#38BDF8]/40">
                     <CheckCircle2 className="h-8 w-8 text-[#38BDF8]" />
                   </div>
@@ -454,13 +480,13 @@ export default function Contact() {
                 </div>
               ) : (
                 /* Form with Minimal Clean Inputs: 50px pill/card on mobile (<768px), underline on tablet/desktop */
-                <form onSubmit={handleSubmit} className="mt-6 sm:mt-8 space-y-4 sm:space-y-7">
+                <form onSubmit={handleSubmit} className="mt-6 md:mt-8 space-y-4 md:space-y-7">
                   {/* Row 1: FULL NAME & EMAIL (2 Columns on tablet/desktop, 1 column on mobile) */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
-                    <div className="space-y-1.5 sm:space-y-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                    <div className="space-y-1.5 md:space-y-2">
                       <label
                         htmlFor="name"
-                        className="block text-[14px] sm:text-xs font-semibold text-slate-300 sm:text-slate-400 uppercase tracking-wider"
+                        className="block text-[14px] md:text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
                       >
                         FULL NAME
                       </label>
@@ -472,14 +498,14 @@ export default function Contact() {
                         placeholder="Your full name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="h-[50px] w-full rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 sm:border-b sm:border-slate-700/80 px-4 sm:px-0 sm:pb-2 text-[14px] sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 sm:focus:bg-transparent focus:outline-none transition-all"
+                        className="h-[50px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-4 md:px-0 md:pb-2 text-[14px] md:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
                       />
                     </div>
 
-                    <div className="space-y-1.5 sm:space-y-2">
+                    <div className="space-y-1.5 md:space-y-2">
                       <label
                         htmlFor="email"
-                        className="block text-[14px] sm:text-xs font-semibold text-slate-300 sm:text-slate-400 uppercase tracking-wider"
+                        className="block text-[14px] md:text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
                       >
                         EMAIL
                       </label>
@@ -491,16 +517,16 @@ export default function Contact() {
                         placeholder="yourname@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="h-[50px] w-full rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 sm:border-b sm:border-slate-700/80 px-4 sm:px-0 sm:pb-2 text-[14px] sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 sm:focus:bg-transparent focus:outline-none transition-all"
+                        className="h-[50px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-4 md:px-0 md:pb-2 text-[14px] md:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   {/* Row 2: PHONE (Full Width) */}
-                  <div className="space-y-1.5 sm:space-y-2">
+                  <div className="space-y-1.5 md:space-y-2">
                     <label
-                      htmlFor="phone"
-                      className="block text-[14px] sm:text-xs font-semibold text-slate-300 sm:text-slate-400 uppercase tracking-wider"
+                        htmlFor="phone"
+                        className="block text-[14px] md:text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
                     >
                       PHONE
                     </label>
@@ -511,15 +537,15 @@ export default function Contact() {
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="h-[50px] w-full rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 sm:border-b sm:border-slate-700/80 px-4 sm:px-0 sm:pb-2 text-[14px] sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 sm:focus:bg-transparent focus:outline-none transition-all"
+                      className="h-[50px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-4 md:px-0 md:pb-2 text-[14px] md:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
                     />
                   </div>
 
                   {/* Row 3: YOUR PROJECT (Full Width Textarea) */}
-                  <div className="space-y-1.5 sm:space-y-2">
+                  <div className="space-y-1.5 md:space-y-2">
                     <label
                       htmlFor="message"
-                      className="block text-[14px] sm:text-xs font-semibold text-slate-300 sm:text-slate-400 uppercase tracking-wider"
+                      className="block text-[14px] md:text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
                     >
                       YOUR PROJECT
                     </label>
@@ -530,17 +556,17 @@ export default function Contact() {
                       rows={3}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full min-h-[90px] sm:min-h-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 sm:border-b sm:border-slate-700/80 p-4 sm:p-0 sm:pb-2 text-[14px] sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 sm:focus:bg-transparent focus:outline-none transition-all resize-none leading-relaxed"
+                      className="w-full min-h-[100px] md:min-h-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 p-4 md:p-0 md:pb-2 text-[14px] md:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all resize-none leading-relaxed"
                       placeholder="Tell us about your project requirements..."
                     />
                   </div>
 
-                  {/* Submit Button: Full-width on mobile, auto on tablet/desktop */}
+                  {/* Submit Button: Full-width on mobile (<768px), auto on tablet/desktop */}
                   <div className="pt-2">
                     <button
                       type="submit"
                       data-cursor="true"
-                      className="w-full sm:w-auto min-h-[50px] sm:min-h-0 relative group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-[15px] sm:text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_24px_rgba(0,102,204,0.4)] hover:shadow-[0_0_32px_rgba(0,212,255,0.5)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                      className="w-full md:w-auto min-h-[50px] md:min-h-0 relative group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-[15px] md:text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_24px_rgba(0,102,204,0.4)] hover:shadow-[0_0_32px_rgba(0,212,255,0.5)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
                     >
                       <span>Send request</span>
                       <Send className="h-4 w-4 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -551,46 +577,46 @@ export default function Contact() {
             </div>
 
             {/* Bottom Contact Details: Vertical stack with 56px min-height on mobile (<768px), 2-column grid on desktop */}
-            <div className="mt-8 sm:mt-10 pt-6 border-t border-slate-800/80 flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-x-6 sm:gap-y-3.5 text-[14px] sm:text-xs text-slate-300 sm:text-slate-400">
+            <div className="mt-8 md:mt-10 pt-6 border-t border-slate-800/80 flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-x-6 md:gap-y-3.5 text-[14px] md:text-xs text-slate-300 md:text-slate-400">
               {/* 1. Phone */}
               <a
                 href={`tel:${companyInfo.phones[0].replace(/\s/g, '')}`}
-                className="flex items-center gap-3 min-h-[56px] sm:min-h-0 px-4 py-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 hover:text-white transition-colors"
+                className="flex items-center gap-3.5 min-h-[56px] px-4 py-3 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
               >
-                <div className="flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 sm:bg-transparent shrink-0">
-                  <Phone className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-[#38BDF8]" />
+                <div className="flex h-10 w-10 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
+                  <Phone className="h-4 w-4 md:h-3.5 md:w-3.5 text-[#38BDF8]" />
                 </div>
-                <span className="whitespace-nowrap font-medium text-white sm:text-slate-400">{companyInfo.phones[0]}</span>
+                <span className="whitespace-nowrap font-medium text-white md:text-slate-400">{companyInfo.phones[0]}</span>
               </a>
 
               {/* 2. Primary Email */}
               <a
                 href={`mailto:${companyInfo.emails.info}`}
-                className="flex items-center gap-3 min-h-[56px] sm:min-h-0 px-4 py-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 hover:text-white transition-colors"
+                className="flex items-center gap-3.5 min-h-[56px] px-4 py-3 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
               >
-                <div className="flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 sm:bg-transparent shrink-0">
-                  <Mail className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-[#38BDF8]" />
+                <div className="flex h-10 w-10 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
+                  <Mail className="h-4 w-4 md:h-3.5 md:w-3.5 text-[#38BDF8]" />
                 </div>
-                <span className="break-all font-medium text-white sm:text-slate-400">{companyInfo.emails.info}</span>
+                <span className="break-all font-medium text-white md:text-slate-400">{companyInfo.emails.info}</span>
               </a>
 
               {/* 3. Business Hours */}
-              <div className="flex items-center gap-3 min-h-[56px] sm:min-h-0 px-4 py-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0">
-                <div className="flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 sm:bg-transparent shrink-0">
-                  <Clock className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-[#38BDF8]" />
+              <div className="flex items-center gap-3.5 min-h-[56px] px-4 py-3 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 w-full">
+                <div className="flex h-10 w-10 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
+                  <Clock className="h-4 w-4 md:h-3.5 md:w-3.5 text-[#38BDF8]" />
                 </div>
-                <span className="font-medium text-white sm:text-slate-400">{companyInfo.hours}</span>
+                <span className="font-medium text-white md:text-slate-400">{companyInfo.hours}</span>
               </div>
 
               {/* 4. HR Email */}
               <a
                 href={`mailto:${companyInfo.emails.hr}`}
-                className="flex items-center gap-3 min-h-[56px] sm:min-h-0 px-4 py-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 hover:text-white transition-colors"
+                className="flex items-center gap-3.5 min-h-[56px] px-4 py-3 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
               >
-                <div className="flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 sm:bg-transparent shrink-0">
-                  <Mail className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-[#38BDF8]" />
+                <div className="flex h-10 w-10 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
+                  <Mail className="h-4 w-4 md:h-3.5 md:w-3.5 text-[#38BDF8]" />
                 </div>
-                <span className="break-all font-medium text-white sm:text-slate-400">{companyInfo.emails.hr}</span>
+                <span className="break-all font-medium text-white md:text-slate-400">{companyInfo.emails.hr}</span>
               </a>
             </div>
           </motion.div>

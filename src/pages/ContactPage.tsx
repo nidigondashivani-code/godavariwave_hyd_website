@@ -4,7 +4,7 @@ import Contact from '../components/Contact';
 
 export default function ContactPage() {
   return (
-    <div className="relative">
+    <div className="relative w-full max-w-full overflow-x-hidden">
       <PageHero
         eyebrow="Contact"
         title="Let's start your journey."

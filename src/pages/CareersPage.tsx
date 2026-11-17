@@ -5,7 +5,7 @@ import Contact from '../components/Contact';
 
 export default function CareersPage() {
   return (
-    <div className="relative">
+    <div className="relative w-full max-w-full overflow-x-hidden">
       <PageHero
         eyebrow="Careers"
         title="Build the next wave with us."

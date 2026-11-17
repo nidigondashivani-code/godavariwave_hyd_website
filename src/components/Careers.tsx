@@ -137,7 +137,7 @@ export default function Careers() {
   };
 
   return (
-    <section id="careers" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[60px] sm:py-[80px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden text-foreground">
+    <section id="careers" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 sm:px-8 md:px-10 py-[60px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden text-foreground w-full max-w-full">
       {/* Top and Bottom Transition Vignettes for Smooth Section Breathing Gap */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent z-10" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-background to-transparent z-10" />
@@ -146,7 +146,7 @@ export default function Careers() {
       <div className="pointer-events-none absolute -top-40 right-0 h-[450px] w-[450px] rounded-full bg-[#0066CC]/15 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-40 left-0 h-[450px] w-[450px] rounded-full bg-[#00D4FF]/10 blur-[130px]" />
 
-      <div className="relative mx-auto max-w-[1450px] z-20">
+      <div className="relative mx-auto max-w-[1450px] z-20 w-full">
         {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
         <SectionHeader
           label="CAREERS"
@@ -195,19 +195,19 @@ export default function Careers() {
               </span>
             </div>
 
-            <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-sm break-words">
+            <h3 className="font-display text-[22px] min-[380px]:text-2xl sm:text-3xl font-extrabold text-white tracking-tight drop-shadow-sm break-words">
               Connect Directly with {hrContact.name}
             </h3>
             <p className="mt-1 text-[14px] sm:text-base font-semibold text-[#38BDF8]">
               {hrContact.role} · Godavari Wave Technologies
             </p>
-            <p className="mt-1.5 text-xs sm:text-sm text-sky-200/80 max-w-lg leading-relaxed">
+            <p className="mt-1.5 text-[15px] sm:text-sm text-sky-200/80 max-w-lg leading-relaxed">
               Reach out directly to our hiring desk for instant resume screening, interview scheduling, and application tracking.
             </p>
           </div>
 
-          {/* 3-Column Info Cards Grid: Email, Phone/WhatsApp, Campus - Bidirectional entrance */}
-          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 relative z-10 w-full">
+          {/* 3-Column Info Cards Grid: Email, Phone/WhatsApp, Campus - 20px gap on mobile */}
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-4 relative z-10 w-full">
             {/* Card 1: Official HR Email */}
             <motion.a
               initial={{ opacity: 0, y: 50 }}
@@ -215,7 +215,7 @@ export default function Careers() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               href={`mailto:${hrContact.email}?subject=Career%20Inquiry%20-%20Godavari%20Wave%20Technologies`}
-              className="group relative rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-4 sm:p-5 transition-all duration-300 hover:border-[#00D4FF]/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0066CC]/25 flex flex-col items-center text-center cursor-pointer min-h-[56px] justify-center"
+              className="group relative rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-5 transition-all duration-300 hover:border-[#00D4FF]/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0066CC]/25 flex flex-col items-center text-center cursor-pointer min-h-[56px] justify-center w-full"
             >
               <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#0066CC]/30 border border-[#0066CC]/50 text-[#00D4FF] mb-2 group-hover:scale-110 transition-transform">
                 <Mail className="h-5 w-5 text-[#00D4FF]" />
@@ -239,7 +239,7 @@ export default function Careers() {
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               href={`tel:${hrContact.phoneRaw}`}
-              className="group relative rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-4 sm:p-5 transition-all duration-300 hover:border-emerald-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/25 flex flex-col items-center text-center cursor-pointer min-h-[56px] justify-center"
+              className="group relative rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-5 transition-all duration-300 hover:border-emerald-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/25 flex flex-col items-center text-center cursor-pointer min-h-[56px] justify-center w-full"
             >
               <div className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 mb-2 group-hover:scale-110 transition-transform">
                 <Phone className="h-5 w-5 text-emerald-300" />
@@ -262,7 +262,7 @@ export default function Careers() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 flex flex-col items-center text-center min-h-[56px] justify-center"
+              className="rounded-2xl border border-white/15 bg-white/5 p-5 flex flex-col items-center text-center min-h-[56px] justify-center w-full"
             >
               <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#004E9A]/40 border border-[#38BDF8]/40 text-[#38BDF8] mb-2">
                 <MapPin className="h-5 w-5 text-[#38BDF8]" />
@@ -279,8 +279,8 @@ export default function Careers() {
             </motion.div>
           </div>
 
-          {/* Centered Direct Action Buttons - Full width stacked on mobile */}
-          <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/15 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 relative z-10 w-full">
+          {/* Centered Direct Action Buttons - Full width stacked on mobile, 50px height */}
+          <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/15 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-4 relative z-10 w-full">
             {/* Email HR Button */}
             <a
               href={`mailto:${hrContact.email}?subject=Career%20Application%20-%20Godavari%20Wave%20Technologies`}
