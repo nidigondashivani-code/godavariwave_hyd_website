@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, MessageSquare } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { navLinks } from '../data/companyData';
@@ -7,93 +7,43 @@ import { navLinks } from '../data/companyData';
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>(() => {
-    if (typeof window !== 'undefined' && window.location.hash) {
-      return window.location.hash;
+  const [currentPath, setCurrentPath] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return window.location.pathname.toLowerCase() || '/';
     }
-    return '#home';
+    return '/';
   });
 
   useEffect(() => {
-    const calculateActiveSection = () => {
-      const scrollY = window.scrollY;
-      setScrolled(scrollY > 30);
-
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      // 1. If reached bottom of document (within 120px), highlight last section (#contact)
-      if (windowHeight + scrollY >= documentHeight - 120) {
-        setActiveSection('#contact');
-        return;
-      }
-
-      // 2. If at top of page (Hero animations section), highlight #home
-      if (scrollY < 180) {
-        setActiveSection('#home');
-        return;
-      }
-
-      // 3. Scan sections in page order
-      // Trigger offset accounts for fixed navbar (approx 80px) plus visual margin
-      const triggerOffset = 220;
-      let current = '#home';
-
-      for (const link of navLinks) {
-        const id = link.to.replace('#', '');
-        const el = document.getElementById(id);
-        if (el) {
-          const top = el.getBoundingClientRect().top + scrollY;
-          if (scrollY >= top - triggerOffset) {
-            current = link.to;
-          }
-        }
-      }
-
-      setActiveSection(current);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
     };
 
-    calculateActiveSection();
-
-    window.addEventListener('scroll', calculateActiveSection, { passive: true });
-    window.addEventListener('resize', calculateActiveSection, { passive: true });
-
-    const handleHashChange = () => {
-      if (window.location.hash) {
-        setActiveSection(window.location.hash);
-      } else {
-        setActiveSection('#home');
-      }
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname.toLowerCase() || '/');
     };
-    window.addEventListener('hashchange', handleHashChange);
+
+    handleScroll();
+    handleLocationChange();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
 
     return () => {
-      window.removeEventListener('scroll', calculateActiveSection);
-      window.removeEventListener('resize', calculateActiveSection);
-      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
     };
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, to: string) => {
-    setActiveSection(to);
-    const targetId = to.replace('#', '');
-    const el = document.getElementById(targetId);
-    if (to === '#home' || to === '/') {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.history.pushState(null, '', to);
-    } else if (el) {
-      e.preventDefault();
-      el.scrollIntoView({ behavior: 'smooth' });
-      window.history.pushState(null, '', to);
-    }
-  };
-
-  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>, to: string) => {
     e.preventDefault();
-    setActiveSection('#home');
+    setMobileOpen(false);
+    window.history.pushState(null, '', to);
+    window.dispatchEvent(new Event('popstate'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    window.history.pushState(null, '', '#home');
+    setCurrentPath(to.toLowerCase());
   };
 
   return (
@@ -104,9 +54,10 @@ export default function Header() {
           scrolled ? 'glass border border-glass-border shadow-2xl' : 'border border-transparent'
         )}
       >
+        {/* Brand / Logo */}
         <a
           href="/"
-          onClick={handleLogoClick}
+          onClick={(e) => handleNavigate(e, '/')}
           className="group flex items-center gap-3 cursor-pointer"
           aria-label="Godavari Wave Technologies — home"
         >
@@ -127,16 +78,16 @@ export default function Header() {
           </span>
         </a>
 
-        {/* Desktop Navigation with Active Section Highlight */}
-        <nav className="hidden items-center gap-6 xl:gap-8 lg:flex" aria-label="Main">
+        {/* Desktop Navigation with Sliding Glass Pill Indicator */}
+        <nav className="hidden items-center gap-2 lg:flex" aria-label="Main">
           {navLinks.map((link) => {
-            const isActive = activeSection === link.to;
+            const isActive = currentPath === link.to.toLowerCase();
 
             return (
               <a
                 key={link.label}
                 href={link.to}
-                onClick={(e) => handleNavClick(e, link.to)}
+                onClick={(e) => handleNavigate(e, link.to)}
                 data-cursor="true"
                 className={cn(
                   'relative inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300',
@@ -179,22 +130,16 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Desktop Message Symbol Button */}
+        {/* Desktop "Let's talk" CTA Button (matching Lovable Header) */}
         <div className="hidden items-center gap-3 lg:flex">
           <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, '#contact')}
+            href="/contact"
+            onClick={(e) => handleNavigate(e, '/contact')}
             data-cursor="true"
-            aria-label="Send a message"
-            title="Send a message"
-            className={cn(
-              'group relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full transition-all duration-300 hover:scale-110',
-              activeSection === '#contact'
-                ? 'bg-gradient-to-r from-[#0066CC] to-[#00D4FF] text-white ring-2 ring-[#00D4FF] shadow-[0_0_22px_rgba(0,212,255,0.7)]'
-                : 'bg-flow text-primary-foreground shadow-glow-sea hover:shadow-glow-ember'
-            )}
+            className="group relative inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 px-5 py-2 text-sm font-semibold text-white shadow-md hover:shadow-[#00D4FF]/25 hover:border-[#00D4FF]/50 transition-all duration-300 cursor-pointer"
           >
-            <MessageSquare className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+            <span>Let's talk</span>
+            <ArrowUpRight className="h-4 w-4 text-[#38BDF8] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
 
@@ -221,18 +166,15 @@ export default function Header() {
 
           {/* Drawer Card */}
           <div className="glass fixed inset-x-4 top-24 z-50 max-h-[82dvh] overflow-y-auto rounded-3xl p-6 shadow-2xl lg:hidden">
-            <nav className="flex flex-col gap-5">
+            <nav className="flex flex-col gap-4">
               {navLinks.map((link) => {
-                const isActive = activeSection === link.to;
+                const isActive = currentPath === link.to.toLowerCase();
 
                 return (
                   <a
                     key={link.label}
                     href={link.to}
-                    onClick={(e) => {
-                      handleNavClick(e, link.to);
-                      setMobileOpen(false);
-                    }}
+                    onClick={(e) => handleNavigate(e, link.to)}
                     className={cn(
                       'relative flex items-center justify-between rounded-2xl px-5 py-3.5 text-base sm:text-lg font-medium transition-all duration-300',
                       isActive
@@ -265,20 +207,12 @@ export default function Header() {
 
               <div className="mt-3 border-t border-glass-border pt-4">
                 <a
-                  href="#contact"
-                  onClick={(e) => {
-                    handleNavClick(e, '#contact');
-                    setMobileOpen(false);
-                  }}
-                  className={cn(
-                    'flex h-12 w-full items-center justify-center gap-2 rounded-full text-base font-semibold transition-all duration-300 shadow-glow-sea',
-                    activeSection === '#contact'
-                      ? 'bg-gradient-to-r from-[#0066CC] to-[#00D4FF] text-white ring-2 ring-[#00D4FF]'
-                      : 'bg-flow text-primary-foreground'
-                  )}
+                  href="/contact"
+                  onClick={(e) => handleNavigate(e, '/contact')}
+                  className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#0066CC] to-[#00D4FF] text-white text-base font-semibold shadow-lg shadow-[#0066CC]/35 transition-all"
                 >
-                  <MessageSquare className="h-4 w-4" />
-                  <span>Send a Message</span>
+                  <span>Let's talk</span>
+                  <ArrowUpRight className="h-4 w-4" />
                 </a>
               </div>
             </nav>

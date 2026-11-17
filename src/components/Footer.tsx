@@ -20,6 +20,13 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>, to: string) => {
+    e.preventDefault();
+    window.history.pushState(null, '', to);
+    window.dispatchEvent(new Event('popstate'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const replayIntro = () => {
     sessionStorage.removeItem('gw_seen_intro');
     window.location.reload();
@@ -63,7 +70,8 @@ export default function Footer() {
 
             <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <a
-                href="#contact"
+                href="/contact"
+                onClick={(e) => handleNavigate(e, '/contact')}
                 data-cursor="true"
                 className="inline-flex h-12 sm:h-14 items-center justify-center rounded-full bg-flow px-6 sm:px-8 text-sm sm:text-base font-medium text-primary-foreground shadow-glow-sea transition-all duration-500 hover:shadow-glow-ember hover:scale-[1.03]"
               >
@@ -119,8 +127,9 @@ export default function Footer() {
                   <li key={l.label}>
                     <a
                       href={l.to}
+                      onClick={(e) => handleNavigate(e, l.to)}
                       data-cursor="true"
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
                     >
                       {l.label}
                     </a>

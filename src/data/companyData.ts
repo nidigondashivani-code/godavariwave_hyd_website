@@ -14,7 +14,7 @@ export const companyInfo: CompanyInfo = {
   name: "Godavari Wave Technologies",
   legal: "Godavari Wave Technologies Pvt Ltd",
   since: 2024,
-  phones: ["+91 7799 822 121", "+91 8688 883 323"],
+  phones: ["+91 7799 822 121"],
   emails: {
     info: "info@godavariwave.com",
     hr: "hrhydgodavariwavetech@gmail.com"
@@ -805,11 +805,10 @@ export const careersPositions: CareerPosition[] = [
 ];
 
 export const navLinks = [
-  { to: "#home", label: "Home" },
-  { to: "#services", label: "Services" },
-  { to: "#about", label: "About" },
-  { to: "#solutions", label: "Solutions" },
-  { to: "#portfolio", label: "Portfolio" },
-  { to: "#careers", label: "Careers" },
-  { to: "#contact", label: "Contact" }
+  { to: "/services", label: "Services" },
+  { to: "/solutions", label: "Solutions" },
+  { to: "/portfolio", label: "Portfolio" },
+  { to: "/about", label: "About" },
+  { to: "/careers", label: "Careers" },
+  { to: "/contact", label: "Contact" }
 ];

@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Story from './components/Story';
-import GovtShowcase from './components/GovtShowcase';
-import Portfolio from './components/Portfolio';
-import TechStack from './components/TechStack';
-import ClientsRiver from './components/ClientsRiver';
-import Comparison from './components/Comparison';
-import Process from './components/Process';
-import Testimonials from './components/Testimonials';
-import Careers from './components/Careers';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Cursor from './components/Cursor';
 import SmoothScroll from './components/SmoothScroll';
 import ConnectModal from './components/ConnectModal';
 import LeadDashboard from './components/LeadDashboard';
 
-const checkIsLeadPath = () => {
-  if (typeof window === 'undefined') return false;
+// Pages
+import Home from './pages/Home';
+import ServicesPage from './pages/ServicesPage';
+import SolutionsPage from './pages/SolutionsPage';
+import PortfolioPage from './pages/PortfolioPage';
+import AboutPage from './pages/AboutPage';
+import CareersPage from './pages/CareersPage';
+import ContactPage from './pages/ContactPage';
+
+const getNormalizedRoute = () => {
+  if (typeof window === 'undefined') return '/';
   const path = window.location.pathname.toLowerCase();
   const hash = window.location.hash.toLowerCase();
-  return (
+
+  if (
     path === '/lead' ||
     path === '/leads' ||
     path.startsWith('/lead/') ||
@@ -31,25 +29,26 @@ const checkIsLeadPath = () => {
     hash === '#lead' ||
     hash === '#/leads' ||
     hash === '#leads'
-  );
+  ) {
+    return '/lead';
+  }
+
+  if (path === '/services' || hash === '#/services') return '/services';
+  if (path === '/solutions' || hash === '#/solutions') return '/solutions';
+  if (path === '/portfolio' || hash === '#/portfolio') return '/portfolio';
+  if (path === '/about' || hash === '#/about') return '/about';
+  if (path === '/careers' || hash === '#/careers') return '/careers';
+  if (path === '/contact' || hash === '#/contact') return '/contact';
+
+  return '/';
 };
 
-function SectionDivider() {
-  return (
-    <div className="relative w-full max-w-[1450px] mx-auto py-8 sm:py-12 md:py-16 lg:py-20 px-5 md:px-8 xl:px-12 pointer-events-none select-none" aria-hidden="true">
-      <div className="relative h-px w-full overflow-hidden opacity-35">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00D4FF]/60 to-transparent" />
-      </div>
-    </div>
-  );
-}
-
 export default function App() {
-  const [isLeadRoute, setIsLeadRoute] = useState<boolean>(() => checkIsLeadPath());
+  const [currentRoute, setCurrentRoute] = useState<string>(() => getNormalizedRoute());
 
   useEffect(() => {
     const handleLocationChange = () => {
-      setIsLeadRoute(checkIsLeadPath());
+      setCurrentRoute(getNormalizedRoute());
     };
 
     window.addEventListener('popstate', handleLocationChange);
@@ -64,20 +63,39 @@ export default function App() {
   }, []);
 
   // When /lead or /leads is in URL, render the confidential HR Leads Dashboard
-  if (isLeadRoute) {
+  if (currentRoute === '/lead') {
     return (
       <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground antialiased selection:bg-secondary selection:text-ocean">
         <Cursor />
         <LeadDashboard
           onBackToSite={() => {
             window.history.pushState(null, '', '/');
-            setIsLeadRoute(false);
+            setCurrentRoute('/');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         />
       </div>
     );
   }
+
+  const renderContent = () => {
+    switch (currentRoute) {
+      case '/services':
+        return <ServicesPage />;
+      case '/solutions':
+        return <SolutionsPage />;
+      case '/portfolio':
+        return <PortfolioPage />;
+      case '/about':
+        return <AboutPage />;
+      case '/careers':
+        return <CareersPage />;
+      case '/contact':
+        return <ContactPage />;
+      default:
+        return <Home />;
+    }
+  };
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground antialiased selection:bg-secondary selection:text-ocean">
@@ -96,29 +114,7 @@ export default function App() {
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header />
         <main id="main" className="flex-1">
-          <Hero />
-          <SectionDivider />
-          <Services />
-          <SectionDivider />
-          <Story />
-          <SectionDivider />
-          <GovtShowcase />
-          <SectionDivider />
-          <Portfolio />
-          <SectionDivider />
-          <TechStack />
-          <SectionDivider />
-          <ClientsRiver />
-          <SectionDivider />
-          <Comparison />
-          <SectionDivider />
-          <Process />
-          <SectionDivider />
-          <Testimonials />
-          <SectionDivider />
-          <Careers />
-          <SectionDivider />
-          <Contact />
+          {renderContent()}
         </main>
         <Footer />
       </div>
