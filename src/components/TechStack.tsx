@@ -17,8 +17,8 @@ export default function TechStack() {
   const [activeTab, setActiveTab] = useState<string | null>('ai');
 
   return (
-    <section id="technologies" className="relative px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
-      <div className="mx-auto max-w-7xl">
+    <section id="technologies" className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
+      <div className="mx-auto max-w-[1400px]">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -34,14 +34,14 @@ export default function TechStack() {
               capability.
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="mx-auto mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
             Click any capsule to explore our technical capabilities, frameworks, and production experience.
           </p>
         </motion.div>
 
         {/* Capsules Container with Staggered Entrance & Blue Glow Hover */}
         <LayoutGroup id="tech-stack-capsules">
-          <div className="mt-8 sm:mt-10 flex flex-wrap items-start justify-center gap-4 sm:gap-6">
+          <div className="mt-10 sm:mt-12 flex flex-wrap items-start justify-center gap-5 md:gap-6 lg:gap-8">
             {techStack.map((item, idx) => {
               const icon = techIcons[item.id] ?? <Layers className="h-4 w-4" />;
               const isActive = activeTab === item.id;
@@ -51,7 +51,7 @@ export default function TechStack() {
                   key={item.id}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
                   className="w-full sm:w-auto"
                 >
@@ -66,7 +66,7 @@ export default function TechStack() {
                     className={cn(
                       'glass border-flow block overflow-hidden text-left cursor-pointer transition-all duration-300 w-full sm:w-auto hover:-translate-y-1 hover:shadow-[0_12px_36px_rgba(0,102,204,0.45)] hover:border-[#00D4FF]/60',
                       isActive
-                        ? 'sm:w-[min(94vw,30rem)] rounded-2xl sm:rounded-3xl p-6 shadow-2xl [--flow-opacity:1] ring-1 ring-[#00D4FF]/50 border-[#00D4FF]/60'
+                        ? 'sm:w-[min(94vw,30rem)] rounded-2xl sm:rounded-3xl p-[22px] lg:p-[28px] shadow-2xl [--flow-opacity:1] ring-1 ring-[#00D4FF]/50 border-[#00D4FF]/60'
                         : 'rounded-full px-5 sm:px-6 py-3 sm:py-3.5 text-sm sm:text-base [--flow-opacity:0.2]'
                     )}
                     style={{ '--flow-opacity': isActive ? 1 : 0.2 } as React.CSSProperties}

@@ -24,7 +24,7 @@ export default function Story() {
   const waveOpacity = useTransform(scrollYProgress, [0, 1], [0.18, 0.35]);
 
   return (
-    <section ref={containerRef} id="about" className="relative scroll-mt-20 overflow-hidden px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
+    <section ref={containerRef} id="about" className="relative scroll-mt-20 overflow-hidden px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
       {/* Morphing Background Wave */}
       <svg
         className="pointer-events-none absolute inset-x-0 top-1/3 h-[70%] w-full"
@@ -42,7 +42,7 @@ export default function Story() {
         <motion.path d={wavePath} fill="url(#story-grad)" style={{ opacity: waveOpacity }} />
       </svg>
 
-      <div className="relative mx-auto grid max-w-7xl gap-12 sm:gap-16 lg:grid-cols-[1fr_1.1fr]">
+      <div className="relative mx-auto grid max-w-[1400px] gap-12 sm:gap-16 lg:grid-cols-[1fr_1.1fr]">
         {/* Sticky narrative column */}
         <div className="lg:sticky lg:top-32 lg:self-start">
           <motion.div
@@ -64,7 +64,7 @@ export default function Story() {
           </motion.div>
 
           <motion.p
-            className="mt-4 max-w-[700px] text-base sm:text-lg leading-relaxed text-muted-foreground"
+            className="mt-[18px] max-w-[700px] text-base sm:text-lg leading-relaxed text-muted-foreground"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -78,7 +78,7 @@ export default function Story() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.25, ease: 'easeOut' }}
-            className="glass-soft mt-8 inline-flex items-center gap-4 rounded-2xl border border-glass-border p-6 shadow-xl"
+            className="glass-soft mt-8 inline-flex items-center gap-4 rounded-2xl border border-glass-border p-[22px] lg:p-[28px] shadow-xl"
           >
             <div className="grid h-12 w-12 place-items-center rounded-xl bg-flow text-primary-foreground shadow-glow-sea shrink-0">
               <Sparkles className="h-6 w-6" />

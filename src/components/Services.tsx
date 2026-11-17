@@ -46,11 +46,11 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: 0.6,
+        duration: 0.7,
         delay: (i % 3) * 0.1,
         ease: 'easeOut'
       }}
@@ -78,7 +78,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         }}
         animate={{ y: hovered ? -10 : 0 }}
         transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-        className="glass border-flow group relative h-full min-h-[300px] sm:min-h-[340px] overflow-hidden rounded-2xl sm:rounded-3xl p-6 outline-none cursor-pointer flex flex-col justify-between"
+        className="glass border-flow group relative h-full min-h-[300px] sm:min-h-[340px] overflow-hidden rounded-2xl sm:rounded-3xl p-[22px] lg:p-[28px] outline-none cursor-pointer flex flex-col justify-between"
         data-cursor="true"
       >
         {/* Wave Passing Shimmer Flare */}
@@ -141,7 +141,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
 export default function Services() {
   return (
-    <section id="services" className="relative scroll-mt-20 px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24 overflow-hidden">
+    <section id="services" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px] overflow-hidden">
       {/* FLOWING DIGITAL WATER WAVE SWEEPING ACROSS SECTION */}
       <div className="pointer-events-none absolute inset-x-0 top-12 h-32 overflow-hidden opacity-40">
         <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-[200%] animate-pulse">
@@ -164,20 +164,20 @@ export default function Services() {
         </svg>
       </div>
 
-      <div className="mx-auto max-w-7xl">
-        {/* Section Header with consistent spacing */}
+      <div className="mx-auto max-w-[1400px]">
+        {/* Section Header with consistent spacing: Label -> 12px -> Heading -> 18px -> Description -> 40px -> Cards */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-8 sm:mb-10"
+          className="mb-10 sm:mb-12"
         >
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Waves className="h-4 w-4 text-[#0066CC]" />
               <p className="eyebrow text-[#0066CC]">
-                Services
+                Our Services
               </p>
             </div>
             <SplitText
@@ -185,11 +185,14 @@ export default function Services() {
               className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
               highlight={[3]}
             />
+            <p className="mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+              Helping businesses build modern digital products — from responsive web apps and cloud architecture to AI solutions and enterprise platforms.
+            </p>
           </div>
         </motion.div>
 
-        {/* 6 Services Grid - 24px gap, 24px inside card, animated on view */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 6 Services Grid - 32px desktop gap, 24px tablet, 20px mobile gap */}
+        <div className="grid gap-5 md:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <ServiceCard key={s.id} s={s} i={i} />
           ))}

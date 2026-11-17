@@ -16,8 +16,8 @@ export default function Process() {
   }, [isAutoPlay]);
 
   return (
-    <section className="relative px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
+      <div className="mx-auto max-w-[1400px]">
         {/* Section Header */}
         <motion.div
           className="text-center"
@@ -33,14 +33,14 @@ export default function Process() {
               in one current.
             </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="mx-auto mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
             Our structured agile framework eliminates guesswork and turns complex ideas into market-ready realities.
           </p>
         </motion.div>
 
         {/* Desktop Connected Steps Navigation with Animated Connecting Line */}
         <motion.div
-          className="relative mt-10 sm:mt-12 hidden md:block"
+          className="relative mt-10 sm:mt-14 hidden md:block"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}

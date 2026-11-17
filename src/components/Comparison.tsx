@@ -17,8 +17,8 @@ export default function Comparison() {
   const [selectedTab, setSelectedTab] = useState<'gw' | 'trad'>('gw');
 
   return (
-    <section className="relative px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
+      <div className="mx-auto max-w-[1400px]">
         <div className="grid gap-12 sm:gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -33,7 +33,7 @@ export default function Comparison() {
                 IT vendor.
               </span>
             </h2>
-            <p className="mt-4 max-w-[700px] text-base sm:text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-[18px] max-w-[700px] text-base sm:text-lg leading-relaxed text-muted-foreground">
               We replace fragmented freelancers and rigid legacy IT firms with an agile, high-velocity engineering partner that cares about your bottom line.
             </p>
 
@@ -79,8 +79,8 @@ export default function Comparison() {
             </div>
           </motion.div>
 
-          {/* Comparison Progress Bars - 24px gap, 24px inside padding */}
-          <div className="grid gap-6">
+          {/* Comparison Progress Bars - 32px desktop, 24px tablet, 20px mobile gap */}
+          <div className="grid gap-5 md:gap-6 lg:gap-8">
             {comparisonMetrics.map((item, idx) => {
               const score = selectedTab === 'gw' ? item.gw : item.trad;
               const text = selectedTab === 'gw' ? item.gwText : item.tradText;
@@ -92,7 +92,7 @@ export default function Comparison() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
-                  className="glass rounded-2xl p-6 transition-all duration-300 hover:border-sea/50 hover:-translate-y-0.5 shadow-md"
+                  className="glass rounded-2xl p-[22px] lg:p-[28px] transition-all duration-300 hover:border-sea/50 hover:-translate-y-0.5 shadow-md"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">

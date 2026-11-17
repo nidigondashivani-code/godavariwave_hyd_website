@@ -34,6 +34,14 @@ const checkIsLeadPath = () => {
   );
 };
 
+function SectionDivider() {
+  return (
+    <div className="relative h-px w-full max-w-[1400px] mx-auto overflow-hidden pointer-events-none select-none opacity-25" aria-hidden="true">
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00D4FF]/50 to-transparent" />
+    </div>
+  );
+}
+
 export default function App() {
   const [isLeadRoute, setIsLeadRoute] = useState<boolean>(() => checkIsLeadPath());
 
@@ -87,16 +95,27 @@ export default function App() {
         <Header />
         <main id="main" className="flex-1">
           <Hero />
+          <SectionDivider />
           <Services />
+          <SectionDivider />
           <Story />
+          <SectionDivider />
           <GovtShowcase />
+          <SectionDivider />
           <Portfolio />
+          <SectionDivider />
           <TechStack />
+          <SectionDivider />
           <ClientsRiver />
+          <SectionDivider />
           <Comparison />
+          <SectionDivider />
           <Process />
+          <SectionDivider />
           <Testimonials />
+          <SectionDivider />
           <Careers />
+          <SectionDivider />
           <Contact />
         </main>
         <Footer />

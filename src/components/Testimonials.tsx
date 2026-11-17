@@ -54,17 +54,17 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
+    <section className="relative overflow-hidden px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
       {/* Background Oscillating Ribbon Waves */}
       <RibbonWaves className="top-1/2 h-[420px] -translate-y-1/3 opacity-70" count={6} />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1400px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-8 sm:mb-10"
+          className="mb-10 sm:mb-12"
         >
           <p className="eyebrow mb-3">In their words</p>
           <SplitText
@@ -72,13 +72,13 @@ export default function Testimonials() {
             className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
             highlight={[0]}
           />
-          <p className="mt-4 max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
             Real feedback from enterprise leaders, startup founders, and public sector partners across India.
           </p>
         </motion.div>
 
-        {/* Testimonials Grid - 24px gap, 24px padding inside cards */}
-        <div className="grid gap-6 lg:grid-cols-3">
+        {/* Testimonials Grid - 32px desktop gap, 24px tablet, 20px mobile, 28px internal padding */}
+        <div className="grid gap-5 md:gap-6 lg:gap-8 lg:grid-cols-3">
           {testimonials.map((item, idx) => {
             const isCurrent = activeIdx === idx;
 
@@ -87,7 +87,7 @@ export default function Testimonials() {
                 key={idx}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6, delay: (idx % 3) * 0.1, ease: 'easeOut' }}
                 onMouseEnter={() => setActiveIdx(idx)}
                 className={cn('w-full lg:animate-float', idx === 1 && 'lg:mt-8')}
@@ -96,7 +96,7 @@ export default function Testimonials() {
               >
                 <div
                   className={cn(
-                    'glass border-flow relative h-full rounded-2xl sm:rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-500',
+                    'glass border-flow relative h-full rounded-2xl sm:rounded-3xl p-[22px] lg:p-[28px] flex flex-col justify-between transition-all duration-500',
                     isCurrent ? '-translate-y-1.5 [--flow-opacity:1] shadow-xl' : '[--flow-opacity:0.15]'
                   )}
                 >

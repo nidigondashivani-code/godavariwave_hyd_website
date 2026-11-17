@@ -136,15 +136,15 @@ export default function Careers() {
   };
 
   return (
-    <section id="careers" className="relative scroll-mt-20 px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24 bg-[#0B1F3A] overflow-hidden text-foreground">
+    <section id="careers" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px] bg-[#0B1F3A] overflow-hidden text-foreground">
       {/* Background Decorative Gradient Blobs */}
       <div className="pointer-events-none absolute -top-40 right-0 h-[450px] w-[450px] rounded-full bg-[#0066CC]/15 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-40 left-0 h-[450px] w-[450px] rounded-full bg-[#00D4FF]/10 blur-[130px]" />
 
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-[1400px]">
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#00D4FF]/30 bg-[#004E9A]/30 px-3.5 sm:px-4 py-1.5 text-xs font-mono uppercase tracking-[0.2em] text-[#38BDF8] shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#00D4FF]/30 bg-[#004E9A]/30 px-3.5 sm:px-4 py-1.5 text-xs font-mono uppercase tracking-[0.2em] text-[#38BDF8] shadow-sm mb-3">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D4FF] opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[#00D4FF]" />
@@ -152,13 +152,13 @@ export default function Careers() {
             <span>WE ARE HIRING · HYDERABAD INNOVATION HUB</span>
           </div>
 
-          <h2 className="mt-5 sm:mt-6 font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
             Build the Next Wave of{' '}
             <span className="bg-gradient-to-r from-[#38BDF8] via-[#00D4FF] to-[#FFFFFF] bg-clip-text text-transparent">
               Digital Intelligence.
             </span>
           </h2>
-          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-sky-100/80 leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-[18px] text-base sm:text-lg text-sky-100/80 leading-relaxed max-w-[700px] mx-auto">
             Join Godavari Wave Technologies at Meenakshi Tech Park, Gachibowli. We have open roles for freshers and experienced professionals across software engineering, digital marketing, sales, social media, and HR.
           </p>
         </div>
@@ -361,8 +361,8 @@ export default function Careers() {
           </div>
         </div>
 
-        {/* Job Listings Grid with 24px Gap and 24px Internal Padding */}
-        <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Job Listings Grid with 32px Desktop Gap and 28px Internal Padding */}
+        <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
           <AnimatePresence mode="popLayout">
             {filteredJobs.map((job) => {
               const isFresher = job.level === 'Fresher';
@@ -376,7 +376,7 @@ export default function Careers() {
                   viewport={{ once: true, amount: 0.15 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/15 bg-gradient-to-b from-[#0B1F3A]/95 to-[#004E9A]/20 p-6 backdrop-blur-xl shadow-xl hover:border-[#00D4FF]/50 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(0,102,204,0.35)]"
+                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/15 bg-gradient-to-b from-[#0B1F3A]/95 to-[#004E9A]/20 p-[22px] lg:p-[28px] backdrop-blur-xl shadow-xl hover:border-[#00D4FF]/50 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(0,102,204,0.35)]"
                 >
                   <div>
                     {/* Header: Level Badge & Openings */}

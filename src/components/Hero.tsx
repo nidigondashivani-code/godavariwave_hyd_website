@@ -20,10 +20,10 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
 
       {/* Hero Content - Centered text alignment, max 700px width on description, strict spacing */}
-      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center text-center px-5 sm:px-6 pt-32 pb-12 md:px-8 lg:px-10">
-        {/* Eyebrow Badge (16px spacing to heading) */}
+      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col items-center justify-center text-center px-5 md:px-8 lg:px-10 xl:px-12 pt-32 pb-14">
+        {/* Eyebrow Badge (12px spacing to heading) */}
         <motion.p
-          className="eyebrow mb-4 inline-flex items-center justify-center gap-2 sm:gap-2.5 text-[#38BDF8] text-[11px] sm:text-xs font-mono tracking-wider"
+          className="eyebrow mb-3 inline-flex items-center justify-center gap-2 sm:gap-2.5 text-[#38BDF8] text-[11px] sm:text-xs font-mono tracking-wider"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -36,7 +36,7 @@ export default function Hero() {
           <span>Godavari Wave Technologies · 2026 Hyderabad</span>
         </motion.p>
 
-        {/* Display Heading matching authentic website (16px spacing to description) */}
+        {/* Display Heading matching authentic website (18px spacing to description) */}
         <motion.h1
           className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-bold leading-[1.08] sm:leading-[1.02] max-w-4xl mx-auto text-foreground tracking-tight"
           initial={{ opacity: 0, y: 40 }}
@@ -51,9 +51,9 @@ export default function Hero() {
           Digital Experiences
         </motion.h1>
 
-        {/* Subtitle - Maximum 700px width, consistent line height */}
+        {/* Subtitle - Maximum 700px width, 18px from heading, consistent line height */}
         <motion.p
-          className="mt-4 max-w-[700px] mx-auto text-base sm:text-lg md:text-xl text-white/85 leading-relaxed"
+          className="mt-[18px] max-w-[700px] mx-auto text-base sm:text-lg md:text-xl text-white/85 leading-relaxed"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -62,9 +62,9 @@ export default function Hero() {
           Transforming businesses through AI, software development, cloud solutions and enterprise innovation — born on the Godavari, now scaling from Hyderabad.
         </motion.p>
 
-        {/* CTA Buttons - 16px gap, mobile full width, lift & shadow hover */}
+        {/* CTA Buttons - 40px spacing from description, 24px vertical margin, 16px gap, mobile full width, lift & shadow hover */}
         <motion.div
-          className="pointer-events-auto mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
+          className="pointer-events-auto mt-10 mb-6 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -89,15 +89,15 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Metrics Floating Bar - Cards fade upward, count up animation, 24px gap, 24px padding */}
+      {/* Metrics Floating Bar - Cards fade upward, count up animation, 32px desktop gap, 28px padding */}
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 pb-10 md:px-8 lg:px-10"
+        className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-10 xl:px-12 pb-14 sm:pb-20"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
       >
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-5 md:gap-6 lg:gap-8 md:grid-cols-4">
           {stats.map((s, idx) => {
             const statIcons = [Users, TrendingUp, Sparkles, Building2];
             const Icon = statIcons[idx % statIcons.length];
@@ -111,10 +111,9 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
                 style={{
                   borderRadius: '14px',
-                  padding: '24px',
                   minHeight: '170px',
                 }}
-                className="glass rounded-[14px] p-6 min-h-[170px] border border-glass-border shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#00D4FF]/40 flex flex-col items-center justify-center text-center h-full group"
+                className="glass rounded-[14px] p-[22px] lg:p-[28px] min-h-[170px] border border-glass-border shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#00D4FF]/40 flex flex-col items-center justify-center text-center h-full group"
               >
                 {/* Circular Icon */}
                 <div className="h-10 w-10 rounded-full bg-white/10 text-[#00D4FF] border border-white/20 flex items-center justify-center shrink-0 mb-2.5 group-hover:scale-110 transition-transform">

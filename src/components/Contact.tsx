@@ -55,23 +55,23 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-20 px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24 bg-[#0B1F3A]">
-      <div className="mx-auto max-w-6xl">
-        {/* Section Header: Left-aligned matching the screenshot */}
+    <section id="contact" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px] bg-[#0B1F3A]">
+      <div className="mx-auto max-w-[1400px]">
+        {/* Section Header: Left-aligned with 40px spacing before cards */}
         <motion.div
-          className="mb-8 sm:mb-10 text-left"
+          className="mb-10 sm:mb-12 text-left"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Eyebrow: Single horizontal line + "LET'S START" with font size 18px, moved upwards */}
+          {/* Eyebrow: Single horizontal line + "LET'S START" (12px space to heading) */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-3.5 mb-3.5"
+            className="flex items-center gap-3.5 mb-3"
           >
             <span className="h-[2px] w-12 bg-[#38BDF8] rounded-full shrink-0" style={{ backgroundColor: '#38BDF8' }} />
             <span
@@ -82,16 +82,16 @@ export default function Contact() {
             </span>
           </motion.div>
 
-          {/* Main 2-Line Heading: Arial Black font, shifted upwards */}
+          {/* Main 2-Line Heading */}
           <h2
-            className="text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] xl:text-[6rem] font-black tracking-tight text-white leading-[1.08] sm:leading-[1.02] break-words"
+            className="text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] xl:text-[6rem] font-black tracking-tight text-white leading-[1.08] sm:leading-[1.02] break-words mt-3"
             style={{ fontFamily: '"Arial Black", "Arial Bold", Gadget, sans-serif' }}
           >
             <motion.span
               className="block"
               initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
               Tell us where you want
@@ -100,7 +100,7 @@ export default function Contact() {
               className="block mt-0.5 sm:mt-1"
               initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
               to flow.
@@ -108,8 +108,8 @@ export default function Contact() {
           </h2>
         </motion.div>
 
-        {/* Main 2-Column Grid: Left (Map + Office Card) and Right (Send Us a Message Form Card) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        {/* Main 2-Column Grid: 32px desktop, 24px tablet/mobile gap */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6 lg:gap-8 items-stretch">
 
           {/* ========================================================= */}
           {/* LEFT COLUMN: Map Card (Top) + Head Office Info Card (Bottom) */}
@@ -247,7 +247,7 @@ export default function Contact() {
                 </span>
 
                 {/* White Capsule Badge Highlighting Hyderabad */}
-                <span className="mt-1.5 whitespace-nowrap rounded-full bg-white px-3 py-0.5 text-[11px] font-bold text-white shadow-xl border border-white">
+                <span className="mt-1.5 whitespace-nowrap rounded-full bg-white px-3 py-0.5 text-[11px] font-bold text-[#0A2540] shadow-xl border border-white">
                   Hyderabad
                 </span>
               </button>
@@ -307,10 +307,10 @@ export default function Contact() {
 
             {/* 2. Office Information Card (Matches Screenshot Bottom Card) */}
             <motion.div
-              className="rounded-xl sm:rounded-2xl bg-[#0F2442] border-white/10 border p-5 sm:p-7 shadow-2xl flex flex-col justify-between m-40"
+              className="rounded-xl sm:rounded-2xl bg-[#0F2442] border-white/10 border p-[22px] lg:p-[28px] shadow-2xl flex flex-col justify-between"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
               <AnimatePresence mode="wait">

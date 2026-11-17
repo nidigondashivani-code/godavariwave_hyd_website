@@ -46,8 +46,8 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
         {/* Gradient Shadow Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-ocean via-ocean/40 to-transparent" />
 
-        {/* Bottom Glass Card - 24px padding */}
-        <div className="glass absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6 rounded-2xl p-6 transition-transform duration-500 group-hover:-translate-y-1">
+        {/* Bottom Glass Card - 28px desktop, 22px mobile padding */}
+        <div className="glass absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6 rounded-2xl p-[22px] lg:p-[28px] transition-transform duration-500 group-hover:-translate-y-1">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="eyebrow text-[0.65rem] text-secondary">{tag}</p>
@@ -73,15 +73,15 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
 
 export default function GovtShowcase() {
   return (
-    <section id="solutions" className="relative scroll-mt-20 px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
-      <div className="mx-auto max-w-7xl">
+    <section id="solutions" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
+      <div className="mx-auto max-w-[1400px]">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="flex flex-col justify-between gap-6 md:flex-row md:items-end mb-8 sm:mb-10"
+          className="flex flex-col justify-between gap-6 md:flex-row md:items-end mb-10 sm:mb-12"
         >
           <div>
             <p className="eyebrow mb-3">Selected work</p>
@@ -90,21 +90,21 @@ export default function GovtShowcase() {
               className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
               highlight={[0]}
             />
-            <p className="mt-4 max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-[18px] max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
               Mission-critical governance portals, disaster response apps, and public distribution pipelines engineered for millions of citizens.
             </p>
           </div>
           <a
             href="#portfolio"
-            className="glass inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-white/10 hover:border-[#00D4FF]/40 hover:-translate-y-0.5 hover:shadow-lg self-start md:self-auto shrink-0"
+            className="glass inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-white/10 hover:border-[#00D4FF]/40 hover:-translate-y-0.5 hover:shadow-lg self-start md:self-auto shrink-0 mb-2"
           >
             <span>All projects</span>
             <ArrowUpRight className="h-4 w-4" />
           </a>
         </motion.div>
 
-        {/* Bento 12-Column Grid - 24px gap */}
-        <div className="grid gap-6 md:grid-cols-12">
+        {/* Bento 12-Column Grid - 32px desktop, 24px tablet, 20px mobile gap */}
+        <div className="grid gap-5 md:gap-6 lg:gap-8 md:grid-cols-12">
           {govtProjects.map((item, idx) => (
             <ShowcaseCard
               key={item.title}

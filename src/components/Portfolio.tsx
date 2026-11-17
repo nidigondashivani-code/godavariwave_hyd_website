@@ -32,9 +32,9 @@ export default function Portfolio() {
     : portfolioProjects.filter((p) => p.cat === activeCategory);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-20 px-5 sm:px-6 md:px-8 lg:px-10 py-20 md:py-24">
-      <div className="mx-auto max-w-7xl">
-        {/* Header with consistent layout */}
+    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px]">
+      <div className="mx-auto max-w-[1400px]">
+        {/* Header with consistent layout: Label -> 12px -> Heading -> 18px -> Description */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -51,18 +51,18 @@ export default function Portfolio() {
               </span>
             </h2>
           </div>
-          <p className="max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="max-w-[700px] text-base sm:text-lg text-muted-foreground leading-relaxed mt-[18px] lg:mt-0">
             A glimpse into production-grade consumer apps, logistics dispatchers, and SaaS platforms delivered by Godavari Wave.
           </p>
         </motion.div>
 
-        {/* Category Filter Pills (32px spacing to content) */}
+        {/* Category Filter Pills (40px spacing to content) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-          className="mt-8 mb-8 flex flex-wrap items-center gap-2"
+          className="mt-8 mb-10 flex flex-wrap items-center gap-2"
         >
           {categories.map((cat) => {
             const count = cat === 'All'
@@ -106,9 +106,9 @@ export default function Portfolio() {
           })}
         </motion.div>
 
-        {/* Projects Grid with 24px gap, 24px internal card padding, animated entrance */}
+        {/* Projects Grid with 32px desktop gap, 24px tablet, 20px mobile, animated entrance */}
         <LayoutGroup id="portfolio-cards-layout">
-          <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div layout className="grid gap-5 md:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {filtered.map((item, idx) => {
                 const isLink = Boolean(item.link);
@@ -210,8 +210,8 @@ export default function Portfolio() {
                         {/* Vignette Shadow */}
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ocean via-ocean/40 to-transparent" />
 
-                        {/* Bottom Glass Card Sheet - 24px padding */}
-                        <div className="glass relative z-10 m-4 rounded-2xl p-6 transition-transform duration-500 group-hover:-translate-y-1">
+                        {/* Bottom Glass Card Sheet - 28px desktop, 22px mobile padding */}
+                        <div className="glass relative z-10 m-4 rounded-2xl p-[22px] lg:p-[28px] transition-transform duration-500 group-hover:-translate-y-1">
                           <div className="flex items-center justify-between gap-4">
                             <div className="flex-1 min-w-0">
                               <p className="font-mono text-[0.65rem] tracking-wider text-accent uppercase">
