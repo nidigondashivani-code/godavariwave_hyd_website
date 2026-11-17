@@ -137,7 +137,7 @@ export default function Careers() {
   };
 
   return (
-    <section id="careers" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden text-foreground">
+    <section id="careers" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[60px] sm:py-[80px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden text-foreground">
       {/* Top and Bottom Transition Vignettes for Smooth Section Breathing Gap */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent z-10" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-background to-transparent z-10" />
@@ -168,7 +168,7 @@ export default function Careers() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.15 }}
           transition={{ duration: 0.65, delay: 0.1, ease: 'easeOut' }}
-          className="mx-auto max-w-5xl mt-12 sm:mt-16 lg:mt-20 rounded-3xl border border-white/20 bg-gradient-to-b from-[#0e2a4a]/95 via-[#0B1F3A]/95 to-[#061426] p-6 sm:p-8 md:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden"
+          className="mx-auto max-w-5xl mt-8 sm:mt-16 lg:mt-20 rounded-2xl sm:rounded-3xl border border-white/20 bg-gradient-to-b from-[#0e2a4a]/95 via-[#0B1F3A]/95 to-[#061426] p-5 sm:p-8 md:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden w-full"
         >
           {/* Subtle Ambient Glows */}
           <div className="pointer-events-none absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#0066CC]/25 blur-3xl" />
@@ -176,8 +176,8 @@ export default function Careers() {
 
           {/* Central Profile Header */}
           <div className="text-center mx-auto max-w-2xl relative z-10 flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-4 py-1 text-xs font-mono font-semibold text-emerald-300 uppercase tracking-wider mb-4 shadow-sm">
-              <span className="relative flex h-2 w-2">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 sm:px-4 py-1 text-[10px] sm:text-xs font-mono font-semibold text-emerald-300 uppercase tracking-wider mb-4 shadow-sm max-w-full text-center flex-wrap justify-center">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
@@ -195,10 +195,10 @@ export default function Careers() {
               </span>
             </div>
 
-            <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight drop-shadow-sm">
+            <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight drop-shadow-sm break-words">
               Connect Directly with {hrContact.name}
             </h3>
-            <p className="mt-1 text-sm sm:text-base font-semibold text-[#38BDF8]">
+            <p className="mt-1 text-[14px] sm:text-base font-semibold text-[#38BDF8]">
               {hrContact.role} · Godavari Wave Technologies
             </p>
             <p className="mt-1.5 text-xs sm:text-sm text-sky-200/80 max-w-lg leading-relaxed">
@@ -207,22 +207,22 @@ export default function Careers() {
           </div>
 
           {/* 3-Column Info Cards Grid: Email, Phone/WhatsApp, Campus */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 relative z-10">
+          <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 relative z-10 w-full">
             {/* Card 1: Official HR Email */}
             <a
               href={`mailto:${hrContact.email}?subject=Career%20Inquiry%20-%20Godavari%20Wave%20Technologies`}
-              className="group relative rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-5 transition-all duration-300 hover:border-[#00D4FF]/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0066CC]/25 flex flex-col items-center text-center cursor-pointer"
+              className="group relative rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-4 sm:p-5 transition-all duration-300 hover:border-[#00D4FF]/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0066CC]/25 flex flex-col items-center text-center cursor-pointer min-h-[56px] justify-center"
             >
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#0066CC]/30 border border-[#0066CC]/50 text-[#00D4FF] mb-2.5 group-hover:scale-110 transition-transform">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#0066CC]/30 border border-[#0066CC]/50 text-[#00D4FF] mb-2 group-hover:scale-110 transition-transform">
                 <Mail className="h-5 w-5 text-[#00D4FF]" />
               </div>
-              <span className="text-[10.5px] font-mono uppercase tracking-widest text-sky-300 font-bold">
+              <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-widest text-sky-300 font-bold">
                 DIRECT HR EMAIL
               </span>
               <span className="mt-1 text-xs sm:text-sm font-semibold text-white break-all group-hover:text-[#38BDF8] transition-colors">
                 {hrContact.email}
               </span>
-              <span className="mt-2.5 text-[11px] text-sky-200/70 inline-flex items-center gap-1 group-hover:text-white">
+              <span className="mt-2 text-[11px] text-sky-200/70 inline-flex items-center gap-1 group-hover:text-white">
                 <span>Send direct email</span>
                 <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
               </span>
@@ -231,46 +231,46 @@ export default function Careers() {
             {/* Card 2: Phone & WhatsApp */}
             <a
               href={`tel:${hrContact.phoneRaw}`}
-              className="group relative rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-5 transition-all duration-300 hover:border-emerald-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/25 flex flex-col items-center text-center cursor-pointer"
+              className="group relative rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-4 sm:p-5 transition-all duration-300 hover:border-emerald-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/25 flex flex-col items-center text-center cursor-pointer min-h-[56px] justify-center"
             >
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 mb-2.5 group-hover:scale-110 transition-transform">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 mb-2 group-hover:scale-110 transition-transform">
                 <Phone className="h-5 w-5 text-emerald-300" />
               </div>
-              <span className="text-[10.5px] font-mono uppercase tracking-widest text-emerald-300 font-bold">
+              <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-widest text-emerald-300 font-bold">
                 PHONE & WHATSAPP
               </span>
-              <span className="mt-1 text-sm sm:text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
+              <span className="mt-1 text-sm sm:text-base font-bold text-white group-hover:text-emerald-300 transition-colors whitespace-nowrap">
                 {hrContact.phone}
               </span>
-              <span className="mt-2.5 text-[11px] text-sky-200/70 inline-flex items-center gap-1 group-hover:text-white">
+              <span className="mt-2 text-[11px] text-sky-200/70 inline-flex items-center gap-1 group-hover:text-white">
                 <span>Click to call or message</span>
                 <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
               </span>
             </a>
 
             {/* Card 3: Hyderabad Campus */}
-            <div className="rounded-2xl border border-white/15 bg-white/5 p-5 flex flex-col items-center text-center">
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#004E9A]/40 border border-[#38BDF8]/40 text-[#38BDF8] mb-2.5">
+            <div className="rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 flex flex-col items-center text-center min-h-[56px] justify-center">
+              <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#004E9A]/40 border border-[#38BDF8]/40 text-[#38BDF8] mb-2">
                 <MapPin className="h-5 w-5 text-[#38BDF8]" />
               </div>
-              <span className="text-[10.5px] font-mono uppercase tracking-widest text-sky-300 font-bold">
+              <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-widest text-sky-300 font-bold">
                 HYDERABAD CAMPUS
               </span>
               <span className="mt-1 text-xs sm:text-sm font-semibold text-white">
                 Meenakshi Tech Park, Gachibowli
               </span>
-              <span className="mt-2.5 text-[11px] text-sky-200/70">
+              <span className="mt-2 text-[11px] text-sky-200/70">
                 Mon – Fri · 9:30 AM – 6:30 PM
               </span>
             </div>
           </div>
 
-          {/* Centered Direct Action Buttons */}
-          <div className="mt-8 pt-6 border-t border-white/15 flex flex-wrap items-center justify-center gap-3 sm:gap-4 relative z-10">
+          {/* Centered Direct Action Buttons - Full width stacked on mobile */}
+          <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/15 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 relative z-10 w-full">
             {/* Email HR Button */}
             <a
               href={`mailto:${hrContact.email}?subject=Career%20Application%20-%20Godavari%20Wave%20Technologies`}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#0066CC] to-[#00D4FF] hover:from-[#004E9A] hover:to-[#0066CC] px-6 sm:px-8 py-3 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-[#0066CC]/35 hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[46px] w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#0066CC] to-[#00D4FF] hover:from-[#004E9A] hover:to-[#0066CC] px-6 sm:px-8 py-3.5 text-[15px] sm:text-sm font-semibold text-white shadow-lg shadow-[#0066CC]/35 hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[50px] w-full sm:w-auto"
             >
               <Mail className="h-4 w-4 text-white" />
               <span>Email HR Directly</span>
@@ -283,7 +283,7 @@ export default function Careers() {
               )}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/50 bg-emerald-500/15 hover:bg-emerald-500/25 px-6 sm:px-8 py-3 text-xs sm:text-sm font-semibold text-emerald-300 hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[46px] w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/50 bg-emerald-500/15 hover:bg-emerald-500/25 px-6 sm:px-8 py-3.5 text-[15px] sm:text-sm font-semibold text-emerald-300 hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[50px] w-full sm:w-auto"
             >
               <MessageSquare className="h-4 w-4 text-emerald-400" />
               <span>WhatsApp Renusri</span>
@@ -292,10 +292,10 @@ export default function Careers() {
             {/* Call HR Button */}
             <a
               href={`tel:${hrContact.phoneRaw}`}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 px-6 sm:px-8 py-3 text-xs sm:text-sm font-semibold text-white hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[46px] w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 px-6 sm:px-8 py-3.5 text-[15px] sm:text-sm font-semibold text-white hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[50px] w-full sm:w-auto"
             >
               <Phone className="h-4 w-4 text-[#38BDF8]" />
-              <span>Call {hrContact.phoneRaw}</span>
+              <span className="whitespace-nowrap">Call {hrContact.phoneRaw}</span>
             </a>
           </div>
         </motion.div>
@@ -366,8 +366,8 @@ export default function Careers() {
           </div>
         </div>
 
-        {/* Job Listings Grid with 32px Desktop Gap and 28px Internal Padding */}
-        <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
+        {/* Job Listings Grid with 32px Desktop Gap and 20px Mobile Gap */}
+        <div className="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 lg:gap-8 w-full">
           <AnimatePresence mode="popLayout">
             {filteredJobs.map((job) => {
               const isFresher = job.level === 'Fresher';
@@ -381,14 +381,14 @@ export default function Careers() {
                   viewport={{ once: false, amount: 0.15 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/15 bg-gradient-to-b from-[#0B1F3A]/95 to-[#004E9A]/20 p-[22px] lg:p-[28px] backdrop-blur-xl shadow-xl hover:border-[#00D4FF]/50 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(0,102,204,0.35)]"
+                  className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/15 bg-gradient-to-b from-[#0B1F3A]/95 to-[#004E9A]/20 p-5 sm:p-6 lg:p-[28px] backdrop-blur-xl shadow-xl hover:border-[#00D4FF]/50 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(0,102,204,0.35)] w-full overflow-hidden"
                 >
                   <div>
                     {/* Header: Level Badge & Openings */}
                     <div className="flex flex-wrap items-center justify-between gap-3 mb-4 sm:mb-5">
                       <div className="flex items-center gap-2.5">
                         <span
-                          className={`rounded-full px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider border ${isFresher
+                          className={`rounded-full px-3 sm:px-3.5 py-1 text-xs font-mono font-bold uppercase tracking-wider border ${isFresher
                               ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/30'
                               : 'bg-[#0066CC]/30 text-[#38BDF8] border-[#38BDF8]/40'
                             }`}
@@ -407,12 +407,12 @@ export default function Careers() {
                     </div>
 
                     {/* Job Title */}
-                    <h3 className="font-display text-xl sm:text-2xl md:text-[1.65rem] font-bold text-white group-hover:text-[#38BDF8] transition-colors tracking-tight">
+                    <h3 className="font-display text-xl sm:text-2xl md:text-[1.65rem] font-bold text-white group-hover:text-[#38BDF8] transition-colors tracking-tight break-words">
                       {job.title}
                     </h3>
 
                     {/* Metadata line: Experience, Location, Type */}
-                    <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-[13px] text-sky-100/70 font-medium">
+                    <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2 text-xs sm:text-[13px] text-sky-100/70 font-medium">
                       <span className="flex items-center gap-1.5">
                         <Clock className="h-4 w-4 text-[#38BDF8] shrink-0" />
                         <span>{job.experience}</span>
@@ -428,22 +428,22 @@ export default function Careers() {
                     </div>
 
                     {/* Highlight Banner */}
-                    <div className="mt-4 sm:mt-5 rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-[#00D4FF] flex items-center gap-2.5">
+                    <div className="mt-4 sm:mt-5 rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-[#00D4FF] flex items-center gap-2.5">
                       <Sparkles className="h-4 w-4 shrink-0 text-[#00D4FF]" />
                       <span className="truncate">{job.highlight}</span>
                     </div>
 
                     {/* Description */}
-                    <p className="mt-4 sm:mt-5 text-xs sm:text-sm text-sky-100/80 leading-relaxed">
+                    <p className="mt-4 sm:mt-5 text-[14px] sm:text-sm text-sky-100/80 leading-relaxed break-words">
                       {job.description}
                     </p>
 
                     {/* Skills Chips */}
-                    <div className="mt-5 sm:mt-6 flex flex-wrap gap-2">
+                    <div className="mt-4 sm:mt-6 flex flex-wrap gap-2">
                       {job.skills.slice(0, 5).map((skill) => (
                         <span
                           key={skill}
-                          className="rounded-xl bg-[#004E9A]/30 border border-white/10 px-3 py-1.5 text-xs font-mono text-sky-200"
+                          className="rounded-lg sm:rounded-xl bg-[#004E9A]/30 border border-white/10 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-mono text-sky-200"
                         >
                           {skill}
                         </span>
@@ -451,12 +451,12 @@ export default function Careers() {
                     </div>
                   </div>
 
-                  {/* Card Action Buttons with Increased Margins */}
-                  <div className="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-white/15 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+                  {/* Card Action Buttons: Stacked full-width 50px buttons on mobile */}
+                  <div className="mt-6 sm:mt-10 pt-4 sm:pt-6 border-t border-white/15 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 w-full">
                     <button
                       type="button"
                       onClick={() => handleOpenApplyModal(job)}
-                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#0066CC] to-[#00D4FF] hover:from-[#004E9A] hover:to-[#0066CC] px-6 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold text-white shadow-md shadow-[#0066CC]/30 hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[46px]"
+                      className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#0066CC] to-[#00D4FF] hover:from-[#004E9A] hover:to-[#0066CC] px-6 py-3.5 text-[15px] sm:text-sm font-semibold text-white shadow-md shadow-[#0066CC]/30 hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[50px] sm:min-h-[46px]"
                     >
                       <span>Apply Now</span>
                       <ArrowRight className="h-4 w-4 text-white" />
@@ -468,7 +468,7 @@ export default function Careers() {
                       )}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 px-5 py-3 sm:py-3.5 text-xs sm:text-sm font-semibold text-emerald-300 hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[46px]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 px-5 py-3.5 text-[15px] sm:text-sm font-semibold text-emerald-300 hover:scale-105 active:scale-95 transition-all cursor-pointer min-h-[50px] sm:min-h-[46px]"
                       title="Quick Inquiry on WhatsApp"
                     >
                       <MessageSquare className="h-4 w-4 text-emerald-400" />

@@ -51,14 +51,14 @@ export default function SectionHeader({
         {label}
       </motion.p>
 
-      {/* 2. Main Heading (Desktop: 56px, Tablet: 46px, Mobile: 34px, Weight: 800, Max width: 900px) */}
+      {/* 2. Main Heading (Desktop: 56px, Tablet: 46px, Mobile: 30-34px, Weight: 800, Max width: 900px) */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
         className={cn(
-          'font-display text-[34px] sm:text-[46px] lg:text-[56px] font-extrabold tracking-tight text-foreground leading-[1.15] max-w-[900px]',
+          'font-display text-[30px] sm:text-[34px] md:text-[46px] lg:text-[56px] font-extrabold tracking-tight text-foreground leading-[1.15] max-w-[900px] break-words',
           isCenter && 'mx-auto'
         )}
       >
@@ -85,7 +85,7 @@ export default function SectionHeader({
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
           className={cn(
-            'mt-5 max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed',
+            'mt-5 max-w-[700px] text-[15px] sm:text-[16px] md:text-[18px] text-muted-foreground leading-relaxed break-words',
             isCenter && 'mx-auto'
           )}
         >

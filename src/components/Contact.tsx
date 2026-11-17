@@ -55,14 +55,14 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A]">
+    <section id="contact" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[60px] sm:py-[80px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden">
       {/* Top Transition Vignette for Smooth Section Breathing Gap */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent z-10" />
 
-      <div className="mx-auto max-w-[1450px] relative z-20">
+      <div className="mx-auto max-w-[1450px] relative z-20 w-full">
         {/* Section Header: Left-aligned with generous spacing before cards */}
         <motion.div
-          className="mb-12 sm:mb-16 lg:mb-20 text-left"
+          className="mb-8 sm:mb-16 lg:mb-20 text-left"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
@@ -86,7 +86,7 @@ export default function Contact() {
 
           {/* Main 2-Line Heading */}
           <h2
-            className="text-3xl sm:text-5xl md:text-7xl lg:text-[5.5rem] xl:text-[6rem] font-black tracking-tight text-white leading-[1.08] sm:leading-[1.02] break-words mt-3"
+            className="text-[30px] sm:text-[34px] md:text-7xl lg:text-[5.5rem] xl:text-[6rem] font-black tracking-tight text-white leading-[1.1] sm:leading-[1.02] break-words mt-3"
             style={{ fontFamily: '"Arial Black", "Arial Bold", Gadget, sans-serif' }}
           >
             <motion.span
@@ -115,21 +115,26 @@ export default function Contact() {
             whileInView={{ scaleX: 1, opacity: 1 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.7, delay: 0.25, ease: 'easeOut' }}
-            className="mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#38BDF8] to-[#0066CC] shadow-[0_0_12px_rgba(0,212,255,0.5)] origin-left"
+            className="mt-4 sm:mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#38BDF8] to-[#0066CC] shadow-[0_0_12px_rgba(0,212,255,0.5)] origin-left"
           />
+
+          {/* Hero Description: Stays inside container, 15-16px, comfortable line height */}
+          <p className="mt-4 text-[15px] sm:text-[16px] md:text-lg text-slate-300 max-w-[700px] break-words leading-relaxed">
+            Have a project in mind or want to explore digital transformation? Reach our engineering and consulting team directly.
+          </p>
         </motion.div>
 
-        {/* Main 2-Column Grid: 32px desktop, 24px tablet/mobile gap */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6 lg:gap-8 items-stretch">
+        {/* Main 2-Column Grid: 32px desktop, 24px tablet, 20px mobile gap */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6 lg:gap-8 items-stretch w-full">
 
           {/* ========================================================= */}
           {/* LEFT COLUMN: Map Card (Top) + Head Office Info Card (Bottom) */}
           {/* ========================================================= */}
-          <div className="flex flex-col gap-6 justify-between">
+          <div className="flex flex-col gap-5 sm:gap-6 justify-between w-full">
 
             {/* 1. Vector Map Card */}
             <motion.div
-              className="relative aspect-[4/3] min-h-[340px] sm:min-h-[400px] lg:min-h-[440px] rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-4 sm:p-6 overflow-hidden flex items-center justify-center shadow-2xl"
+              className="relative aspect-[4/3] w-full min-h-[220px] sm:min-h-[400px] lg:min-h-[440px] rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-3 sm:p-6 overflow-hidden flex items-center justify-center shadow-2xl max-w-full"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
@@ -258,7 +263,7 @@ export default function Contact() {
                 </span>
 
                 {/* White Capsule Badge Highlighting Hyderabad */}
-                <span className="mt-1.5 whitespace-nowrap rounded-full bg-white px-3 py-0.5 text-[11px] font-bold text-[#0A2540] shadow-xl border border-white">
+                <span className="mt-1 whitespace-nowrap rounded-full bg-white px-2.5 sm:px-3 py-0.5 text-[10px] sm:text-[11px] font-bold text-[#0A2540] shadow-xl border border-white">
                   Hyderabad
                 </span>
               </button>
@@ -273,10 +278,10 @@ export default function Contact() {
                 aria-label="Select Rajahmundry Head Office"
               >
                 {/* Amber node for HQ */}
-                <span className="relative flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-tr from-amber-600 to-orange-400 border border-white shadow-[0_0_12px_#f97316] transition-transform group-hover:scale-125">
+                <span className="relative flex h-3.5 w-3.5 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-gradient-to-tr from-amber-600 to-orange-400 border border-white shadow-[0_0_12px_#f97316] transition-transform group-hover:scale-125">
                   <span className="h-1 w-1 rounded-full bg-white" />
                 </span>
-                <span className="mt-1.5 whitespace-nowrap rounded-full bg-[#0E1722]/90 border border-amber-500/30 px-2.5 py-0.5 text-[10.5px] font-medium text-amber-200 shadow-md">
+                <span className="mt-1 whitespace-nowrap rounded-full bg-[#0E1722]/90 border border-amber-500/30 px-2 sm:px-2.5 py-0.5 text-[9.5px] sm:text-[10.5px] font-medium text-amber-200 shadow-md">
                   Rajahmundry · HQ
                 </span>
               </button>
@@ -293,7 +298,7 @@ export default function Contact() {
                 <span className="relative flex h-3 w-3 items-center justify-center rounded-full bg-[#38BDF8] border border-white shadow-[0_0_10px_#38BDF8] transition-transform group-hover:scale-125">
                   <span className="h-1 w-1 rounded-full bg-[#081018]" />
                 </span>
-                <span className="mt-1.5 whitespace-nowrap rounded-full bg-[#0E1722]/90 border border-white/10 px-2.5 py-0.5 text-[10.5px] font-medium text-slate-200 shadow-md">
+                <span className="mt-1 whitespace-nowrap rounded-full bg-[#0E1722]/90 border border-white/10 px-2 sm:px-2.5 py-0.5 text-[9.5px] sm:text-[10.5px] font-medium text-slate-200 shadow-md">
                   Visakhapatnam
                 </span>
               </button>
@@ -310,7 +315,7 @@ export default function Contact() {
                 <span className="relative flex h-3 w-3 items-center justify-center rounded-full bg-[#38BDF8] border border-white shadow-[0_0_10px_#38BDF8] transition-transform group-hover:scale-125">
                   <span className="h-1 w-1 rounded-full bg-[#081018]" />
                 </span>
-                <span className="mt-1.5 whitespace-nowrap rounded-full bg-[#0E1722]/90 border border-white/10 px-2.5 py-0.5 text-[10.5px] font-medium text-slate-200 shadow-md">
+                <span className="mt-1 whitespace-nowrap rounded-full bg-[#0E1722]/90 border border-white/10 px-2 sm:px-2.5 py-0.5 text-[9.5px] sm:text-[10.5px] font-medium text-slate-200 shadow-md">
                   Vijayawada
                 </span>
               </button>
@@ -318,12 +323,30 @@ export default function Contact() {
 
             {/* 2. Office Information Card (Matches Screenshot Bottom Card) */}
             <motion.div
-              className="rounded-xl sm:rounded-2xl bg-[#0F2442] border-white/10 border p-[22px] lg:p-[28px] shadow-2xl flex flex-col justify-between"
+              className="rounded-xl sm:rounded-2xl bg-[#0F2442] border-white/10 border p-5 sm:p-[22px] lg:p-[28px] shadow-2xl flex flex-col justify-between w-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
+              {/* Mobile Office Selector Pill Tabs */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none sm:hidden mb-2">
+                {offices.map((off, idx) => (
+                  <button
+                    key={off.city}
+                    type="button"
+                    onClick={() => setSelectedOffice(idx)}
+                    className={`whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-medium transition-all cursor-pointer ${
+                      selectedOffice === idx
+                        ? 'bg-[#38BDF8] text-slate-950 font-semibold shadow-sm'
+                        : 'bg-white/5 text-slate-300 border border-white/10'
+                    }`}
+                  >
+                    {off.city}
+                  </button>
+                ))}
+              </div>
+
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentOffice.city}
@@ -333,7 +356,7 @@ export default function Contact() {
                   transition={{ duration: 0.2 }}
                 >
                   {/* Eyebrow Label: Shows Hyderabad Office by default */}
-                  <span className="text-[11px] font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
+                  <span className="text-[11px] sm:text-xs font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
                     {currentOffice.city === 'Hyderabad'
                       ? 'HYDERABAD OFFICE'
                       : currentOffice.hq
@@ -342,31 +365,31 @@ export default function Contact() {
                   </span>
 
                   {/* Office City Title */}
-                  <h3 className="font-display text-2xl font-bold text-white mt-1">
+                  <h3 className="font-display text-[20px] sm:text-2xl font-bold text-white mt-1">
                     {currentOffice.city}
                   </h3>
 
                   {/* Location & Phone */}
-                  <div className="mt-3.5 space-y-2 text-sm text-slate-400">
+                  <div className="mt-3.5 space-y-2.5 text-[14px] sm:text-sm text-slate-400">
                     <div className="flex items-start gap-2.5 leading-relaxed">
                       <MapPin className="h-4 w-4 text-[#38BDF8] shrink-0 mt-0.5" />
-                      <span>{currentOffice.address}</span>
+                      <span className="break-words">{currentOffice.address}</span>
                     </div>
 
                     <div className="flex items-center gap-2.5">
                       <Phone className="h-4 w-4 text-[#38BDF8] shrink-0" />
-                      <span>{currentOffice.phone}</span>
+                      <span className="whitespace-nowrap">{currentOffice.phone}</span>
                     </div>
                   </div>
 
                   {/* Open in Maps Link */}
-                  <div className="mt-4 flex items-center justify-between">
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
                     <a
                       href={currentOffice.map}
                       target="_blank"
                       rel="noreferrer"
                       data-cursor="true"
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#38BDF8] hover:text-[#00D4FF] transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#38BDF8] hover:text-[#00D4FF] transition-colors cursor-pointer min-h-[44px]"
                     >
                       <span>Open in Maps</span>
                       <ArrowRight className="h-3.5 w-3.5" />
@@ -377,7 +400,7 @@ export default function Contact() {
                       <button
                         type="button"
                         onClick={() => setSelectedOffice(0)}
-                        className="text-xs text-[#38BDF8] hover:text-white transition-colors cursor-pointer font-mono"
+                        className="text-xs text-[#38BDF8] hover:text-white transition-colors cursor-pointer font-mono min-h-[44px]"
                       >
                         ← View Hyderabad Office
                       </button>
@@ -392,7 +415,7 @@ export default function Contact() {
           {/* RIGHT COLUMN: "Send us a message" Full Height Form Card */}
           {/* ========================================================= */}
           <motion.div
-            className="rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-6 sm:p-8 md:p-10 shadow-2xl flex flex-col justify-between"
+            className="rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-5 sm:p-8 md:p-10 shadow-2xl flex flex-col justify-between w-full"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
@@ -400,10 +423,10 @@ export default function Contact() {
           >
             <div>
               {/* Header Title & Subtitle */}
-              <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              <h3 className="font-display text-[20px] sm:text-2xl md:text-3xl font-bold text-white tracking-tight">
                 Send us a message
               </h3>
-              <p className="mt-2 text-xs sm:text-sm text-slate-400">
+              <p className="mt-1.5 text-[14px] sm:text-sm text-slate-400">
                 We'll promptly discuss your project with you.
               </p>
 
@@ -430,14 +453,14 @@ export default function Contact() {
                   </button>
                 </div>
               ) : (
-                /* Form with Minimal Clean Underline Inputs matching the screenshot */
-                <form onSubmit={handleSubmit} className="mt-6 sm:mt-8 space-y-6 sm:space-y-7">
-                  {/* Row 1: FULL NAME & EMAIL (2 Columns) */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                    <div className="space-y-2">
+                /* Form with Minimal Clean Inputs: 50px pill/card on mobile (<768px), underline on tablet/desktop */
+                <form onSubmit={handleSubmit} className="mt-6 sm:mt-8 space-y-4 sm:space-y-7">
+                  {/* Row 1: FULL NAME & EMAIL (2 Columns on tablet/desktop, 1 column on mobile) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+                    <div className="space-y-1.5 sm:space-y-2">
                       <label
                         htmlFor="name"
-                        className="block text-xs font-semibold text-slate-400 uppercase tracking-wider"
+                        className="block text-[14px] sm:text-xs font-semibold text-slate-300 sm:text-slate-400 uppercase tracking-wider"
                       >
                         FULL NAME
                       </label>
@@ -446,16 +469,17 @@ export default function Contact() {
                         name="name"
                         required
                         type="text"
+                        placeholder="Your full name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-transparent border-b border-slate-700/80 pb-2 text-base sm:text-sm text-white placeholder-slate-600 focus:border-[#38BDF8] focus:outline-none transition-colors"
+                        className="h-[50px] w-full rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 sm:border-b sm:border-slate-700/80 px-4 sm:px-0 sm:pb-2 text-[14px] sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 sm:focus:bg-transparent focus:outline-none transition-all"
                       />
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-1.5 sm:space-y-2">
                       <label
                         htmlFor="email"
-                        className="block text-xs font-semibold text-slate-400 uppercase tracking-wider"
+                        className="block text-[14px] sm:text-xs font-semibold text-slate-300 sm:text-slate-400 uppercase tracking-wider"
                       >
                         EMAIL
                       </label>
@@ -464,18 +488,19 @@ export default function Contact() {
                         name="email"
                         required
                         type="email"
+                        placeholder="yourname@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-transparent border-b border-slate-700/80 pb-2 text-base sm:text-sm text-white placeholder-slate-600 focus:border-[#38BDF8] focus:outline-none transition-colors"
+                        className="h-[50px] w-full rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 sm:border-b sm:border-slate-700/80 px-4 sm:px-0 sm:pb-2 text-[14px] sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 sm:focus:bg-transparent focus:outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   {/* Row 2: PHONE (Full Width) */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5 sm:space-y-2">
                     <label
                       htmlFor="phone"
-                      className="block text-xs font-semibold text-slate-400 uppercase tracking-wider"
+                      className="block text-[14px] sm:text-xs font-semibold text-slate-300 sm:text-slate-400 uppercase tracking-wider"
                     >
                       PHONE
                     </label>
@@ -483,17 +508,18 @@ export default function Contact() {
                       id="phone"
                       name="phone"
                       type="tel"
+                      placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-transparent border-b border-slate-700/80 pb-2 text-base sm:text-sm text-white placeholder-slate-600 focus:border-[#38BDF8] focus:outline-none transition-colors"
+                      className="h-[50px] w-full rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 sm:border-b sm:border-slate-700/80 px-4 sm:px-0 sm:pb-2 text-[14px] sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 sm:focus:bg-transparent focus:outline-none transition-all"
                     />
                   </div>
 
                   {/* Row 3: YOUR PROJECT (Full Width Textarea) */}
-                  <div className="space-y-2">
+                  <div className="space-y-1.5 sm:space-y-2">
                     <label
                       htmlFor="message"
-                      className="block text-xs font-semibold text-slate-400 uppercase tracking-wider"
+                      className="block text-[14px] sm:text-xs font-semibold text-slate-300 sm:text-slate-400 uppercase tracking-wider"
                     >
                       YOUR PROJECT
                     </label>
@@ -504,16 +530,17 @@ export default function Contact() {
                       rows={3}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-transparent border-b border-slate-700/80 pb-2 text-base sm:text-sm text-white placeholder-slate-600 focus:border-[#38BDF8] focus:outline-none transition-colors resize-none leading-relaxed"
+                      className="w-full min-h-[90px] sm:min-h-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 sm:border-b sm:border-slate-700/80 p-4 sm:p-0 sm:pb-2 text-[14px] sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 sm:focus:bg-transparent focus:outline-none transition-all resize-none leading-relaxed"
+                      placeholder="Tell us about your project requirements..."
                     />
                   </div>
 
-                  {/* Submit Button */}
+                  {/* Submit Button: Full-width on mobile, auto on tablet/desktop */}
                   <div className="pt-2">
                     <button
                       type="submit"
                       data-cursor="true"
-                      className="w-full sm:w-auto relative group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_24px_rgba(0,102,204,0.4)] hover:shadow-[0_0_32px_rgba(0,212,255,0.5)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                      className="w-full sm:w-auto min-h-[50px] sm:min-h-0 relative group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-[15px] sm:text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_24px_rgba(0,102,204,0.4)] hover:shadow-[0_0_32px_rgba(0,212,255,0.5)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
                     >
                       <span>Send request</span>
                       <Send className="h-4 w-4 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -523,35 +550,47 @@ export default function Contact() {
               )}
             </div>
 
-            {/* Bottom Contact Details Grid (2x2 Layout matching screenshot) */}
-            <div className="mt-10 pt-6 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-6 text-xs text-slate-400">
+            {/* Bottom Contact Details: Vertical stack with 56px min-height on mobile (<768px), 2-column grid on desktop */}
+            <div className="mt-8 sm:mt-10 pt-6 border-t border-slate-800/80 flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-x-6 sm:gap-y-3.5 text-[14px] sm:text-xs text-slate-300 sm:text-slate-400">
+              {/* 1. Phone */}
               <a
                 href={`tel:${companyInfo.phones[0].replace(/\s/g, '')}`}
-                className="flex items-center gap-2.5 hover:text-white transition-colors"
+                className="flex items-center gap-3 min-h-[56px] sm:min-h-0 px-4 py-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 hover:text-white transition-colors"
               >
-                <Phone className="h-3.5 w-3.5 text-[#38BDF8] shrink-0" />
-                <span>{companyInfo.phones[0]}</span>
+                <div className="flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 sm:bg-transparent shrink-0">
+                  <Phone className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-[#38BDF8]" />
+                </div>
+                <span className="whitespace-nowrap font-medium text-white sm:text-slate-400">{companyInfo.phones[0]}</span>
               </a>
 
+              {/* 2. Primary Email */}
               <a
                 href={`mailto:${companyInfo.emails.info}`}
-                className="flex items-center gap-2.5 hover:text-white transition-colors"
+                className="flex items-center gap-3 min-h-[56px] sm:min-h-0 px-4 py-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 hover:text-white transition-colors"
               >
-                <Mail className="h-3.5 w-3.5 text-[#38BDF8] shrink-0" />
-                <span className="break-all sm:break-normal">{companyInfo.emails.info}</span>
+                <div className="flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 sm:bg-transparent shrink-0">
+                  <Mail className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-[#38BDF8]" />
+                </div>
+                <span className="break-all font-medium text-white sm:text-slate-400">{companyInfo.emails.info}</span>
               </a>
 
-              <div className="flex items-center gap-2.5">
-                <Clock className="h-3.5 w-3.5 text-[#38BDF8] shrink-0" />
-                <span>{companyInfo.hours}</span>
+              {/* 3. Business Hours */}
+              <div className="flex items-center gap-3 min-h-[56px] sm:min-h-0 px-4 py-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0">
+                <div className="flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 sm:bg-transparent shrink-0">
+                  <Clock className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-[#38BDF8]" />
+                </div>
+                <span className="font-medium text-white sm:text-slate-400">{companyInfo.hours}</span>
               </div>
 
+              {/* 4. HR Email */}
               <a
                 href={`mailto:${companyInfo.emails.hr}`}
-                className="flex items-center gap-2.5 hover:text-white transition-colors"
+                className="flex items-center gap-3 min-h-[56px] sm:min-h-0 px-4 py-2.5 sm:p-0 rounded-xl sm:rounded-none bg-white/5 sm:bg-transparent border border-white/10 sm:border-0 hover:text-white transition-colors"
               >
-                <Mail className="h-3.5 w-3.5 text-[#38BDF8] shrink-0" />
-                <span className="break-all sm:break-normal"> {companyInfo.emails.hr}</span>
+                <div className="flex h-9 w-9 sm:h-auto sm:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 sm:bg-transparent shrink-0">
+                  <Mail className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-[#38BDF8]" />
+                </div>
+                <span className="break-all font-medium text-white sm:text-slate-400">{companyInfo.emails.hr}</span>
               </a>
             </div>
           </motion.div>
