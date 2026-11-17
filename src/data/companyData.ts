@@ -350,6 +350,7 @@ export const portfolioProjects = [
     name: "Hospital Management",
     type: "Multi-Speciality Hospital ERP",
     cat: "Dashboards",
+    logo: "/images/gw-dm-10.png",
     image: "/images/gw-govt-1.jpg",
     accent: "from-indigo-500/20 via-sea/20 to-ocean-deep",
     desc: "Patient records, doctor scheduling, pharmacy and billing in unified dashboard."
@@ -358,6 +359,7 @@ export const portfolioProjects = [
     name: "Truedoit",
     type: "Enterprise Telemetry Dashboard",
     cat: "Dashboards",
+    logo: "/images/gw-client-46.png",
     image: "/images/gw-govt-4.jpg",
     accent: "from-purple-500/20 via-sea/20 to-ocean-deep",
     desc: "Real-time systems monitoring, audit logs and KPI reporting suites."
@@ -366,6 +368,7 @@ export const portfolioProjects = [
     name: "Complete Digital Marketing",
     type: "SEO · Creatives · Video Campaigns",
     cat: "Marketing",
+    logo: "/images/gw-dm-1.png",
     image: "/images/d19c307e08d3240f7f34ddd04756bfe9_1794307592007.png",
     accent: "from-rose-500/20 via-ember/20 to-ocean-deep",
     desc: "End-to-end multi-channel marketing campaigns, brand identity and video production."
