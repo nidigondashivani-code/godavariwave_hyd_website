@@ -21,10 +21,11 @@ export default function Comparison() {
       <div className="mx-auto max-w-[1450px]">
         <div className="grid gap-12 sm:gap-16 lg:gap-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="pl-2 sm:pl-4 md:pl-6 lg:pl-10 xl:pl-14"
           >
             <p className="eyebrow mb-3">Why Godavari Wave</p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
@@ -79,8 +80,8 @@ export default function Comparison() {
             </div>
           </motion.div>
 
-          {/* Comparison Progress Bars - 32px desktop, 24px tablet, 20px mobile gap */}
-          <div className="grid gap-5 md:gap-6 lg:gap-8">
+          {/* Comparison Progress Bars with Increased Margins & Padding on all sides, shifted towards right */}
+          <div className="grid gap-6 sm:gap-8 lg:gap-10 pl-2 sm:pl-4 lg:pl-8 xl:pl-12">
             {comparisonMetrics.map((item, idx) => {
               const score = selectedTab === 'gw' ? item.gw : item.trad;
               const text = selectedTab === 'gw' ? item.gwText : item.tradText;
@@ -88,28 +89,28 @@ export default function Comparison() {
               return (
                 <motion.div
                   key={item.metric}
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
-                  className="glass rounded-2xl p-[22px] lg:p-[28px] transition-all duration-300 hover:border-sea/50 hover:-translate-y-0.5 shadow-md"
+                  viewport={{ once: false, amount: 0.15 }}
+                  transition={{ duration: 0.65, delay: (idx % 3) * 0.1, ease: 'easeOut' }}
+                  className="glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-9 xl:p-10 transition-all duration-300 hover:border-sea/50 hover:-translate-y-0.5 shadow-lg border border-glass-border"
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="grid h-10 w-10 place-items-center rounded-xl bg-glass-strong border border-glass-border">
+                  <div className="flex items-center justify-between pl-1 sm:pl-2">
+                    <div className="flex items-center gap-3.5">
+                      <span className="grid h-11 w-11 place-items-center rounded-xl bg-glass-strong border border-glass-border shadow-sm">
                         {metricIcons[item.metric]}
                       </span>
                       <span className="font-display text-base sm:text-lg font-semibold text-foreground">
                         {item.metric}
                       </span>
                     </div>
-                    <span className="font-mono text-sm sm:text-base font-bold text-secondary">
+                    <span className="font-mono text-base sm:text-lg font-bold text-secondary">
                       {score}%
                     </span>
                   </div>
 
-                  {/* Progress Bar */}
-                  <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-ocean-deep/80">
+                  {/* Progress Bar Track with increased margins and padding on all sides */}
+                  <div className="my-5 sm:my-6 md:my-7 h-4 sm:h-5 w-full overflow-hidden rounded-full bg-ocean-deep/90 p-1 border border-white/15 shadow-inner">
                     <motion.div
                       className={cn(
                         'h-full rounded-full transition-all duration-700',
@@ -117,11 +118,11 @@ export default function Comparison() {
                       )}
                       initial={{ width: 0 }}
                       animate={{ width: `${score}%` }}
-                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
                     />
                   </div>
 
-                  <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-muted-foreground leading-relaxed pl-1 sm:pl-2.5">
                     {text}
                   </p>
                 </motion.div>

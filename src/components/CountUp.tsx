@@ -11,15 +11,19 @@ interface CountUpProps {
 export default function CountUp({ value, duration = 1.6, suffix = '', className }: CountUpProps) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, { once: false, amount: 0.3 });
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView) {
+      setCount(0);
+      return;
+    }
 
     let start = 0;
     const end = value;
     const startTime = performance.now();
     const durationMs = duration * 1000;
+    let frameId: number;
 
     const step = (now: number) => {
       const elapsed = now - startTime;
@@ -30,13 +34,14 @@ export default function CountUp({ value, duration = 1.6, suffix = '', className 
       setCount(current);
 
       if (progress < 1) {
-        requestAnimationFrame(step);
+        frameId = requestAnimationFrame(step);
       } else {
         setCount(end);
       }
     };
 
-    requestAnimationFrame(step);
+    frameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameId);
   }, [isInView, value, duration]);
 
   return (

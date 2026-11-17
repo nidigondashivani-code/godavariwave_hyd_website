@@ -46,7 +46,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, amount: 0.15 }}
       transition={{
@@ -54,11 +54,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         delay: (i % 3) * 0.1,
         ease: 'easeOut'
       }}
-      className={cn('w-full lg:animate-float', i % 3 === 1 && 'lg:translate-y-8')}
-      style={{
-        animationDelay: `${-i * 1.3}s`,
-        animationDuration: `${7 + (i % 3)}s`
-      }}
+      className={cn('w-full', i % 3 === 1 && 'lg:translate-y-6')}
     >
       <motion.div
         ref={cardRef}

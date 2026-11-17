@@ -21,9 +21,9 @@ export default function Process() {
         {/* Section Header */}
         <motion.div
           className="text-center"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <p className="eyebrow mb-3">How we work</p>
@@ -41,9 +41,9 @@ export default function Process() {
         {/* Desktop Connected Steps Navigation with Animated Connecting Line */}
         <motion.div
           className="relative mt-12 sm:mt-16 lg:mt-20 hidden md:block"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
         >
           {/* Connecting Animated Line */}
@@ -99,9 +99,9 @@ export default function Process() {
         {/* Active Step Display Card - 24px - 32px padding */}
         <motion.div
           className="mt-10 sm:mt-12 mx-auto max-w-2xl"
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
+          viewport={{ once: false, amount: 0.15 }}
           transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
         >
           <AnimatePresence mode="wait">
@@ -131,7 +131,7 @@ export default function Process() {
           className="mt-8 flex flex-wrap justify-center gap-2 md:hidden"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {processSteps.map((step, idx) => (

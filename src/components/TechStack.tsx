@@ -21,9 +21,9 @@ export default function TechStack() {
       <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center"
         >
@@ -49,10 +49,10 @@ export default function TechStack() {
               return (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
+                  viewport={{ once: false, amount: 0.15 }}
+                  transition={{ duration: 0.65, delay: (idx % 3) * 0.1, ease: 'easeOut' }}
                   className="w-full sm:w-auto"
                 >
                   <motion.button

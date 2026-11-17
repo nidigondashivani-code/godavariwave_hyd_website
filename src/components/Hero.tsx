@@ -26,7 +26,7 @@ export default function Hero() {
           className="eyebrow mb-3 inline-flex items-center justify-center gap-2 sm:gap-2.5 text-[#38BDF8] text-[11px] sm:text-xs font-mono tracking-wider"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <span className="relative flex h-2 w-2">
@@ -41,7 +41,7 @@ export default function Hero() {
           className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[60px] font-bold leading-[1.1] max-w-4xl mx-auto text-foreground tracking-tight"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
         >
           Building{' '}
@@ -56,7 +56,7 @@ export default function Hero() {
           className="mt-[18px] max-w-[700px] mx-auto text-[16px] sm:text-[18px] text-white/85 leading-relaxed"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
         >
           Transforming businesses through AI, software development, cloud solutions and enterprise innovation — born on the Godavari, now scaling from Hyderabad.
@@ -67,7 +67,7 @@ export default function Hero() {
           className="pointer-events-auto mt-10 mb-6 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
         >
           <a
@@ -94,7 +94,7 @@ export default function Hero() {
         className="relative z-10 mx-auto w-full max-w-[1450px] px-5 md:px-8 lg:px-10 xl:px-12 pb-8 sm:pb-12 lg:pb-14"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: false, amount: 0.15 }}
         transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
       >
         <div className="grid grid-cols-2 gap-5 md:gap-6 lg:gap-8 md:grid-cols-4">
@@ -107,7 +107,7 @@ export default function Hero() {
                 key={s.label}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: false, amount: 0.15 }}
                 transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
                 style={{
                   borderRadius: '14px',

@@ -69,9 +69,9 @@ export default function ClientsRiver() {
 
       <motion.div
         className="mx-auto max-w-[1450px] text-center"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1 text-xs font-mono tracking-widest text-[#00D4FF] uppercase mb-3 backdrop-blur-md">
@@ -92,9 +92,9 @@ export default function ClientsRiver() {
 
       <motion.div
         className="mt-12 sm:mt-16 lg:mt-20 [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
       >
         <RiverRow items={row1} duration={55} />

@@ -146,8 +146,14 @@ export default function Careers() {
       <div className="pointer-events-none absolute -bottom-40 left-0 h-[450px] w-[450px] rounded-full bg-[#00D4FF]/10 blur-[130px]" />
 
       <div className="relative mx-auto max-w-[1450px] z-20">
-        {/* Section Header */}
-        <div className="mx-auto max-w-3xl text-center">
+        {/* Section Header with Bidirectional Entrance Animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="mx-auto max-w-3xl text-center"
+        >
           <div className="inline-flex items-center gap-2 rounded-full border border-[#00D4FF]/30 bg-[#004E9A]/30 px-3.5 sm:px-4 py-1.5 text-xs font-mono uppercase tracking-[0.2em] text-[#38BDF8] shadow-sm mb-3">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D4FF] opacity-75" />
@@ -165,10 +171,16 @@ export default function Careers() {
           <p className="mt-[18px] text-[16px] sm:text-[18px] text-sky-100/80 leading-relaxed max-w-[700px] mx-auto">
             Join Godavari Wave Technologies at Meenakshi Tech Park, Gachibowli. We have open roles for freshers and experienced professionals across software engineering, digital marketing, sales, social media, and HR.
           </p>
-        </div>
+        </motion.div>
 
         {/* Dedicated Direct HR Connect Showcase (Renusri) - Centered & Perfectly Symmetrical on Desktop */}
-        <div className="mx-auto max-w-5xl mt-10 sm:mt-14 rounded-3xl border border-white/20 bg-gradient-to-b from-[#0e2a4a]/95 via-[#0B1F3A]/95 to-[#061426] p-6 sm:p-8 md:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.65, delay: 0.1, ease: 'easeOut' }}
+          className="mx-auto max-w-5xl mt-12 sm:mt-16 lg:mt-20 rounded-3xl border border-white/20 bg-gradient-to-b from-[#0e2a4a]/95 via-[#0B1F3A]/95 to-[#061426] p-6 sm:p-8 md:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden"
+        >
           {/* Subtle Ambient Glows */}
           <div className="pointer-events-none absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#0066CC]/25 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-24 -right-24 h-64 w-64 rounded-full bg-[#00D4FF]/20 blur-3xl" />
@@ -297,7 +309,7 @@ export default function Careers() {
               <span>Call {hrContact.phoneRaw}</span>
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* Filter Navigation Bar (Centered & Symmetrical on Desktop, Touch-Friendly on Mobile) */}
         <div className="mt-12 sm:mt-16 mx-auto max-w-5xl space-y-4">
@@ -377,7 +389,7 @@ export default function Careers() {
                   layout
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={{ once: false, amount: 0.15 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                   className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/15 bg-gradient-to-b from-[#0B1F3A]/95 to-[#004E9A]/20 p-[22px] lg:p-[28px] backdrop-blur-xl shadow-xl hover:border-[#00D4FF]/50 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(0,102,204,0.35)]"

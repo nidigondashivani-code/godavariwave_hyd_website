@@ -48,7 +48,7 @@ export default function Story() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             <div className="flex items-center gap-2 mb-3">
@@ -67,7 +67,7 @@ export default function Story() {
             className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] leading-relaxed text-muted-foreground"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
           >
             Founded in Rajahmundry to make digital transformation affordable, accessible and impactful — and expanding in 2026 with our dedicated innovation hub at Meenakshi Tech Park, Gachibowli, Hyderabad.
@@ -76,7 +76,7 @@ export default function Story() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.25, ease: 'easeOut' }}
             className="glass-soft mt-8 inline-flex items-center gap-4 rounded-2xl border border-glass-border p-[22px] lg:p-[28px] shadow-xl"
           >
@@ -111,7 +111,7 @@ export default function Story() {
                 className="relative"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={{ once: false, amount: 0.15 }}
                 transition={{ duration: 0.6, delay: (idx % 3) * 0.1, ease: 'easeOut' }}
               >
                 {/* Timeline node */}
@@ -119,7 +119,7 @@ export default function Story() {
                   className="absolute top-2 -left-[1.85rem] sm:-left-[2.15rem] flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-ocean border border-glass-border shadow-glow-gold md:-left-[3.35rem]"
                   initial={{ scale: 0, y: 15 }}
                   whileInView={{ scale: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
+                  viewport={{ once: false, amount: 0.2 }}
                   transition={{ type: 'spring', stiffness: 260, damping: 14, delay: 0.1 }}
                 >
                   <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-[#00D4FF]" />

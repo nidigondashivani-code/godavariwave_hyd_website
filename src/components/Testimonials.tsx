@@ -60,9 +60,9 @@ export default function Testimonials() {
 
       <div className="relative mx-auto max-w-[1450px]">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="mb-12 sm:mb-16 lg:mb-20"
         >
@@ -85,13 +85,12 @@ export default function Testimonials() {
             return (
               <motion.figure
                 key={idx}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: (idx % 3) * 0.1, ease: 'easeOut' }}
+                viewport={{ once: false, amount: 0.15 }}
+                transition={{ duration: 0.65, delay: (idx % 3) * 0.1, ease: 'easeOut' }}
                 onMouseEnter={() => setActiveIdx(idx)}
-                className={cn('w-full lg:animate-float', idx === 1 && 'lg:mt-8')}
-                style={{ animationDelay: `${-idx * 2}s` }}
+                className={cn('w-full', idx === 1 && 'lg:mt-8')}
                 data-cursor="true"
               >
                 <div
