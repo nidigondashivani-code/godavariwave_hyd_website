@@ -7,7 +7,6 @@ import {
   Send,
   MapPin,
   CheckCircle2,
-  ArrowRight,
   Building2,
   User,
   MessageSquare,
@@ -57,7 +56,7 @@ export default function Contact() {
     }, 600);
   };
 
-  // 4 Quick Contact Cards strictly populated with existing website data
+  // 4 Quick Contact Cards strictly populated with existing website data (Equal height & 28px internal padding on desktop)
   const contactCards = [
     {
       icon: MapPin,
@@ -96,7 +95,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-28 lg:scroll-mt-36 w-full max-w-full overflow-hidden bg-[#0A192F] pt-[60px] sm:pt-[80px] md:pt-[120px] pb-[60px] sm:pb-[80px] md:pb-[120px] mb-[120px]"
+      className="relative scroll-mt-28 lg:scroll-mt-36 w-full max-w-full overflow-hidden bg-[#0A192F] pt-[80px] md:pt-[120px] pb-[80px] md:pb-[120px] mb-[120px]"
     >
       {/* Top Subtle Vignette for Seamless Section Transition */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent z-10" />
@@ -111,11 +110,11 @@ export default function Contact() {
         aria-hidden="true"
       />
 
-      {/* Maximum Width 1440px Container with 48px Padding */}
+      {/* Maximum Width 1440px Container with 48px Desktop / 20px Mobile Padding */}
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 md:px-[48px] w-full z-20">
         
         {/* ========================================================= */}
-        {/* SECTION HEADING (Preserving existing website content)      */}
+        {/* SECTION HEADING                                           */}
         {/* ========================================================= */}
         <motion.div
           className="mb-12 text-left"
@@ -138,9 +137,9 @@ export default function Contact() {
             </span>
           </motion.div>
 
-          {/* Large Heading: Existing Website Content (48–56px, 700–800 font weight) */}
+          {/* Large Heading: Responsive Scaling, 48–56px desktop, 700–800 font weight */}
           <h2
-            className="text-[32px] sm:text-[42px] md:text-[50px] lg:text-[56px] font-black tracking-tight text-white leading-[1.08] break-words mt-3"
+            className="text-[30px] sm:text-[38px] md:text-[46px] lg:text-[54px] font-black tracking-tight text-white leading-[1.12] break-words mt-3"
             style={{ fontFamily: '"Arial Black", "Arial Bold", Gadget, sans-serif' }}
           >
             <motion.span
@@ -172,9 +171,9 @@ export default function Contact() {
             className="mt-4 sm:mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#38BDF8] to-[#0066CC] shadow-[0_0_12px_rgba(0,212,255,0.5)] origin-left"
           />
 
-          {/* Description: Existing Website Content (max 700px, 18px text, 20px spacing from heading) */}
+          {/* Description: 20px spacing from heading, max 700px, 16px font, line-height 1.6 */}
           <motion.p
-            className="text-[16px] sm:text-[18px] text-slate-300 max-w-[700px] leading-relaxed mt-5"
+            className="text-[15px] sm:text-[16px] text-slate-300 max-w-[700px] leading-[1.6] mt-5"
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -187,14 +186,14 @@ export default function Contact() {
         {/* ========================================================= */}
         {/* TWO-COLUMN LAYOUT: Left (45%) & Right (55%)               */}
         {/* ========================================================= */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-8 items-stretch w-full">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-stretch w-full">
 
           {/* ------------------------------------------------------- */}
           {/* LEFT SIDE (45%): Quick Contact Cards, Map & Office Card */}
           {/* ------------------------------------------------------- */}
-          <div className="w-full lg:w-[45%] flex flex-col justify-between space-y-5">
+          <div className="w-full lg:w-[48%] xl:w-[45%] flex flex-col justify-between space-y-6">
             
-            {/* 1. Quick Contact Information Cards (2x2 Grid, 20px spacing) */}
+            {/* 1. Quick Contact Information Cards (2x2 Grid, 20px gap, 28px internal padding) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full">
               {contactCards.map((card, idx) => {
                 const IconComponent = card.icon;
@@ -206,7 +205,7 @@ export default function Contact() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.08 }}
                     whileHover={{ y: -4 }}
-                    className="bg-white rounded-[16px] p-6 shadow-md hover:shadow-xl border border-slate-100 hover:border-[#0066CC]/30 transition-all duration-300 flex flex-col justify-between group cursor-default"
+                    className="bg-white rounded-[16px] p-5 md:p-[28px] shadow-md hover:shadow-xl border border-slate-100 hover:border-[#0066CC]/30 transition-all duration-300 flex flex-col justify-between h-full min-h-[185px] group cursor-default"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-4">
@@ -218,18 +217,18 @@ export default function Contact() {
                           {card.label}
                         </span>
                       </div>
-                      <h4 className="text-[18px] font-bold text-slate-900 group-hover:text-[#0066CC] transition-colors">
+                      <h4 className="text-[18px] font-bold text-slate-900 group-hover:text-[#0066CC] transition-colors leading-tight">
                         {card.title}
                       </h4>
                       {card.link ? (
                         <a
                           href={card.link}
-                          className="mt-1 block text-[15px] sm:text-[16px] font-semibold text-slate-800 hover:text-[#0066CC] transition-colors truncate"
+                          className="mt-1.5 block text-[15px] sm:text-[16px] font-semibold text-slate-800 hover:text-[#0066CC] transition-colors truncate"
                         >
                           {card.value}
                         </a>
                       ) : (
-                        <p className="mt-1 text-[15px] sm:text-[16px] font-semibold text-slate-800">
+                        <p className="mt-1.5 text-[15px] sm:text-[16px] font-semibold text-slate-800">
                           {card.value}
                         </p>
                       )}
@@ -248,7 +247,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative w-full h-[180px] sm:h-[200px] rounded-[16px] overflow-hidden bg-[#0F2442] border border-white/10 shadow-md flex items-center justify-center mb-1"
+              className="relative w-full h-[180px] sm:h-[195px] rounded-[16px] overflow-hidden bg-[#0F2442] border border-white/10 shadow-md flex items-center justify-center mb-1"
             >
               <svg
                 viewBox="0 0 100 85"
@@ -307,7 +306,7 @@ export default function Contact() {
                 />
               </svg>
 
-              {/* Pins with interactive selection */}
+              {/* Interactive pins */}
               {/* Hyderabad Pin (Featured Hub) */}
               <button
                 type="button"
@@ -373,7 +372,7 @@ export default function Contact() {
               </button>
             </motion.div>
 
-            {/* 3. Primary Card: Hyderabad Office Card (28px internal padding, centered alignment) */}
+            {/* 3. Primary Card: Hyderabad Office Card (28px internal padding, 32px left padding, generous spacing) */}
             <motion.div
               id="hyderabad-office"
               initial={{ opacity: 0, y: 30 }}
@@ -381,7 +380,7 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
               whileHover={{ y: -4 }}
-              className="bg-white rounded-[20px] p-7 md:p-[28px] shadow-lg hover:shadow-2xl border border-slate-100 hover:border-[#0066CC]/30 transition-all duration-300 group"
+              className="bg-white rounded-[20px] p-5 sm:p-7 md:p-[28px] md:pl-[32px] shadow-lg hover:shadow-2xl border border-slate-100 hover:border-[#0066CC]/30 transition-all duration-300 group"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -425,35 +424,35 @@ export default function Contact() {
                     )}
                   </div>
 
-                  {/* Office Details: Moved comfortably inward, nothing touching edges */}
-                  <div className="py-5 space-y-4 text-slate-700">
+                  {/* Office Details: Inward alignment, vertical icon alignment, equal row spacing */}
+                  <div className="py-5 space-y-5 text-slate-700">
                     {/* Office Address */}
-                    <div className="flex items-start gap-3.5">
+                    <div className="flex items-start gap-4">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0066CC]/10 text-[#0066CC] shrink-0 mt-0.5">
                         <MapPin className="h-4 w-4" />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col min-w-0 flex-1">
                         <span className="text-[12px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
                           Office Address
                         </span>
-                        <p className="text-[15px] sm:text-[16px] text-slate-800 leading-relaxed font-medium mt-0.5">
+                        <p className="text-[15px] sm:text-[16px] text-slate-800 leading-[1.6] font-medium mt-0.5 break-words">
                           {currentOffice.address}
                         </p>
                       </div>
                     </div>
 
                     {/* Phone */}
-                    <div className="flex items-start gap-3.5">
+                    <div className="flex items-start gap-4">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0066CC]/10 text-[#0066CC] shrink-0 mt-0.5">
                         <Phone className="h-4 w-4" />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col min-w-0 flex-1">
                         <span className="text-[12px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
                           Phone
                         </span>
                         <a
                           href={`tel:${currentOffice.phone.split('·')[0].replace(/\s/g, '')}`}
-                          className="text-[15px] sm:text-[16px] text-slate-900 font-semibold hover:text-[#0066CC] transition-colors mt-0.5"
+                          className="text-[15px] sm:text-[16px] text-slate-900 font-semibold hover:text-[#0066CC] transition-colors mt-0.5 whitespace-nowrap"
                         >
                           {currentOffice.phone}
                         </a>
@@ -461,11 +460,11 @@ export default function Contact() {
                     </div>
 
                     {/* Email */}
-                    <div className="flex items-start gap-3.5">
+                    <div className="flex items-start gap-4">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0066CC]/10 text-[#0066CC] shrink-0 mt-0.5">
                         <Mail className="h-4 w-4" />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col min-w-0 flex-1">
                         <span className="text-[12px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
                           Email
                         </span>
@@ -479,11 +478,11 @@ export default function Contact() {
                     </div>
 
                     {/* Working Hours */}
-                    <div className="flex items-start gap-3.5">
+                    <div className="flex items-start gap-4">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0066CC]/10 text-[#0066CC] shrink-0 mt-0.5">
                         <Clock className="h-4 w-4" />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-col min-w-0 flex-1">
                         <span className="text-[12px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
                           Working Hours
                         </span>
@@ -513,189 +512,191 @@ export default function Contact() {
           </div>
 
           {/* ------------------------------------------------------- */}
-          {/* RIGHT SIDE (55%): Contact Form (White Card, 32px pad)   */}
+          {/* RIGHT SIDE (55%): Refined Contact Form (Max Width 560px)*/}
           {/* ------------------------------------------------------- */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full lg:w-[55%] bg-white rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-xl border border-slate-100 flex flex-col justify-between"
-          >
-            <div>
-              {/* Header inside Form (existing website content) */}
-              <div className="pb-5 border-b border-slate-100">
-                <span className="text-xs font-mono uppercase tracking-widest text-[#0066CC] font-semibold block mb-1">
-                  GET IN TOUCH
-                </span>
-                <h3 className="text-2xl sm:text-[28px] font-bold text-slate-900 tracking-tight">
-                  Send us a message
-                </h3>
-                <p className="mt-1 text-sm sm:text-base text-slate-500">
-                  We'll promptly discuss your project with you.
-                </p>
+          <div className="w-full lg:w-[52%] xl:w-[55%] flex items-start justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full max-w-[560px] mx-auto bg-white rounded-[20px] p-5 sm:p-7 md:p-8 lg:p-[32px] shadow-xl border border-slate-100 flex flex-col justify-between"
+            >
+              <div>
+                {/* Header inside Form (existing website content) */}
+                <div className="pb-5 border-b border-slate-100">
+                  <span className="text-xs font-mono uppercase tracking-widest text-[#0066CC] font-semibold block mb-1">
+                    GET IN TOUCH
+                  </span>
+                  <h3 className="text-2xl sm:text-[28px] font-bold text-slate-900 tracking-tight">
+                    Send us a message
+                  </h3>
+                  <p className="mt-1 text-sm sm:text-base text-slate-500">
+                    We'll promptly discuss your project with you.
+                  </p>
+                </div>
+
+                {submitted ? (
+                  /* Submission Confirmation */
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="py-12 text-center"
+                  >
+                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#0066CC]/10 border border-[#0066CC]/30 text-[#0066CC]">
+                      <CheckCircle2 className="h-9 w-9" />
+                    </div>
+                    <h4 className="mt-5 text-2xl font-bold text-slate-900">
+                      Message Sent!
+                    </h4>
+                    <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
+                      Thank you, <span className="font-semibold text-slate-900">{formData.name}</span>. Our team will review your inquiry and get back to you shortly.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSubmitted(false);
+                        setFormData({
+                          name: '',
+                          email: '',
+                          phone: '',
+                          message: '',
+                        });
+                      }}
+                      className="mt-6 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                    >
+                      <span>Send another message</span>
+                    </button>
+                  </motion.div>
+                ) : (
+                  /* The Contact Form: 52px inputs, left icons, 150px textarea, 20px gap */
+                  <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+                    {/* Row 1: Full Name & Email Address (20px gap) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      {/* Full Name */}
+                      <div>
+                        <label
+                          htmlFor="name"
+                          className="block text-[14px] font-semibold text-slate-700 mb-2 leading-snug"
+                        >
+                          FULL NAME
+                        </label>
+                        <div className="relative flex items-center group">
+                          <User className="absolute left-4 text-slate-400 group-focus-within:text-[#0066CC] transition-colors h-5 w-5 pointer-events-none" />
+                          <input
+                            id="name"
+                            name="name"
+                            required
+                            type="text"
+                            placeholder="Your full name"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            className="h-[52px] w-full rounded-[12px] bg-white border border-slate-200 pl-12 pr-4 text-[15px] sm:text-[16px] text-slate-900 placeholder:text-slate-400 focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 focus:outline-none transition-all shadow-xs"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Email Address */}
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block text-[14px] font-semibold text-slate-700 mb-2 leading-snug"
+                        >
+                          EMAIL
+                        </label>
+                        <div className="relative flex items-center group">
+                          <Mail className="absolute left-4 text-slate-400 group-focus-within:text-[#0066CC] transition-colors h-5 w-5 pointer-events-none" />
+                          <input
+                            id="email"
+                            name="email"
+                            required
+                            type="email"
+                            placeholder="yourname@company.com"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            className="h-[52px] w-full rounded-[12px] bg-white border border-slate-200 pl-12 pr-4 text-[15px] sm:text-[16px] text-slate-900 placeholder:text-slate-400 focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 focus:outline-none transition-all shadow-xs"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Row 2: Phone Number (52px height, left icon, 20px gap) */}
+                    <div>
+                      <label
+                        htmlFor="phone"
+                        className="block text-[14px] font-semibold text-slate-700 mb-2 leading-snug"
+                      >
+                        PHONE
+                      </label>
+                      <div className="relative flex items-center group">
+                        <Phone className="absolute left-4 text-slate-400 group-focus-within:text-[#0066CC] transition-colors h-5 w-5 pointer-events-none" />
+                        <input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          placeholder="+91 98765 43210"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          className="h-[52px] w-full rounded-[12px] bg-white border border-slate-200 pl-12 pr-4 text-[15px] sm:text-[16px] text-slate-900 placeholder:text-slate-400 focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 focus:outline-none transition-all shadow-xs"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Row 3: Your Project Requirements (150px height Textarea, left icon) */}
+                    <div>
+                      <label
+                        htmlFor="message"
+                        className="block text-[14px] font-semibold text-slate-700 mb-2 leading-snug"
+                      >
+                        YOUR PROJECT
+                      </label>
+                      <div className="relative group">
+                        <MessageSquare className="absolute left-4 top-4 text-slate-400 group-focus-within:text-[#0066CC] transition-colors h-5 w-5 pointer-events-none" />
+                        <textarea
+                          id="message"
+                          name="message"
+                          required
+                          rows={4}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          className="h-[150px] min-h-[150px] w-full rounded-[12px] bg-white border border-slate-200 pl-12 pr-4 pt-3.5 text-[15px] sm:text-[16px] text-slate-900 placeholder:text-slate-400 focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 focus:outline-none transition-all resize-none leading-[1.6] shadow-xs"
+                          placeholder="Tell us about your project requirements..."
+                        />
+                      </div>
+                    </div>
+
+                    {/* Submit Button: Full Width, 52px, 14px rounded, 28px top margin, Blue gradient, Lift 2px on hover, Loading state */}
+                    <div className="mt-7 pt-1">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        data-cursor="true"
+                        className="w-full h-[52px] min-h-[52px] rounded-[14px] bg-gradient-to-r from-[#0066CC] via-[#0080FF] to-[#00D4FF] text-white font-semibold text-[16px] shadow-[0_4px_20px_rgba(0,102,204,0.35)] hover:shadow-[0_8px_30px_rgba(0,212,255,0.55)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 group disabled:opacity-75 disabled:pointer-events-none"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="h-5 w-5 animate-spin text-white" />
+                            <span>Sending request...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Send request</span>
+                            <Send className="h-4 w-4 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
 
-              {submitted ? (
-                /* Submission Confirmation */
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="py-12 text-center"
-                >
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#0066CC]/10 border border-[#0066CC]/30 text-[#0066CC]">
-                    <CheckCircle2 className="h-9 w-9" />
-                  </div>
-                  <h4 className="mt-5 text-2xl font-bold text-slate-900">
-                    Message Sent!
-                  </h4>
-                  <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="font-semibold text-slate-900">{formData.name}</span>. Our team will review your inquiry and get back to you shortly.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({
-                        name: '',
-                        email: '',
-                        phone: '',
-                        message: '',
-                      });
-                    }}
-                    className="mt-6 inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                  >
-                    <span>Send another message</span>
-                  </button>
-                </motion.div>
-              ) : (
-                /* The Contact Form with 54px inputs, left icons, 160px textarea, 20px gap */
-                <form onSubmit={handleSubmit} className="mt-6 space-y-5">
-                  {/* Row 1: Full Name & Email Address (20px gap) */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {/* Full Name */}
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-[14px] font-semibold text-slate-700 mb-2"
-                      >
-                        FULL NAME
-                      </label>
-                      <div className="relative flex items-center group">
-                        <User className="absolute left-4 text-slate-400 group-focus-within:text-[#0066CC] transition-colors h-5 w-5 pointer-events-none" />
-                        <input
-                          id="name"
-                          name="name"
-                          required
-                          type="text"
-                          placeholder="Your full name"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="h-[54px] w-full rounded-[12px] bg-white border border-slate-200 pl-12 pr-4 text-[15px] sm:text-[16px] text-slate-900 placeholder:text-slate-400 focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 focus:outline-none transition-all shadow-xs"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Email Address */}
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-[14px] font-semibold text-slate-700 mb-2"
-                      >
-                        EMAIL
-                      </label>
-                      <div className="relative flex items-center group">
-                        <Mail className="absolute left-4 text-slate-400 group-focus-within:text-[#0066CC] transition-colors h-5 w-5 pointer-events-none" />
-                        <input
-                          id="email"
-                          name="email"
-                          required
-                          type="email"
-                          placeholder="yourname@company.com"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="h-[54px] w-full rounded-[12px] bg-white border border-slate-200 pl-12 pr-4 text-[15px] sm:text-[16px] text-slate-900 placeholder:text-slate-400 focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 focus:outline-none transition-all shadow-xs"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Row 2: Phone Number (54px height, left icon, 20px gap) */}
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="block text-[14px] font-semibold text-slate-700 mb-2"
-                    >
-                      PHONE
-                    </label>
-                    <div className="relative flex items-center group">
-                      <Phone className="absolute left-4 text-slate-400 group-focus-within:text-[#0066CC] transition-colors h-5 w-5 pointer-events-none" />
-                      <input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        placeholder="+91 98765 43210"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="h-[54px] w-full rounded-[12px] bg-white border border-slate-200 pl-12 pr-4 text-[15px] sm:text-[16px] text-slate-900 placeholder:text-slate-400 focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 focus:outline-none transition-all shadow-xs"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Row 3: Your Project Requirements (160px height Textarea, left icon) */}
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-[14px] font-semibold text-slate-700 mb-2"
-                    >
-                      YOUR PROJECT
-                    </label>
-                    <div className="relative group">
-                      <MessageSquare className="absolute left-4 top-4 text-slate-400 group-focus-within:text-[#0066CC] transition-colors h-5 w-5 pointer-events-none" />
-                      <textarea
-                        id="message"
-                        name="message"
-                        required
-                        rows={4}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="h-[160px] min-h-[160px] w-full rounded-[12px] bg-white border border-slate-200 pl-12 pr-4 pt-3.5 text-[15px] sm:text-[16px] text-slate-900 placeholder:text-slate-400 focus:border-[#0066CC] focus:ring-2 focus:ring-[#0066CC]/20 focus:outline-none transition-all resize-none leading-relaxed shadow-xs"
-                        placeholder="Tell us about your project requirements..."
-                      />
-                    </div>
-                  </div>
-
-                  {/* Submit Button: Full Width, 54px, 14px rounded, Blue gradient, Lift 2px on hover, Loading state */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      data-cursor="true"
-                      className="w-full h-[54px] min-h-[54px] rounded-[14px] bg-gradient-to-r from-[#0066CC] via-[#0080FF] to-[#00D4FF] text-white font-semibold text-[16px] shadow-[0_4px_20px_rgba(0,102,204,0.35)] hover:shadow-[0_8px_30px_rgba(0,212,255,0.55)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 group disabled:opacity-75 disabled:pointer-events-none"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="h-5 w-5 animate-spin text-white" />
-                          <span>Sending request...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Send request</span>
-                          <Send className="h-4 w-4 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-
-            {/* Quick Note at Bottom of Form Card */}
-            <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-              <span>🔒 100% Privacy. Confidential inquiry.</span>
-              <span className="font-mono text-[#0066CC]">Godavari Wave Technologies</span>
-            </div>
-          </motion.div>
+              {/* Quick Note at Bottom of Form Card */}
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                <span>🔒 100% Privacy. Confidential inquiry.</span>
+                <span className="font-mono text-[#0066CC]">Godavari Wave Technologies</span>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
