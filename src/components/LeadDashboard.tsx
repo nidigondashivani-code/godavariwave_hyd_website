@@ -2506,22 +2506,39 @@ ${req.notes || 'No special notes logged.'}
                       style={{
                         backgroundColor: '#FFFFFF',
                         borderColor: '#D8E7F5',
+                        borderRadius: '14px',
+                        padding: '24px',
+                        minHeight: '170px',
                       }}
-                      className="p-4 rounded-[14px] border shadow-xs hover:border-[#0066CC] hover:shadow-[0_8px_20px_rgba(0,102,204,0.10)] hover:-translate-y-0.5 transition-all cursor-pointer group flex flex-col justify-between"
+                      className="rounded-[14px] p-6 min-h-[170px] border shadow-sm hover:border-[#0066CC] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col items-center justify-center text-center h-full"
                     >
-                      <div className="flex items-center justify-between pb-2">
-                        <span className="text-[11px] font-mono font-bold text-[#64748B] uppercase">{st.title}</span>
-                        <div className="h-7 w-7 rounded-lg bg-[#EEF6FF] text-[#0066CC] flex items-center justify-center group-hover:bg-[#0066CC] group-hover:text-white transition-colors">
-                          <Icon className="h-3.5 w-3.5" />
+                      {/* Circular Icon (Blue icon on white card) */}
+                      <div className="h-10 w-10 rounded-full bg-[#EEF6FF] text-[#0066CC] flex items-center justify-center group-hover:bg-[#0066CC] group-hover:text-white transition-colors shrink-0 mb-2.5">
+                        <Icon className="h-5 w-5" />
+                      </div>
+
+                      {/* Card Title (15px, medium weight, center aligned) */}
+                      <span className="text-[15px] font-medium text-[#64748B] text-center leading-tight">
+                        {st.title}
+                      </span>
+
+                      {/* Large Value (32-36px, bold, dark blue on white card, center aligned) */}
+                      <span className="text-[34px] font-bold text-[#1E293B] font-display leading-none text-center mt-2.5 mb-1.5">
+                        {st.val}
+                      </span>
+
+                      {/* Subtitle (Smaller font, reduced opacity, center aligned) */}
+                      <span className="text-xs text-[#64748B]/75 text-center leading-tight">
+                        {st.sub}
+                      </span>
+
+                      {/* Small Trend Indicator (if available) */}
+                      {st.change && (
+                        <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] border border-[#0066CC]/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-[#0066CC]">
+                          <TrendingUp className="h-3 w-3" />
+                          <span>{st.change}</span>
                         </div>
-                      </div>
-                      <div>
-                        <span className="text-2xl font-extrabold text-[#1E293B] font-display">{st.val}</span>
-                        <span className="text-[10px] text-[#64748B] block truncate mt-0.5">{st.sub}</span>
-                      </div>
-                      <div className="pt-2 mt-2 border-t border-[#E5EDF5]">
-                        <span className="text-[10px] font-mono font-semibold text-[#0066CC] block truncate">{st.change}</span>
-                      </div>
+                      )}
                     </div>
                   );
                 })}
@@ -2931,11 +2948,17 @@ ${req.notes || 'No special notes logged.'}
                     <div
                       key={kpi.key}
                       onClick={() => handleClientKPICardClick(kpi.key)}
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: '14px',
+                        padding: '24px',
+                        minHeight: '170px',
+                      }}
                       className={cn(
-                        'p-6 border rounded-2xl relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer group bg-white text-center flex flex-col items-center justify-center',
+                        'rounded-[14px] p-6 min-h-[170px] border relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer group bg-white text-center flex flex-col items-center justify-center h-full',
                         isSelected
-                          ? 'border-[#00D4FF] shadow-lg shadow-cyan-500/20'
-                          : 'border-[#D8E7F5] shadow-sm'
+                          ? 'border-[#0066CC] ring-2 ring-[#0066CC]/20 shadow-md'
+                          : 'border-[#D8E7F5] shadow-xs'
                       )}
                     >
                       {/* Cyan/Blue Top Highlight */}
@@ -2944,25 +2967,34 @@ ${req.notes || 'No special notes logged.'}
                           'absolute top-0 inset-x-0 h-[3px] transition-all',
                           isSelected
                             ? 'bg-gradient-to-r from-[#0066CC] to-[#00D4FF]'
-                            : 'bg-[#EEF6FF] group-hover:bg-[#00D4FF]'
+                            : 'bg-[#EEF6FF] group-hover:bg-[#0066CC]'
                         )}
                       />
 
-                      <div className="h-11 w-11 rounded-xl bg-[#0066CC]/20 text-[#38BDF8] flex items-center justify-center border border-[#0066CC]/30 mb-2">
+                      {/* Circular Icon (Blue icon on white card) */}
+                      <div className="h-10 w-10 rounded-full bg-[#EEF6FF] text-[#0066CC] flex items-center justify-center border border-[#0066CC]/20 group-hover:bg-[#0066CC] group-hover:text-white transition-colors shrink-0 mb-2.5">
                         <Icon className="h-5 w-5" />
                       </div>
 
-                      <span className="text-[14px] font-semibold text-[#64748B] text-center">{kpi.title}</span>
+                      {/* Card Title (15px, medium weight, center aligned) */}
+                      <span className="text-[15px] font-medium text-[#64748B] text-center leading-tight">
+                        {kpi.title}
+                      </span>
 
-                      <p className="mt-2 text-[34px] font-extrabold text-[#1E293B] font-display leading-none text-center">
+                      {/* Large Value (32-36px, bold, dark blue on white card, center aligned) */}
+                      <span className="text-[34px] font-bold text-[#1E293B] font-display leading-none text-center mt-2.5 mb-1.5">
                         {kpi.value}
-                      </p>
+                      </span>
 
-                      <div className="mt-4 pt-3 border-t border-[#E5EDF5] w-full flex items-center justify-center gap-2.5">
-                        <span className="text-[12px] font-mono font-bold text-[#38BDF8] bg-[#0066CC]/20 border border-[#0066CC]/30 px-2 py-0.5 rounded-md text-center">
-                          {kpi.growth}
-                        </span>
-                        {renderMiniSparkline(kpi.spark, isSelected ? '#00D4FF' : '#38BDF8')}
+                      {/* Subtitle (Smaller font, reduced opacity, center aligned) */}
+                      <span className="text-xs text-[#64748B]/75 text-center leading-tight">
+                        Active Tracker
+                      </span>
+
+                      {/* Small Trend Indicator (Equal spacing, centered) */}
+                      <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-[#EEF6FF] border border-[#0066CC]/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-[#0066CC]">
+                        <span>{kpi.growth}</span>
+                        {renderMiniSparkline(kpi.spark, '#0066CC')}
                       </div>
                     </div>
                   );
@@ -3715,30 +3747,39 @@ ${req.notes || 'No special notes logged.'}
                   return (
                     <div
                       key={idx}
+                      style={{
+                        borderRadius: '14px',
+                        padding: '24px',
+                        minHeight: '170px',
+                      }}
                       className={cn(
-                        'relative overflow-hidden rounded-[14px] p-4 text-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group cursor-default',
+                        'relative overflow-hidden rounded-[14px] p-6 min-h-[170px] text-white shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center text-center h-full group cursor-default',
                         `bg-gradient-to-br ${card.gradient}`
                       )}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="h-10 w-10 rounded-xl bg-white/15 backdrop-blur-xs flex items-center justify-center text-white shadow-2xs group-hover:scale-110 transition-transform">
-                          <Icon className="h-5 w-5 text-white" />
-                        </div>
-                        <span className="text-[10px] font-mono font-bold text-white/90 bg-white/15 px-2 py-0.5 rounded-full">
-                          Live
-                        </span>
+                      {/* Circular Icon (White icon on blue card) */}
+                      <div className="h-10 w-10 rounded-full bg-white/15 text-white border border-white/20 flex items-center justify-center shrink-0 mb-2.5 group-hover:scale-105 transition-transform">
+                        <Icon className="h-5 w-5 text-white" />
                       </div>
 
-                      <div className="mt-3">
-                        <p className="text-2xl sm:text-3xl font-extrabold text-white font-display leading-none">
-                          {card.count}
-                        </p>
-                        <h4 className="text-xs font-medium text-white tracking-wide mt-1.5 truncate">
-                          {card.title}
-                        </h4>
-                        <p className="text-[11px] text-white/80 mt-0.5 truncate">
-                          {card.subtitle}
-                        </p>
+                      {/* Card Title (15px, medium weight, center aligned) */}
+                      <span className="text-[15px] font-medium text-white/95 text-center leading-tight">
+                        {card.title}
+                      </span>
+
+                      {/* Large Value (32-36px, bold, white on blue cards, center aligned) */}
+                      <span className="text-[34px] font-bold text-white font-display leading-none text-center mt-2.5 mb-1.5">
+                        {card.count}
+                      </span>
+
+                      {/* Subtitle (Smaller font, reduced opacity, center aligned) */}
+                      <span className="text-xs text-white/75 text-center leading-tight">
+                        {card.subtitle}
+                      </span>
+
+                      {/* Small Trend Indicator (Centered) */}
+                      <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-white/15 border border-white/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-white">
+                        <span>Live</span>
                       </div>
                     </div>
                   );
@@ -4365,15 +4406,39 @@ ${req.notes || 'No special notes logged.'}
                   return (
                     <div
                       key={i}
-                      style={{ backgroundColor: '#0E2646', borderColor: 'rgba(255, 255, 255, 0.12)' }}
-                      className="p-5 rounded-2xl border shadow-lg relative overflow-hidden group hover:border-[#00D4FF]/40 transition-all text-center flex flex-col items-center justify-center"
+                      style={{
+                        backgroundColor: '#0E2646',
+                        borderColor: 'rgba(255, 255, 255, 0.12)',
+                        borderRadius: '14px',
+                        padding: '24px',
+                        minHeight: '170px',
+                      }}
+                      className="rounded-[14px] p-6 min-h-[170px] border shadow-sm relative overflow-hidden group hover:border-[#00D4FF]/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center flex flex-col items-center justify-center h-full"
                     >
-                      <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] border border-[#E5EDF5] flex items-center justify-center text-[#00D4FF] mb-2.5">
-                        <Icon className="h-5 w-5" />
+                      {/* Circular Icon (White icon on blue card) */}
+                      <div className="h-10 w-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white mb-2.5 shrink-0 group-hover:scale-105 transition-transform">
+                        <Icon className="h-5 w-5 text-white" />
                       </div>
-                      <span className="text-xs font-mono font-bold text-slate-300 uppercase text-center">{k.label}</span>
-                      <p className="mt-2 text-3xl font-extrabold text-white font-display text-center leading-none">{k.val}</p>
-                      <p className="text-[11px] text-slate-400 mt-1.5 text-center">{k.sub}</p>
+
+                      {/* Card Title (15px, medium weight, center aligned) */}
+                      <span className="text-[15px] font-medium text-slate-200 text-center leading-tight">
+                        {k.label}
+                      </span>
+
+                      {/* Large Value (32-36px, bold, white on blue card, center aligned) */}
+                      <span className="text-[34px] font-bold text-white font-display text-center leading-none mt-2.5 mb-1.5">
+                        {k.val}
+                      </span>
+
+                      {/* Subtitle (Smaller font, reduced opacity, center aligned) */}
+                      <span className="text-xs text-slate-300/75 text-center leading-tight">
+                        {k.sub}
+                      </span>
+
+                      {/* Small Trend Indicator (Equal spacing, centered) */}
+                      <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-white/10 border border-white/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-white">
+                        <span>Active Account</span>
+                      </div>
                     </div>
                   );
                 })}
@@ -4793,12 +4858,41 @@ ${req.notes || 'No special notes logged.'}
                 ].map((k, idx) => {
                   const Icon = k.icon;
                   return (
-                    <div key={idx} className="p-4 border border-[#D8E7F5] rounded-2xl bg-white shadow-lg space-y-1 text-center flex flex-col items-center justify-center">
-                      <div className="h-8 w-8 rounded-lg bg-[#0066CC]/20 text-[#38BDF8] border border-[#0066CC]/30 flex items-center justify-center mb-1">
-                        <Icon className="h-4 w-4" />
+                    <div
+                      key={idx}
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        borderColor: '#D8E7F5',
+                        borderRadius: '14px',
+                        padding: '24px',
+                        minHeight: '170px',
+                      }}
+                      className="rounded-[14px] p-6 min-h-[170px] border shadow-sm hover:border-[#0066CC] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white text-center flex flex-col items-center justify-center h-full group"
+                    >
+                      {/* Circular Icon (Blue icon on white card) */}
+                      <div className="h-10 w-10 rounded-full bg-[#EEF6FF] text-[#0066CC] border border-[#0066CC]/20 flex items-center justify-center shrink-0 mb-2.5 group-hover:bg-[#0066CC] group-hover:text-white transition-colors">
+                        <Icon className="h-5 w-5" />
                       </div>
-                      <span className="text-[11px] font-mono font-bold text-slate-400 uppercase text-center">{k.label}</span>
-                      <p className="mt-1 text-2xl font-extrabold text-[#1E293B] font-display text-center leading-none">{k.val}</p>
+
+                      {/* Card Title (15px, medium weight, center aligned) */}
+                      <span className="text-[15px] font-medium text-[#64748B] text-center leading-tight">
+                        {k.label}
+                      </span>
+
+                      {/* Large Value (32-36px, bold, dark blue on white card, center aligned) */}
+                      <span className="text-[34px] font-bold text-[#1E293B] font-display text-center leading-none mt-2.5 mb-1.5">
+                        {k.val}
+                      </span>
+
+                      {/* Subtitle (Smaller font, reduced opacity, center aligned) */}
+                      <span className="text-xs text-[#64748B]/75 text-center leading-tight">
+                        Talent Pool
+                      </span>
+
+                      {/* Small Trend Indicator (Centered) */}
+                      <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] border border-[#0066CC]/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-[#0066CC]">
+                        <span>Live Pipeline</span>
+                      </div>
                     </div>
                   );
                 })}
@@ -5923,27 +6017,39 @@ ${req.notes || 'No special notes logged.'}
                       style={{
                         backgroundColor: '#FFFFFF',
                         borderColor: '#D8E7F5',
+                        borderRadius: '14px',
+                        padding: '24px',
+                        minHeight: '170px',
                       }}
-                      className="p-5 sm:p-6 rounded-2xl border shadow-xs hover:border-[#0066CC] hover:shadow-[0_12px_28px_rgba(0,102,204,0.12)] hover:-translate-y-0.5 transition-all cursor-pointer group"
+                      className="rounded-[14px] p-6 min-h-[170px] border shadow-sm hover:border-[#0066CC] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col items-center justify-center text-center h-full"
                     >
-                      <div className="flex items-center justify-between pb-3">
-                        <span className="text-xs font-mono font-bold text-[#64748B] uppercase">{kpi.title}</span>
-                        <div className="h-9 w-9 rounded-xl bg-[#EEF6FF] text-[#0066CC] flex items-center justify-center group-hover:bg-[#0066CC] group-hover:text-white transition-colors">
-                          <Icon className="h-4 w-4" />
-                        </div>
+                      {/* Circular Icon (Blue icon on white card) */}
+                      <div className="h-10 w-10 rounded-full bg-[#EEF6FF] text-[#0066CC] flex items-center justify-center group-hover:bg-[#0066CC] group-hover:text-white transition-colors shrink-0 mb-2.5 border border-[#0066CC]/20">
+                        <Icon className="h-5 w-5" />
                       </div>
 
-                      <div className="flex items-baseline justify-between">
-                        <span className="text-3xl font-extrabold text-[#1E293B] font-display">{kpi.value}</span>
-                        <div className="h-6 w-20 flex items-center justify-end">
+                      {/* Card Title (15px, medium weight, center aligned) */}
+                      <span className="text-[15px] font-medium text-[#64748B] text-center leading-tight">
+                        {kpi.title}
+                      </span>
+
+                      {/* Large Value (32-36px, bold, dark blue on white card, center aligned) */}
+                      <span className="text-[34px] font-bold text-[#1E293B] font-display leading-none text-center mt-2.5 mb-1.5">
+                        {kpi.value}
+                      </span>
+
+                      {/* Subtitle (Smaller font, reduced opacity, center aligned) */}
+                      <span className="text-xs text-[#64748B]/75 text-center leading-tight">
+                        {kpi.sub}
+                      </span>
+
+                      {/* Small Trend Indicator (Equal spacing, centered) */}
+                      {kpi.change && (
+                        <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-[#EEF6FF] border border-[#0066CC]/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-[#0066CC]">
+                          <span>{kpi.change}</span>
                           {renderMiniSparkline(kpi.spark, '#0066CC')}
                         </div>
-                      </div>
-
-                      <div className="pt-3 mt-3 border-t border-[#E5EDF5] flex items-center justify-between text-xs">
-                        <span className="text-[#64748B] truncate">{kpi.sub}</span>
-                        <span className="font-mono font-bold text-[#0066CC] text-[11px] shrink-0">{kpi.change}</span>
-                      </div>
+                      )}
                     </div>
                   );
                 })}
@@ -6114,22 +6220,85 @@ ${req.notes || 'No special notes logged.'}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-6 border border-[#D8E7F5] rounded-2xl bg-white shadow-xl space-y-2 text-center flex flex-col items-center justify-center">
-                  <span className="text-xs font-mono font-bold text-slate-400 uppercase text-center">Projected Annual Run Rate</span>
-                  <p className="text-3xl font-extrabold text-[#38BDF8] font-display text-center leading-none">₹4.2 Cr</p>
-                  <p className="text-xs text-[#64748B] text-center">Calculated across active accounts and pipeline value.</p>
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#D8E7F5',
+                    borderRadius: '14px',
+                    padding: '24px',
+                    minHeight: '170px',
+                  }}
+                  className="rounded-[14px] p-6 min-h-[170px] border shadow-sm hover:border-[#0066CC] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white text-center flex flex-col items-center justify-center h-full group"
+                >
+                  <div className="h-10 w-10 rounded-full bg-[#EEF6FF] text-[#0066CC] border border-[#0066CC]/20 flex items-center justify-center shrink-0 mb-2.5 group-hover:bg-[#0066CC] group-hover:text-white transition-colors">
+                    <TrendingUp className="h-5 w-5" />
+                  </div>
+                  <span className="text-[15px] font-medium text-[#64748B] text-center leading-tight">
+                    Projected Annual Run Rate
+                  </span>
+                  <p className="text-[34px] font-bold text-[#1E293B] font-display text-center leading-none mt-2.5 mb-1.5">
+                    ₹4.2 Cr
+                  </p>
+                  <p className="text-xs text-[#64748B]/75 text-center leading-tight">
+                    Active accounts and pipeline value
+                  </p>
+                  <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] border border-[#0066CC]/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-[#0066CC]">
+                    <span>+28% Forecast</span>
+                  </div>
                 </div>
 
-                <div className="p-6 border border-[#D8E7F5] rounded-2xl bg-white shadow-xl space-y-2 text-center flex flex-col items-center justify-center">
-                  <span className="text-xs font-mono font-bold text-slate-400 uppercase text-center">Average Deal Size</span>
-                  <p className="text-3xl font-extrabold text-white font-display text-center leading-none">₹16.5 Lakhs</p>
-                  <p className="text-xs text-[#64748B] text-center">Enterprise cloud and software delivery contracts.</p>
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#D8E7F5',
+                    borderRadius: '14px',
+                    padding: '24px',
+                    minHeight: '170px',
+                  }}
+                  className="rounded-[14px] p-6 min-h-[170px] border shadow-sm hover:border-[#0066CC] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white text-center flex flex-col items-center justify-center h-full group"
+                >
+                  <div className="h-10 w-10 rounded-full bg-[#EEF6FF] text-[#0066CC] border border-[#0066CC]/20 flex items-center justify-center shrink-0 mb-2.5 group-hover:bg-[#0066CC] group-hover:text-white transition-colors">
+                    <Award className="h-5 w-5" />
+                  </div>
+                  <span className="text-[15px] font-medium text-[#64748B] text-center leading-tight">
+                    Average Deal Size
+                  </span>
+                  <p className="text-[34px] font-bold text-[#1E293B] font-display text-center leading-none mt-2.5 mb-1.5">
+                    ₹16.5 Lakhs
+                  </p>
+                  <p className="text-xs text-[#64748B]/75 text-center leading-tight">
+                    Cloud & enterprise software contracts
+                  </p>
+                  <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] border border-[#0066CC]/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-[#0066CC]">
+                    <span>High Value Tier</span>
+                  </div>
                 </div>
 
-                <div className="p-6 border border-[#D8E7F5] rounded-2xl bg-white shadow-xl space-y-2 text-center flex flex-col items-center justify-center">
-                  <span className="text-xs font-mono font-bold text-slate-400 uppercase text-center">Sales Velocity Ratio</span>
-                  <p className="text-3xl font-extrabold text-cyan-300 font-display text-center leading-none">12.4 Days</p>
-                  <p className="text-xs text-[#64748B] text-center">Inquiry to formal contract signature time.</p>
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#D8E7F5',
+                    borderRadius: '14px',
+                    padding: '24px',
+                    minHeight: '170px',
+                  }}
+                  className="rounded-[14px] p-6 min-h-[170px] border shadow-sm hover:border-[#0066CC] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white text-center flex flex-col items-center justify-center h-full group"
+                >
+                  <div className="h-10 w-10 rounded-full bg-[#EEF6FF] text-[#0066CC] border border-[#0066CC]/20 flex items-center justify-center shrink-0 mb-2.5 group-hover:bg-[#0066CC] group-hover:text-white transition-colors">
+                    <Zap className="h-5 w-5" />
+                  </div>
+                  <span className="text-[15px] font-medium text-[#64748B] text-center leading-tight">
+                    Sales Velocity Ratio
+                  </span>
+                  <p className="text-[34px] font-bold text-[#1E293B] font-display text-center leading-none mt-2.5 mb-1.5">
+                    12.4 Days
+                  </p>
+                  <p className="text-xs text-[#64748B]/75 text-center leading-tight">
+                    Inquiry to contract signature duration
+                  </p>
+                  <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] border border-[#0066CC]/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-[#0066CC]">
+                    <span>Optimal Speed</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -6685,7 +6854,7 @@ ${req.notes || 'No special notes logged.'}
                     </div>
                     <div className="m-1 p-3.5 rounded-lg bg-[#F8FAFC] border border-[#E5EDF5] space-y-1 shadow-sm">
                       <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">Direct Contact Phone</span>
-                      <a href="tel:+917799822121" className="text-xs font-mono font-bold text-white hover:underline block">
+                      <a href="tel:+917799822121" className="text-xs font-mono font-bold text-[#1E293B] hover:text-[#0066CC] hover:underline block">
                         +91 7799 822 121
                       </a>
                     </div>
@@ -6705,17 +6874,39 @@ ${req.notes || 'No special notes logged.'}
                   return (
                     <div
                       key={idx}
-                      className="p-6 rounded-lg bg-white border border-[#D8E7F5] shadow-xl flex flex-col items-center justify-center text-center transition-all duration-200 hover:border-[#00D4FF]/40 hover:shadow-2xl hover:-translate-y-0.5"
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        borderColor: '#D8E7F5',
+                        borderRadius: '14px',
+                        padding: '24px',
+                        minHeight: '170px',
+                      }}
+                      className="rounded-[14px] p-6 min-h-[170px] border shadow-sm hover:border-[#0066CC] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white text-center flex flex-col items-center justify-center h-full group"
                     >
-                      <div className="h-10 w-10 rounded-lg bg-[#F8FAFC] border border-[#E5EDF5] flex items-center justify-center text-[#00D4FF] mb-3">
+                      {/* Circular Icon (Blue icon on white card) */}
+                      <div className="h-10 w-10 rounded-full bg-[#EEF6FF] text-[#0066CC] border border-[#0066CC]/20 flex items-center justify-center shrink-0 mb-2.5 group-hover:bg-[#0066CC] group-hover:text-white transition-colors">
                         <Icon className="h-5 w-5" />
                       </div>
-                      <p className="text-3xl sm:text-4xl font-extrabold text-white font-display tracking-tight text-center">
-                        {s.val}
-                      </p>
-                      <span className="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider text-center mt-2">
+
+                      {/* Card Title (15px, medium weight, center aligned) */}
+                      <span className="text-[15px] font-medium text-[#64748B] text-center leading-tight">
                         {s.label}
                       </span>
+
+                      {/* Large Value (32-36px, bold, dark blue on white card, center aligned) */}
+                      <span className="text-[34px] font-bold text-[#1E293B] font-display text-center leading-none mt-2.5 mb-1.5">
+                        {s.val}
+                      </span>
+
+                      {/* Subtitle (Smaller font, reduced opacity, center aligned) */}
+                      <span className="text-xs text-[#64748B]/75 text-center leading-tight">
+                        System Total
+                      </span>
+
+                      {/* Small Trend Indicator (Equal spacing, centered) */}
+                      <div className="mt-2.5 inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] border border-[#0066CC]/20 px-2.5 py-0.5 text-[11px] font-mono font-semibold text-[#0066CC]">
+                        <span>Verified Count</span>
+                      </div>
                     </div>
                   );
                 })}

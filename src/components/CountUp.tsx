@@ -46,3 +46,4 @@ export default function CountUp({ value, duration = 1.6, suffix = '', className 
     </span>
   );
 }
+

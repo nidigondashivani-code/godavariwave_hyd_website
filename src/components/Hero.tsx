@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { ArrowUpRight, Play } from 'lucide-react';
+import { ArrowUpRight, Play, Users, TrendingUp, Sparkles, Building2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { stats } from '../data/companyData';
 import CountUp from './CountUp';
@@ -98,21 +98,46 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
       >
         <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
-          {stats.map((s, idx) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
-              className="glass rounded-2xl p-5 sm:p-6 border border-glass-border shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[#00D4FF]/40"
-            >
-              <div className="font-display text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
-                <CountUp value={s.value} suffix={s.suffix} duration={1.6} />
-              </div>
-              <div className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium">{s.label}</div>
-            </motion.div>
-          ))}
+          {stats.map((s, idx) => {
+            const statIcons = [Users, TrendingUp, Sparkles, Building2];
+            const Icon = statIcons[idx % statIcons.length];
+            const subtitles = ['Enterprise Clients', 'Campaign Scale', 'Tech Specialists', 'Statewide Network'];
+            return (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.6, delay: idx * 0.08, ease: 'easeOut' }}
+                style={{
+                  borderRadius: '14px',
+                  padding: '24px',
+                  minHeight: '170px',
+                }}
+                className="glass rounded-[14px] p-6 min-h-[170px] border border-glass-border shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#00D4FF]/40 flex flex-col items-center justify-center text-center h-full group"
+              >
+                {/* Circular Icon */}
+                <div className="h-10 w-10 rounded-full bg-white/10 text-[#00D4FF] border border-white/20 flex items-center justify-center shrink-0 mb-2.5 group-hover:scale-110 transition-transform">
+                  <Icon className="h-5 w-5" />
+                </div>
+
+                {/* Card Title (15px, medium weight, center aligned) */}
+                <span className="text-[15px] font-medium text-slate-200 text-center leading-tight">
+                  {s.label}
+                </span>
+
+                {/* Large Value (32-36px, bold, center aligned) */}
+                <div className="text-[34px] font-bold text-white font-display text-center leading-none mt-2.5 mb-1.5">
+                  <CountUp value={s.value} suffix={s.suffix} duration={1.6} />
+                </div>
+
+                {/* Subtitle (Smaller font, reduced opacity, center aligned) */}
+                <span className="text-xs text-slate-300/75 text-center leading-tight">
+                  {subtitles[idx % subtitles.length]}
+                </span>
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </section>
