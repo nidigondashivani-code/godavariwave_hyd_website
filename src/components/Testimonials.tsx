@@ -91,7 +91,7 @@ export default function Testimonials() {
               >
                 <div
                   className={cn(
-                    'glass border-flow relative h-full rounded-2xl sm:rounded-[2rem] p-7 sm:p-9 md:p-11 transition-all duration-700',
+                    'glass border-flow relative h-full rounded-2xl sm:rounded-[2rem] p-7 sm:p-9 md:p-11 flex flex-col justify-between transition-all duration-700',
                     isCurrent ? '-translate-y-2 [--flow-opacity:1]' : '[--flow-opacity:0.15]'
                   )}
                 >
@@ -112,8 +112,8 @@ export default function Testimonials() {
                     </div>
                   </div>
 
-                  {/* Word-by-Word Animated Quote - scaled according to card size */}
-                  <blockquote className="mt-6 sm:mt-9 font-display text-base sm:text-lg md:text-xl leading-relaxed sm:leading-snug text-foreground">
+                  {/* Word-by-Word Animated Quote - shifted inward towards the center */}
+                  <blockquote className="my-auto py-4 sm:py-6 px-1.5 sm:px-3 font-display text-base sm:text-lg md:text-xl leading-relaxed sm:leading-snug text-foreground">
                     {item.quote.split(' ').map((word, wIdx) => (
                       <motion.span
                         key={wIdx}
@@ -126,7 +126,7 @@ export default function Testimonials() {
                     ))}
                   </blockquote>
 
-                  <figcaption className="mt-6 sm:mt-9 flex items-center gap-3 sm:gap-4 border-t border-glass-border pt-5 sm:pt-7">
+                  <figcaption className="mt-4 sm:mt-6 px-1.5 sm:px-3 flex items-center gap-3 sm:gap-4 border-t border-glass-border pt-5 sm:pt-7">
                     <span className="grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-full bg-flow font-display text-sm sm:text-base font-semibold text-primary-foreground shadow-glow-sea">
                       {item.name[0]}
                     </span>

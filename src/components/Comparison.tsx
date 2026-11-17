@@ -92,7 +92,7 @@ export default function Comparison() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.15 }}
                   transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-all duration-500 hover:border-sea/40"
+                  className="glass rounded-xl sm:rounded-2xl p-5 sm:p-7 md:p-8 transition-all duration-500 hover:border-sea/40"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -121,7 +121,7 @@ export default function Comparison() {
                     />
                   </div>
 
-                  <p className="mt-3 text-xs text-muted-foreground">
+                  <p className="mt-3.5 px-1 sm:px-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                     {text}
                   </p>
                 </motion.div>

@@ -428,12 +428,12 @@ export default function Careers() {
                     </div>
 
                     {/* Description */}
-                    <p className="mt-4 sm:mt-5 text-xs sm:text-sm text-sky-100/80 leading-relaxed">
+                    <p className="mt-4 sm:mt-5 px-1 sm:px-2 text-xs sm:text-sm text-sky-100/80 leading-relaxed">
                       {job.description}
                     </p>
 
                     {/* Skills Chips */}
-                    <div className="mt-5 sm:mt-6 flex flex-wrap gap-2">
+                    <div className="mt-5 sm:mt-6 px-1 sm:px-2 flex flex-wrap gap-2">
                       {job.skills.slice(0, 5).map((skill) => (
                         <span
                           key={skill}

@@ -238,9 +238,9 @@ export default function Portfolio() {
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ocean via-ocean/40 to-transparent" />
 
                         {/* Bottom Glass Card Sheet with Increased Margins and Padding */}
-                        <div className="glass relative z-10 m-4 sm:m-6 rounded-2xl sm:rounded-[1.75rem] p-5 sm:p-7 transition-transform duration-500 group-hover:-translate-y-1">
-                          <div className="flex items-start justify-between gap-3 sm:gap-4">
-                            <div className="flex-1 min-w-0">
+                        <div className="glass relative z-10 m-4 sm:m-6 rounded-2xl sm:rounded-[1.75rem] px-6 sm:px-8 py-5 sm:py-7 transition-transform duration-500 group-hover:-translate-y-1">
+                          <div className="flex items-center justify-between gap-3 sm:gap-4">
+                            <div className="flex-1 min-w-0 px-1 sm:px-2">
                               <p className="font-mono text-[0.6rem] sm:text-[0.65rem] tracking-wider text-accent uppercase">
                                 {item.type}
                               </p>

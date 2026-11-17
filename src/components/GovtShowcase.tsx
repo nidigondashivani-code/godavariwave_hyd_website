@@ -46,10 +46,10 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
         {/* Gradient Shadow Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-ocean via-ocean/30 to-transparent" />
 
-        {/* Bottom Glass Card */}
-        <div className="glass absolute inset-x-4 sm:inset-x-6 bottom-4 sm:bottom-6 rounded-2xl sm:rounded-[1.75rem] p-5 sm:p-7 transition-transform duration-700 group-hover:-translate-y-2">
-          <div className="flex items-start justify-between gap-3 sm:gap-4">
-            <div>
+        {/* Bottom Glass Card - shifted inward towards the center with balanced alignment */}
+        <div className="glass absolute inset-x-4 sm:inset-x-6 bottom-4 sm:bottom-6 rounded-2xl sm:rounded-[1.75rem] px-6 sm:px-8 py-5 sm:py-7 transition-transform duration-700 group-hover:-translate-y-2">
+          <div className="flex items-center justify-between gap-3 sm:gap-4">
+            <div className="px-1 sm:px-2">
               <p className="eyebrow text-[0.65rem] text-secondary">{tag}</p>
               <h3 className="mt-1.5 sm:mt-2 font-display text-xl sm:text-2xl font-semibold text-foreground md:text-3xl">
                 {title}
@@ -61,7 +61,7 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
           </div>
 
           {text && (
-            <p className="mt-2.5 sm:mt-3 max-h-0 overflow-hidden text-xs sm:text-sm text-muted-foreground opacity-0 transition-all duration-700 group-hover:max-h-24 group-hover:opacity-100">
+            <p className="mt-2.5 sm:mt-3 px-1 sm:px-2 max-h-0 overflow-hidden text-xs sm:text-sm text-muted-foreground opacity-0 transition-all duration-700 group-hover:max-h-24 group-hover:opacity-100">
               {text}
             </p>
           )}

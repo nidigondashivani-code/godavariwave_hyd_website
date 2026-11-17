@@ -102,18 +102,18 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
           <span className="font-display text-sm font-mono text-muted-foreground">0{i + 1}</span>
         </div>
 
-        {/* Title & Short Summary */}
-        <div className="flex-1">
-          <h3 className="relative mt-8 sm:mt-12 font-display text-2xl font-semibold text-foreground md:text-[1.7rem]">
+        {/* Title & Short Summary - shifted inward towards the center with balanced vertical centering */}
+        <div className="flex-1 flex flex-col justify-center px-1.5 sm:px-3 lg:px-4 my-auto">
+          <h3 className="relative mt-6 sm:mt-8 font-display text-2xl font-semibold text-foreground md:text-[1.7rem]">
             {s.title}
           </h3>
-          <p className="relative mt-3.5 sm:mt-4 text-muted-foreground leading-relaxed text-sm sm:text-base">
+          <p className="relative mt-3 sm:mt-4 text-muted-foreground leading-relaxed text-sm sm:text-base">
             {s.short}
           </p>
 
           {/* Expanding Points on Hover */}
           <motion.ul
-            className="relative mt-6 sm:mt-8 space-y-2.5 overflow-hidden text-sm"
+            className="relative mt-5 sm:mt-6 space-y-2.5 overflow-hidden text-sm"
             initial={false}
             animate={{
               height: hovered ? 'auto' : 0,
