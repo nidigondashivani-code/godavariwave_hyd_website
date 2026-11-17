@@ -8,6 +8,7 @@ import {
   MapPin,
   CheckCircle2,
   ArrowRight,
+  Building2,
 } from 'lucide-react';
 import { offices, companyInfo } from '../data/companyData';
 import { saveLead } from '../utils/leadStorage';
@@ -55,7 +56,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[60px] sm:py-[80px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden">
+    <section id="contact" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 pt-[60px] md:pt-[100px] lg:pt-[120px] pb-[100px] md:pb-[120px] lg:pb-[140px] mb-20 md:mb-24 bg-[#0B1F3A] overflow-hidden w-full max-w-full">
       {/* Top Transition Vignette for Smooth Section Breathing Gap */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent z-10" />
 
@@ -134,7 +135,7 @@ export default function Contact() {
 
             {/* 1. Vector Map Card: 100% width, aspect-ratio preserved, rounded corners, no overflow */}
             <motion.div
-              className="relative aspect-[4/3] w-full min-h-[240px] md:min-h-[420px] lg:min-h-[440px] rounded-2xl md:rounded-3xl bg-[#0F2442] border-white/10 border p-3 md:p-6 overflow-hidden flex items-center justify-center shadow-2xl max-w-full"
+              className="relative aspect-[4/3] w-full min-h-[260px] md:min-h-[360px] lg:h-[380px] rounded-[20px] bg-[#0F2442] border-white/10 border p-3 md:p-6 overflow-hidden flex items-center justify-center shadow-2xl max-w-full"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
@@ -321,54 +322,71 @@ export default function Contact() {
               </button>
             </motion.div>
 
-            {/* 2. Office Locations on Mobile (<768px): Stacked Vertically with 20px gap, 100% full width */}
+            {/* 2. Office Locations on Mobile (<768px): Stacked Vertically with 20px gap, 100% full width, 24px padding */}
             <div className="flex flex-col gap-5 md:hidden w-full">
               {offices.map((off) => (
                 <div
                   key={off.city}
-                  className="w-full rounded-2xl bg-[#0F2442] border border-white/10 p-5 shadow-xl flex flex-col justify-between"
+                  className="w-full rounded-[20px] bg-[#0F2442] border border-white/10 p-6 shadow-xl flex flex-col justify-between"
                 >
                   <div>
-                    <span className="text-[11px] font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
-                      {off.city === 'Hyderabad'
-                        ? 'HYDERABAD OFFICE'
-                        : off.hq
-                          ? 'GLOBAL HEADQUARTERS'
-                          : 'REGIONAL BRANCH'}
-                    </span>
-                    <h4 className="font-display text-[20px] font-bold text-white mt-1">
-                      {off.city}
-                    </h4>
-                    {/* Address of Hyderabad office moved towards up side around 10px */}
-                    <div className={`mt-2 space-y-2 text-[14px] text-slate-300 ${off.city === 'Hyderabad' ? '-translate-y-[10px]' : ''}`}>
-                      <div className="flex items-start gap-2.5 leading-relaxed">
-                        <MapPin className="h-4 w-4 text-[#38BDF8] shrink-0 mt-0.5" />
-                        <span className="break-words">{off.address}</span>
+                    {/* Header: 📍 City Office */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">📍</span>
+                      <h4 className="font-display text-[20px] font-bold text-white tracking-tight">
+                        {off.city} Office
+                      </h4>
+                      <span className="ml-auto text-[10px] font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
+                        {off.city === 'Hyderabad'
+                          ? 'STRATEGIC HUB'
+                          : off.hq
+                            ? 'GLOBAL HQ'
+                            : 'BRANCH'}
+                      </span>
+                    </div>
+
+                    {/* Address & Phone with equal spacing and proper icon alignment */}
+                    <div className="mt-5 space-y-4 text-[14px]">
+                      <div className="flex items-start gap-3.5 leading-relaxed">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 shrink-0 text-[#38BDF8] mt-0.5">
+                          <MapPin className="h-4 w-4" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Address</span>
+                          <span className="text-slate-200 break-words mt-0.5">{off.address}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2.5">
-                        <Phone className="h-4 w-4 text-[#38BDF8] shrink-0" />
-                        <span className="whitespace-nowrap font-medium text-white">{off.phone}</span>
+
+                      <div className="flex items-start gap-3.5">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 shrink-0 text-[#38BDF8] mt-0.5">
+                          <Phone className="h-4 w-4" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Phone</span>
+                          <span className="whitespace-nowrap font-medium text-white mt-0.5">{off.phone}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-white/10">
+
+                  <div className="mt-5 pt-4 border-t border-white/10">
                     <a
                       href={off.map}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#38BDF8] hover:text-[#00D4FF] transition-colors min-h-[44px]"
+                      className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#38BDF8] hover:text-[#00D4FF] transition-colors min-h-[44px] group"
                     >
                       <span>Open in Maps</span>
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </a>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* 3. Office Information Card on Tablet & Desktop (>=768px / md:flex): Interactive Selected Card */}
+            {/* 3. Office Information Card on Tablet & Desktop (>=768px / md:flex): 24px padding on all sides, equal spacing */}
             <motion.div
-              className="hidden md:flex rounded-2xl bg-[#0F2442] border-white/10 border p-5 lg:p-6 shadow-2xl flex-col justify-between w-full"
+              className="hidden md:flex rounded-[20px] bg-[#0F2442] border-white/10 border p-6 shadow-2xl flex-col justify-between flex-1 w-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.2 }}
@@ -381,48 +399,68 @@ export default function Contact() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.2 }}
+                  className="flex flex-col justify-between h-full"
                 >
-                  {/* Eyebrow Label: Shows Hyderabad Office by default */}
-                  <span className="text-xs font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
-                    {currentOffice.city === 'Hyderabad'
-                      ? 'HYDERABAD OFFICE'
-                      : currentOffice.hq
-                        ? 'GLOBAL HEADQUARTERS'
-                        : 'REGIONAL BRANCH'}
-                  </span>
-
-                  {/* Office City Title */}
-                  <h3 className="font-display text-2xl font-bold text-white mt-1">
-                    {currentOffice.city}
-                  </h3>
-
-                  {/* Location & Phone: Address of Hyderabad office moved towards up side around 10px */}
-                  <div className={`mt-2 space-y-2 text-sm text-slate-400 ${currentOffice.city === 'Hyderabad' ? '-translate-y-[10px]' : ''}`}>
-                    <div className="flex items-start gap-2.5 leading-relaxed">
-                      <MapPin className="h-4 w-4 text-[#38BDF8] shrink-0 mt-0.5" />
-                      <span className="break-words">{currentOffice.address}</span>
+                  <div>
+                    {/* Header: 📍 City Office */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">📍</span>
+                      <h3 className="font-display text-2xl font-bold text-white tracking-tight">
+                        {currentOffice.city} Office
+                      </h3>
+                      <span className="ml-auto text-[11px] font-mono tracking-widest text-[#38BDF8] uppercase font-semibold">
+                        {currentOffice.city === 'Hyderabad'
+                          ? 'STRATEGIC INNOVATION HUB'
+                          : currentOffice.hq
+                            ? 'GLOBAL HEADQUARTERS'
+                            : 'REGIONAL BRANCH'}
+                      </span>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
-                      <Phone className="h-4 w-4 text-[#38BDF8] shrink-0" />
-                      <span className="whitespace-nowrap">{currentOffice.phone}</span>
+                    {/* Address & Phone: Equal spacing, 24px comfortable padding, proper icon alignment */}
+                    <div className="mt-6 space-y-5">
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 shrink-0 text-[#38BDF8] mt-0.5">
+                          <MapPin className="h-4 w-4" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Address</span>
+                          <span className="text-sm text-slate-200 leading-relaxed break-words mt-0.5">
+                            {currentOffice.address}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 shrink-0 text-[#38BDF8] mt-0.5">
+                          <Phone className="h-4 w-4" />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Phone</span>
+                          <a
+                            href={`tel:${currentOffice.phone.split('·')[0].replace(/\s/g, '')}`}
+                            className="text-sm font-semibold text-white hover:text-[#38BDF8] transition-colors whitespace-nowrap mt-0.5"
+                          >
+                            {currentOffice.phone}
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Open in Maps Link */}
-                  <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2">
+                  {/* Open in Maps Link + View Hyderabad reset */}
+                  <div className="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
                     <a
                       href={currentOffice.map}
                       target="_blank"
                       rel="noreferrer"
                       data-cursor="true"
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#38BDF8] hover:text-[#00D4FF] transition-colors cursor-pointer min-h-[44px]"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-[#38BDF8] hover:text-[#00D4FF] transition-colors cursor-pointer group min-h-[44px]"
                     >
                       <span>Open in Maps</span>
-                      <ArrowRight className="h-3.5 w-3.5" />
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </a>
 
-                    {/* Quick reset pill if another office is clicked */}
                     {selectedOffice !== 0 && (
                       <button
                         type="button"
@@ -439,10 +477,10 @@ export default function Contact() {
           </div>
 
           {/* ========================================================= */}
-          {/* RIGHT COLUMN: "Send us a message" Compact Reduced Form Card */}
+          {/* RIGHT COLUMN: Contact Form (32px padding, 20px rounded)   */}
           {/* ========================================================= */}
           <motion.div
-            className="rounded-2xl sm:rounded-3xl bg-[#0F2442] border-white/10 border p-5 sm:p-6 md:p-7 shadow-2xl flex flex-col justify-between w-full"
+            className="rounded-[20px] bg-[#0F2442] border-white/10 border p-6 sm:p-8 lg:p-[32px] shadow-2xl flex flex-col justify-between w-full h-full"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
@@ -450,22 +488,22 @@ export default function Contact() {
           >
             <div>
               {/* Header Title & Subtitle */}
-              <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
                 Send us a message
               </h3>
-              <p className="mt-1 text-xs sm:text-sm text-slate-400">
+              <p className="mt-1 text-sm text-slate-400">
                 We'll promptly discuss your project with you.
               </p>
 
               {submitted ? (
-                <div className="py-8 sm:py-10 text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#38BDF8]/20 border border-[#38BDF8]/40">
-                    <CheckCircle2 className="h-7 w-7 text-[#38BDF8]" />
+                <div className="py-10 text-center">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#38BDF8]/20 border border-[#38BDF8]/40">
+                    <CheckCircle2 className="h-8 w-8 text-[#38BDF8]" />
                   </div>
-                  <h4 className="mt-3 font-display text-lg sm:text-xl font-bold text-white">
+                  <h4 className="mt-4 font-display text-xl font-bold text-white">
                     Message Sent!
                   </h4>
-                  <p className="mt-1 text-xs sm:text-sm text-slate-400 max-w-sm mx-auto">
+                  <p className="mt-2 text-sm text-slate-300 max-w-sm mx-auto">
                     Thank you, <span className="font-semibold text-white">{formData.name}</span>. Our team will review your inquiry and get back to you shortly.
                   </p>
                   <button
@@ -474,22 +512,22 @@ export default function Contact() {
                       setSubmitted(false);
                       setFormData({ name: '', email: '', phone: '', message: '' });
                     }}
-                    className="mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_20px_rgba(32,178,170,0.35)] hover:scale-105 transition-all cursor-pointer"
+                    className="mt-6 inline-flex items-center gap-2 rounded-xl px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_20px_rgba(0,102,204,0.35)] hover:scale-105 transition-all cursor-pointer"
                   >
                     <span>Send another message</span>
                   </button>
                 </div>
               ) : (
-                /* Compact Form with Reduced Element Sizes */
-                <form onSubmit={handleSubmit} className="mt-4 sm:mt-5 space-y-3 sm:space-y-4">
-                  {/* Row 1: FULL NAME & EMAIL */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <div className="space-y-1">
+                /* Contact Form with 20px gap, 52px input height, 140px textarea */
+                <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+                  {/* Row 1: FULL NAME & EMAIL (20px gap) */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
                       <label
                         htmlFor="name"
-                        className="block text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
+                        className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2"
                       >
-                        FULL NAME
+                        Full Name
                       </label>
                       <input
                         id="name"
@@ -499,16 +537,16 @@ export default function Contact() {
                         placeholder="Your full name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="h-[42px] sm:h-[44px] md:h-[40px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-3.5 md:px-0 md:pb-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
+                        className="h-[52px] w-full rounded-xl bg-white/5 border border-white/10 px-4 text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 focus:outline-none transition-all"
                       />
                     </div>
 
-                    <div className="space-y-1">
+                    <div>
                       <label
                         htmlFor="email"
-                        className="block text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
+                        className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2"
                       >
-                        EMAIL
+                        Email
                       </label>
                       <input
                         id="email"
@@ -518,18 +556,18 @@ export default function Contact() {
                         placeholder="yourname@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="h-[42px] sm:h-[44px] md:h-[40px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-3.5 md:px-0 md:pb-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
+                        className="h-[52px] w-full rounded-xl bg-white/5 border border-white/10 px-4 text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 focus:outline-none transition-all"
                       />
                     </div>
                   </div>
 
-                  {/* Row 2: PHONE (Full Width) */}
-                  <div className="space-y-1">
+                  {/* Row 2: PHONE (Full Width, 52px height) */}
+                  <div>
                     <label
                       htmlFor="phone"
-                      className="block text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
+                      className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2"
                     >
-                      PHONE
+                      Phone
                     </label>
                     <input
                       id="phone"
@@ -538,87 +576,107 @@ export default function Contact() {
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="h-[42px] sm:h-[44px] md:h-[40px] w-full rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 px-3.5 md:px-0 md:pb-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all"
+                      className="h-[52px] w-full rounded-xl bg-white/5 border border-white/10 px-4 text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 focus:outline-none transition-all"
                     />
                   </div>
 
-                  {/* Row 3: YOUR PROJECT (Full Width Textarea) */}
-                  <div className="space-y-1">
+                  {/* Row 3: YOUR PROJECT (Full Width Textarea, 140px height) */}
+                  <div>
                     <label
                       htmlFor="message"
-                      className="block text-xs font-semibold text-slate-300 md:text-slate-400 uppercase tracking-wider"
+                      className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2"
                     >
-                      YOUR PROJECT
+                      Your Project
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       required
-                      rows={2}
+                      rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full min-h-[75px] sm:min-h-[80px] md:min-h-[70px] rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 md:border-b md:border-slate-700/80 p-3 md:p-0 md:pb-1.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 md:focus:bg-transparent focus:outline-none transition-all resize-none leading-relaxed"
+                      className="w-full h-[140px] min-h-[140px] rounded-xl bg-white/5 border border-white/10 p-4 text-sm text-white placeholder-slate-500 focus:border-[#38BDF8] focus:bg-white/10 focus:outline-none transition-all resize-none leading-relaxed"
                       placeholder="Tell us about your project requirements..."
                     />
                   </div>
 
-                  {/* Submit Button: Full-width on mobile (<768px), auto on tablet/desktop */}
-                  <div className="pt-1 sm:pt-2">
+                  {/* Submit Button: At least 28px top margin, 50px height, 12px rounded corners, center-aligned */}
+                  <div className="mt-7 flex justify-center w-full">
                     <button
                       type="submit"
                       data-cursor="true"
-                      className="w-full md:w-auto min-h-[44px] sm:min-h-[46px] md:min-h-0 relative group inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-[#0066CC] to-[#00D4FF] shadow-[0_0_20px_rgba(0,102,204,0.35)] hover:shadow-[0_0_28px_rgba(0,212,255,0.45)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                      className="w-full sm:w-auto h-[50px] min-h-[50px] px-8 sm:px-12 rounded-[12px] bg-gradient-to-r from-[#0066CC] to-[#00D4FF] text-white font-semibold text-sm sm:text-base shadow-[0_0_20px_rgba(0,102,204,0.35)] hover:shadow-[0_0_30px_rgba(0,212,255,0.55)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 group"
                     >
                       <span>Send request</span>
-                      <Send className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <Send className="h-4 w-4 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
                     </button>
                   </div>
                 </form>
               )}
             </div>
 
-            {/* Bottom Contact Details: Vertical stack with 46px min-height on mobile, 2-column grid on desktop */}
-            <div className="mt-5 sm:mt-6 pt-4 border-t border-slate-800/80 flex flex-col md:grid md:grid-cols-2 gap-2.5 md:gap-x-4 md:gap-y-2 text-xs text-slate-300 md:text-slate-400">
-              {/* 1. Phone */}
-              <a
-                href={`tel:${companyInfo.phones[0].replace(/\s/g, '')}`}
-                className="flex items-center gap-3 min-h-[46px] px-3.5 py-2.5 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
-              >
-                <div className="flex h-8 w-8 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
-                  <Phone className="h-3.5 w-3.5 text-[#38BDF8]" />
+            {/* 3. Contact Information Card: 18px gap between rows, Icon + Title + Value */}
+            <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:grid sm:grid-cols-2 gap-x-6 gap-y-[18px]">
+              {/* Row 1: Phone */}
+              <div className="flex items-center gap-3.5 min-h-[56px]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 shrink-0 text-[#38BDF8]">
+                  <Phone className="h-4 w-4" />
                 </div>
-                <span className="whitespace-nowrap font-medium text-white md:text-slate-400">{companyInfo.phones[0]}</span>
-              </a>
-
-              {/* 2. Primary Email */}
-              <a
-                href={`mailto:${companyInfo.emails.info}`}
-                className="flex items-center gap-3 min-h-[46px] px-3.5 py-2.5 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
-              >
-                <div className="flex h-8 w-8 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
-                  <Mail className="h-3.5 w-3.5 text-[#38BDF8]" />
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Phone Support</span>
+                  <a
+                    href={`tel:${companyInfo.phones[0].replace(/\s/g, '')}`}
+                    className="text-sm font-semibold text-white hover:text-[#38BDF8] transition-colors whitespace-nowrap truncate"
+                  >
+                    {companyInfo.phones[0]}
+                  </a>
                 </div>
-                <span className="break-all font-medium text-white md:text-slate-400">{companyInfo.emails.info}</span>
-              </a>
-
-              {/* 3. Business Hours */}
-              <div className="flex items-center gap-3 min-h-[46px] px-3.5 py-2.5 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 w-full">
-                <div className="flex h-8 w-8 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
-                  <Clock className="h-3.5 w-3.5 text-[#38BDF8]" />
-                </div>
-                <span className="font-medium text-white md:text-slate-400">{companyInfo.hours}</span>
               </div>
 
-              {/* 4. HR Email */}
-              <a
-                href={`mailto:${companyInfo.emails.hr}`}
-                className="flex items-center gap-3 min-h-[46px] px-3.5 py-2.5 md:p-0 rounded-xl md:rounded-none bg-white/5 md:bg-transparent border border-white/10 md:border-0 hover:text-white transition-colors w-full"
-              >
-                <div className="flex h-8 w-8 md:h-auto md:w-auto items-center justify-center rounded-lg bg-[#38BDF8]/15 md:bg-transparent shrink-0">
-                  <Mail className="h-3.5 w-3.5 text-[#38BDF8]" />
+              {/* Row 2: Primary Email */}
+              <div className="flex items-center gap-3.5 min-h-[56px]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 shrink-0 text-[#38BDF8]">
+                  <Mail className="h-4 w-4" />
                 </div>
-                <span className="break-all font-medium text-white md:text-slate-400">{companyInfo.emails.hr}</span>
-              </a>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Primary Inquiries</span>
+                  <a
+                    href={`mailto:${companyInfo.emails.info}`}
+                    className="text-sm font-semibold text-white hover:text-[#38BDF8] transition-colors break-all"
+                  >
+                    {companyInfo.emails.info}
+                  </a>
+                </div>
+              </div>
+
+              {/* Row 3: Business Hours */}
+              <div className="flex items-center gap-3.5 min-h-[56px]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 shrink-0 text-[#38BDF8]">
+                  <Clock className="h-4 w-4" />
+                </div>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Business Hours</span>
+                  <span className="text-sm font-semibold text-white">
+                    {companyInfo.hours}
+                  </span>
+                </div>
+              </div>
+
+              {/* Row 4: Talent & Careers */}
+              <div className="flex items-center gap-3.5 min-h-[56px]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#38BDF8]/15 border border-[#38BDF8]/30 shrink-0 text-[#38BDF8]">
+                  <Building2 className="h-4 w-4" />
+                </div>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">Talent & Careers</span>
+                  <a
+                    href={`mailto:${companyInfo.emails.hr}`}
+                    className="text-sm font-semibold text-white hover:text-[#38BDF8] transition-colors break-all"
+                  >
+                    {companyInfo.emails.hr}
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
