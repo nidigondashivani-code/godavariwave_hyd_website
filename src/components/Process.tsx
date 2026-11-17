@@ -16,7 +16,7 @@ export default function Process() {
   }, [isAutoPlay]);
 
   return (
-    <section className="relative px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
+    <section className="relative px-4 sm:px-6 py-28 sm:py-40 md:px-10 md:py-52 lg:py-60">
       <div className="mx-auto max-w-7xl">
         <motion.div
           className="text-center"

@@ -136,7 +136,7 @@ export default function Careers() {
   };
 
   return (
-    <section id="careers" className="relative scroll-mt-20 px-4 sm:px-6 py-20 sm:py-28 md:py-36 bg-[#0B1F3A] overflow-hidden text-foreground">
+    <section id="careers" className="relative scroll-mt-20 px-4 sm:px-6 py-28 sm:py-36 md:py-48 bg-[#0B1F3A] overflow-hidden text-foreground">
       {/* Background Decorative Gradient Blobs */}
       <div className="pointer-events-none absolute -top-40 right-0 h-[450px] w-[450px] rounded-full bg-[#0066CC]/15 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-40 left-0 h-[450px] w-[450px] rounded-full bg-[#00D4FF]/10 blur-[130px]" />

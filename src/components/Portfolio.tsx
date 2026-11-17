@@ -57,7 +57,7 @@ export default function Portfolio() {
     : portfolioProjects.filter((p) => p.cat === activeCategory);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-20 px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
+    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-20 px-4 sm:px-6 py-28 sm:py-40 md:px-10 md:py-52 lg:py-60">
       <div className="mx-auto max-w-7xl">
         {/* Header with scroll animation */}
         <motion.div
@@ -133,7 +133,7 @@ export default function Portfolio() {
 
         {/* Projects Grid with Dynamic Top-to-Bottom and Bottom-to-Top Wave Motion */}
         <LayoutGroup id="portfolio-cards-layout">
-          <motion.div layout className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div layout className="mt-12 sm:mt-16 lg:mt-24 grid gap-8 sm:gap-10 lg:gap-12 sm:grid-cols-2 lg:grid-cols-3 pb-8 sm:pb-16 lg:pb-24">
             <AnimatePresence mode="popLayout">
               {filtered.map((item, idx) => {
                 const isLink = Boolean(item.link);
@@ -172,7 +172,7 @@ export default function Portfolio() {
                       <CardWrapper
                         {...linkAttributes}
                         data-cursor="true"
-                        className="border-flow group relative flex h-[380px] sm:h-[440px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-[2rem] bg-ocean-raised [--flow-opacity:0] transition-all duration-500 hover:[--flow-opacity:1] hover:shadow-2xl"
+                        className="border-flow group relative flex h-[420px] sm:h-[480px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-[2rem] bg-ocean-raised [--flow-opacity:0] transition-all duration-500 hover:[--flow-opacity:1] hover:shadow-2xl"
                       >
                         {/* Ambient Gradient Background */}
                         <div
@@ -183,7 +183,7 @@ export default function Portfolio() {
                         />
 
                         {/* Top Visual: Photo or Brand Visual Showcase */}
-                        <div className="relative flex flex-1 items-center justify-center overflow-hidden p-6">
+                        <div className="relative flex flex-1 items-center justify-center overflow-hidden p-6 sm:p-8">
                           {item.image && (
                             <img
                               src={item.image}
@@ -215,7 +215,7 @@ export default function Portfolio() {
                           )}
 
                           {/* Top Category Tag Badge */}
-                          <div className="absolute top-3.5 left-3.5 sm:top-4 sm:left-4 z-20">
+                          <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-20">
                             <span className="glass rounded-full border border-glass-border/70 px-2.5 sm:px-3 py-0.5 sm:py-1 font-mono text-[0.62rem] sm:text-[0.68rem] tracking-wider text-secondary uppercase shadow-sm">
                               {item.cat}
                             </span>
@@ -223,7 +223,7 @@ export default function Portfolio() {
 
                           {/* Link Indicator in Top Right if live link */}
                           {isLink && (
-                            <div className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-20">
+                            <div className="absolute top-4 right-4 sm:top-5 sm:right-5 z-20">
                               <span className="grid h-7 w-7 sm:h-8 sm:w-8 place-items-center rounded-full bg-glass text-muted-foreground backdrop-blur-md transition-all duration-300 group-hover:bg-flow group-hover:text-primary-foreground">
                                 <ExternalLink className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                               </span>
@@ -237,8 +237,8 @@ export default function Portfolio() {
                         {/* Vignette Shadow */}
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ocean via-ocean/40 to-transparent" />
 
-                        {/* Bottom Glass Card Sheet */}
-                        <div className="glass relative z-10 m-3 sm:m-4 rounded-2xl sm:rounded-[1.5rem] p-3.5 sm:p-5 transition-transform duration-500 group-hover:-translate-y-1">
+                        {/* Bottom Glass Card Sheet with Increased Margins and Padding */}
+                        <div className="glass relative z-10 m-4 sm:m-6 rounded-2xl sm:rounded-[1.75rem] p-5 sm:p-7 transition-transform duration-500 group-hover:-translate-y-1">
                           <div className="flex items-start justify-between gap-3 sm:gap-4">
                             <div className="flex-1 min-w-0">
                               <p className="font-mono text-[0.6rem] sm:text-[0.65rem] tracking-wider text-accent uppercase">

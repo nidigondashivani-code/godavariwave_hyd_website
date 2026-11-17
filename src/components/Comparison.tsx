@@ -17,7 +17,7 @@ export default function Comparison() {
   const [selectedTab, setSelectedTab] = useState<'gw' | 'trad'>('gw');
 
   return (
-    <section className="relative px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
+    <section className="relative px-4 sm:px-6 py-28 sm:py-40 md:px-10 md:py-52 lg:py-60">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 sm:gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <motion.div

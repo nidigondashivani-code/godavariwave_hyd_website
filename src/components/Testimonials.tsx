@@ -54,7 +54,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden px-4 sm:px-6 py-20 sm:py-32 md:px-10 md:py-44">
+    <section className="relative overflow-hidden px-4 sm:px-6 py-28 sm:py-40 md:px-10 md:py-52 lg:py-60">
       {/* Background Oscillating Ribbon Waves */}
       <RibbonWaves className="top-1/2 h-[420px] -translate-y-1/3 opacity-70" count={6} />
 
@@ -73,7 +73,7 @@ export default function Testimonials() {
           />
         </motion.div>
 
-        <div className="mt-12 sm:mt-20 grid gap-6 lg:grid-cols-3">
+        <div className="mt-14 sm:mt-20 lg:mt-28 grid gap-8 sm:gap-10 lg:gap-12 lg:grid-cols-3 pb-8 sm:pb-16 lg:pb-24">
           {testimonials.map((item, idx) => {
             const isCurrent = activeIdx === idx;
 
@@ -91,12 +91,12 @@ export default function Testimonials() {
               >
                 <div
                   className={cn(
-                    'glass border-flow relative h-full rounded-2xl sm:rounded-[2rem] p-5 sm:p-7 md:p-8 transition-all duration-700',
+                    'glass border-flow relative h-full rounded-2xl sm:rounded-[2rem] p-7 sm:p-9 md:p-11 transition-all duration-700',
                     isCurrent ? '-translate-y-2 [--flow-opacity:1]' : '[--flow-opacity:0.15]'
                   )}
                 >
                   <div className="flex items-center justify-between">
-                    <Quote className="h-6 w-6 sm:h-8 sm:w-8 text-accent" />
+                    <Quote className="h-7 w-7 sm:h-9 sm:w-9 text-accent" />
                     {/* Audio Equalizer Speech Visualizer Bars */}
                     <div className="flex h-5 sm:h-6 items-end gap-1" aria-hidden="true">
                       {[0, 1, 2, 3, 4].map((bar) => (
@@ -113,7 +113,7 @@ export default function Testimonials() {
                   </div>
 
                   {/* Word-by-Word Animated Quote - scaled according to card size */}
-                  <blockquote className="mt-5 sm:mt-8 font-display text-base sm:text-lg md:text-xl leading-relaxed sm:leading-snug text-foreground">
+                  <blockquote className="mt-6 sm:mt-9 font-display text-base sm:text-lg md:text-xl leading-relaxed sm:leading-snug text-foreground">
                     {item.quote.split(' ').map((word, wIdx) => (
                       <motion.span
                         key={wIdx}
@@ -126,8 +126,8 @@ export default function Testimonials() {
                     ))}
                   </blockquote>
 
-                  <figcaption className="mt-5 sm:mt-8 flex items-center gap-3 sm:gap-4 border-t border-glass-border pt-4 sm:pt-6">
-                    <span className="grid h-9 w-9 sm:h-11 sm:w-11 place-items-center rounded-full bg-flow font-display text-xs sm:text-base font-semibold text-primary-foreground shadow-glow-sea">
+                  <figcaption className="mt-6 sm:mt-9 flex items-center gap-3 sm:gap-4 border-t border-glass-border pt-5 sm:pt-7">
+                    <span className="grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-full bg-flow font-display text-sm sm:text-base font-semibold text-primary-foreground shadow-glow-sea">
                       {item.name[0]}
                     </span>
                     <span>
