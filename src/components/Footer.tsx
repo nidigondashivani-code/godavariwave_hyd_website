@@ -26,7 +26,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 mt-20 md:mt-28 lg:mt-32 pt-20 md:pt-28 pb-14 bg-[#0B1F3A]">
+    <footer className="relative overflow-hidden border-t border-white/10 mt-28 md:mt-36 lg:mt-44 pt-28 sm:pt-36 lg:pt-44 pb-14 bg-[#0B1F3A]">
       {/* Decorative Wave Headers */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 overflow-hidden" aria-hidden="true">
         <svg viewBox="0 0 2880 200" preserveAspectRatio="none" className="absolute top-0 left-0 h-full w-[200%]" style={{ opacity: 0.35 }}>
@@ -197,7 +197,7 @@ export default function Footer() {
 
       {/* NIGHT VIEW: GLOWING HYDERABAD SKYLINE SILHOUETTE & GODAVARI RIVER REFLECTION */}
       <motion.div
-        className="mt-20"
+        className="mt-24 sm:mt-28 lg:mt-32"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.15 }}
@@ -207,7 +207,7 @@ export default function Footer() {
       </motion.div>
 
       {/* Bottom Copyright Row */}
-      <div className="border-t border-glass-border/40 bg-[#061224] py-8 sm:py-10 mt-12 sm:mt-16">
+      <div className="border-t border-glass-border/40 bg-[#061224] py-10 sm:py-12 mt-16 sm:mt-24 lg:mt-28">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-xs text-muted-foreground md:flex-row md:px-10">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <img
