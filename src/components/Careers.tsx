@@ -136,7 +136,7 @@ export default function Careers() {
   };
 
   return (
-    <section id="careers" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden text-foreground">
+    <section id="careers" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden text-foreground">
       {/* Top and Bottom Transition Vignettes for Smooth Section Breathing Gap */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent z-10" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-background to-transparent z-10" />

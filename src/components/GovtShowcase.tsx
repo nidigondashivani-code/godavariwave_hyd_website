@@ -29,7 +29,7 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
     >
       <Wrapper
         {...linkProps}
-        className="border-flow group relative block h-full min-h-[320px] sm:min-h-[400px] overflow-hidden rounded-2xl sm:rounded-3xl bg-ocean-raised [--flow-opacity:0] hover:[--flow-opacity:1]"
+        className="border-flow group relative block h-full min-h-[380px] sm:min-h-[460px] lg:min-h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl bg-ocean-raised [--flow-opacity:0] hover:[--flow-opacity:1]"
         data-cursor="true"
       >
         {/* Zooming Cover Image */}
@@ -73,7 +73,7 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
 
 export default function GovtShowcase() {
   return (
-    <section id="solutions" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
+    <section id="solutions" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div
@@ -112,7 +112,7 @@ export default function GovtShowcase() {
               {...item}
               className={cn(
                 [0, 3, 4].includes(idx) ? 'md:col-span-7' : 'md:col-span-5',
-                idx === 0 && 'md:min-h-[520px]'
+                idx === 0 && 'md:min-h-[580px] lg:min-h-[640px]'
               )}
             />
           ))}

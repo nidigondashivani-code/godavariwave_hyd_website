@@ -54,7 +54,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
+    <section className="relative overflow-hidden min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       {/* Background Oscillating Ribbon Waves */}
       <RibbonWaves className="top-1/2 h-[420px] -translate-y-1/3 opacity-70" count={6} />
 

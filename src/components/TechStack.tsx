@@ -17,7 +17,7 @@ export default function TechStack() {
   const [activeTab, setActiveTab] = useState<string | null>('ai');
 
   return (
-    <section id="technologies" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
+    <section id="technologies" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div

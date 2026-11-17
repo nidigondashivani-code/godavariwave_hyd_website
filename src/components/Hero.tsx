@@ -8,7 +8,7 @@ const HeroWaveCanvas = lazy(() => import('./HeroWaveCanvas'));
 
 export default function Hero() {
   return (
-    <section id="home" className="relative isolate flex min-h-[90vh] lg:min-h-[92vh] flex-col justify-between overflow-hidden">
+    <section id="home" className="relative isolate flex min-h-screen min-h-[100dvh] flex-col justify-between overflow-hidden">
       {/* 3D Wave & Monument Canvas - automatically applies particle morphing in background */}
       <div className="absolute inset-0 -z-0">
         <Suspense fallback={<div className="absolute inset-0 bg-background" />}>
@@ -20,7 +20,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
 
       {/* Hero Content - Centered text alignment, max 700px width on description, strict spacing */}
-      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[1450px] flex-1 flex-col items-center justify-center text-center px-5 md:px-8 lg:px-10 xl:px-12 pt-32 sm:pt-36 lg:pt-40 pb-12 sm:pb-16">
+      <div className="pointer-events-none relative z-10 mx-auto flex w-full max-w-[1450px] flex-1 flex-col items-center justify-center text-center px-5 md:px-8 lg:px-10 xl:px-12 pt-28 sm:pt-32 lg:pt-36 pb-8 sm:pb-10">
         {/* Eyebrow Badge (12px spacing to heading) */}
         <motion.p
           className="eyebrow mb-3 inline-flex items-center justify-center gap-2 sm:gap-2.5 text-[#38BDF8] text-[11px] sm:text-xs font-mono tracking-wider"
@@ -91,7 +91,7 @@ export default function Hero() {
 
       {/* Metrics Floating Bar - Cards fade upward, count up animation, 32px desktop gap, 28px padding */}
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-[1450px] px-5 md:px-8 lg:px-10 xl:px-12 pb-16 sm:pb-24 lg:pb-32"
+        className="relative z-10 mx-auto w-full max-w-[1450px] px-5 md:px-8 lg:px-10 xl:px-12 pb-8 sm:pb-12 lg:pb-14"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}

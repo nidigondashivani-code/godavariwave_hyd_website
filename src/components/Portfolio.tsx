@@ -32,7 +32,7 @@ export default function Portfolio() {
     : portfolioProjects.filter((p) => p.cat === activeCategory);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
+    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
         {/* Header with consistent layout: Label -> 12px -> Heading (42px) -> 18px -> Description (18px) */}
         <motion.div
@@ -145,7 +145,7 @@ export default function Portfolio() {
                       <CardWrapper
                         {...linkAttributes}
                         data-cursor="true"
-                        className="border-flow group relative flex h-[380px] sm:h-[440px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl bg-ocean-raised [--flow-opacity:0] transition-all duration-500 hover:[--flow-opacity:1] hover:shadow-2xl"
+                        className="border-flow group relative flex h-[420px] sm:h-[480px] lg:h-[500px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl bg-ocean-raised [--flow-opacity:0] transition-all duration-500 hover:[--flow-opacity:1] hover:shadow-2xl"
                       >
                         {/* Ambient Gradient Background */}
                         <div

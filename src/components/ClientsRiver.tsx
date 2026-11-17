@@ -60,7 +60,7 @@ export default function ClientsRiver() {
   const row3 = clientLogos.slice(20);
 
   return (
-    <section className="relative overflow-hidden py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] px-5 md:px-8 lg:px-10 xl:px-12">
+    <section className="relative overflow-hidden min-h-[75vh] lg:min-h-screen min-h-[100dvh] flex flex-col justify-center py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] px-5 md:px-8 lg:px-10 xl:px-12">
       {/* Background Ambient River Glow */}
       <div
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-full max-w-[1450px] bg-gradient-to-r from-transparent via-[#0066CC]/15 to-transparent blur-3xl"

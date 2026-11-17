@@ -78,7 +78,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         }}
         animate={{ y: hovered ? -10 : 0 }}
         transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-        className="glass border-flow group relative h-full min-h-[300px] sm:min-h-[340px] overflow-hidden rounded-2xl sm:rounded-3xl p-[22px] lg:p-[28px] outline-none cursor-pointer flex flex-col justify-between"
+        className="glass border-flow group relative h-full min-h-[380px] sm:min-h-[420px] lg:min-h-[440px] overflow-hidden rounded-2xl sm:rounded-3xl p-7 sm:p-8 lg:p-9 outline-none cursor-pointer flex flex-col justify-between"
         data-cursor="true"
       >
         {/* Wave Passing Shimmer Flare */}
@@ -141,7 +141,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
 export default function Services() {
   return (
-    <section id="services" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] overflow-hidden">
+    <section id="services" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] overflow-hidden">
       {/* FLOWING DIGITAL WATER WAVE SWEEPING ACROSS SECTION */}
       <div className="pointer-events-none absolute inset-x-0 top-12 h-32 overflow-hidden opacity-40">
         <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-[200%] animate-pulse">

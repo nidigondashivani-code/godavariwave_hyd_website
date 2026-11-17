@@ -24,7 +24,7 @@ export default function Story() {
   const waveOpacity = useTransform(scrollYProgress, [0, 1], [0.18, 0.35]);
 
   return (
-    <section ref={containerRef} id="about" className="relative scroll-mt-28 lg:scroll-mt-36 overflow-hidden px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
+    <section ref={containerRef} id="about" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center overflow-hidden px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       {/* Morphing Background Wave */}
       <svg
         className="pointer-events-none absolute inset-x-0 top-1/3 h-[70%] w-full"
@@ -104,7 +104,7 @@ export default function Story() {
             style={{ scaleY: lineProgress }}
           />
 
-          <div className="space-y-10 sm:space-y-12">
+          <div className="space-y-14 sm:space-y-18 lg:space-y-20">
             {milestones.map((item, idx) => (
               <motion.div
                 key={item.title}
