@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import SectionHeader from './SectionHeader';
 import { clientLogos } from '../data/companyData';
 
 interface RowProps {
@@ -67,28 +68,22 @@ export default function ClientsRiver() {
         aria-hidden="true"
       />
 
-      <motion.div
-        className="mx-auto max-w-[1450px] text-center"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-      >
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1 text-xs font-mono tracking-widest text-[#00D4FF] uppercase mb-3 backdrop-blur-md">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#00D4FF] animate-pulse" />
-          480+ TRUSTED CLIENTS
-        </div>
-
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white leading-[1.15]">
-          A river of{' '}
-          <span className="bg-gradient-to-r from-[#FFFFFF] via-[#38BDF8] to-[#00D4FF] bg-clip-text text-transparent">
-            partners.
-          </span>
-        </h2>
-        <p className="mx-auto mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-sky-100/80 leading-relaxed">
-          Powering ambitious startups, regional businesses, and government initiatives across Andhra Pradesh, Telangana, and global markets.
-        </p>
-      </motion.div>
+      {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
+      <div className="mx-auto max-w-[1450px]">
+        <SectionHeader
+          label="OUR CLIENTS"
+          title={
+            <>
+              A river of{' '}
+              <span className="bg-gradient-to-r from-[#FFFFFF] via-[#38BDF8] to-[#00D4FF] bg-clip-text text-transparent">
+                partners.
+              </span>
+            </>
+          }
+          description="Powering ambitious startups, regional businesses, and government initiatives across Andhra Pradesh, Telangana, and global markets."
+          align="center"
+        />
+      </div>
 
       <motion.div
         className="mt-12 sm:mt-16 lg:mt-20 [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"

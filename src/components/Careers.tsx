@@ -22,6 +22,7 @@ import {
   Share2,
   ExternalLink
 } from 'lucide-react';
+import SectionHeader from './SectionHeader';
 import { careersPositions, hrContact, CareerPosition } from '../data/companyData';
 import { saveApplication } from '../utils/recruitmentStorage';
 
@@ -146,32 +147,20 @@ export default function Careers() {
       <div className="pointer-events-none absolute -bottom-40 left-0 h-[450px] w-[450px] rounded-full bg-[#00D4FF]/10 blur-[130px]" />
 
       <div className="relative mx-auto max-w-[1450px] z-20">
-        {/* Section Header with Bidirectional Entrance Animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#00D4FF]/30 bg-[#004E9A]/30 px-3.5 sm:px-4 py-1.5 text-xs font-mono uppercase tracking-[0.2em] text-[#38BDF8] shadow-sm mb-3">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D4FF] opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#00D4FF]" />
-            </span>
-            <span>WE ARE HIRING · HYDERABAD INNOVATION HUB</span>
-          </div>
-
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white leading-[1.15]">
-            Build the Next Wave of{' '}
-            <span className="bg-gradient-to-r from-[#38BDF8] via-[#00D4FF] to-[#FFFFFF] bg-clip-text text-transparent">
-              Digital Intelligence.
-            </span>
-          </h2>
-          <p className="mt-[18px] text-[16px] sm:text-[18px] text-sky-100/80 leading-relaxed max-w-[700px] mx-auto">
-            Join Godavari Wave Technologies at Meenakshi Tech Park, Gachibowli. We have open roles for freshers and experienced professionals across software engineering, digital marketing, sales, social media, and HR.
-          </p>
-        </motion.div>
+        {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
+        <SectionHeader
+          label="CAREERS"
+          title={
+            <>
+              Build the Next Wave of{' '}
+              <span className="bg-gradient-to-r from-[#38BDF8] via-[#00D4FF] to-[#FFFFFF] bg-clip-text text-transparent">
+                Digital Intelligence.
+              </span>
+            </>
+          }
+          description="Join Godavari Wave Technologies at Meenakshi Tech Park, Gachibowli. We have open roles for freshers and experienced professionals across software engineering, digital marketing, sales, and HR."
+          align="center"
+        />
 
         {/* Dedicated Direct HR Connect Showcase (Renusri) - Centered & Perfectly Symmetrical on Desktop */}
         <motion.div

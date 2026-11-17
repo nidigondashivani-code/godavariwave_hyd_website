@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import SplitText from './SplitText';
+import SectionHeader from './SectionHeader';
 import { milestones } from '../data/companyData';
 import { Sparkles } from 'lucide-react';
 
@@ -45,33 +46,20 @@ export default function Story() {
       <div className="relative mx-auto grid max-w-[1450px] gap-12 sm:gap-16 lg:grid-cols-[1fr_1.1fr]">
         {/* Sticky narrative column */}
         <div className="lg:sticky lg:top-32 lg:self-start">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="h-2 w-2 rounded-full bg-[#0066CC] animate-ping" />
-              <p className="eyebrow text-[#0066CC]">Our Story</p>
-            </div>
-
-            <SplitText
-              text="From the banks of the Godavari to the world."
-              className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
-              highlight={[5]}
-            />
-          </motion.div>
-
-          <motion.p
-            className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] leading-relaxed text-muted-foreground"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
-          >
-            Founded in Rajahmundry to make digital transformation affordable, accessible and impactful — and expanding in 2026 with our dedicated innovation hub at Meenakshi Tech Park, Gachibowli, Hyderabad.
-          </motion.p>
+          <SectionHeader
+            label="OUR STORY"
+            title={
+              <>
+                From the banks of the Godavari{' '}
+                <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
+                  to the world.
+                </span>
+              </>
+            }
+            description="Founded in Rajahmundry to make digital transformation affordable, accessible and impactful — and expanding in 2026 with our dedicated innovation hub at Meenakshi Tech Park, Gachibowli, Hyderabad."
+            align="left"
+            className="mb-8"
+          />
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}

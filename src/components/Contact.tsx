@@ -68,7 +68,7 @@ export default function Contact() {
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Eyebrow: Single horizontal line + "LET'S START" (12px space to heading) */}
+          {/* Eyebrow: Single horizontal line + "CONTACT US" (12px space to heading) */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -78,10 +78,9 @@ export default function Contact() {
           >
             <span className="h-[2px] w-12 bg-[#38BDF8] rounded-full shrink-0" style={{ backgroundColor: '#38BDF8' }} />
             <span
-              className="font-mono font-bold tracking-[0.25em] uppercase text-[18px] leading-none"
-              style={{ color: '#38BDF8', fontSize: '18px' }}
+              className="font-mono text-[14px] font-semibold tracking-[2px] uppercase text-[#38BDF8] leading-none"
             >
-              LET'S START
+              CONTACT US
             </span>
           </motion.div>
 
@@ -109,6 +108,15 @@ export default function Contact() {
               to flow.
             </motion.span>
           </h2>
+
+          {/* Decorative Accent: Gradient Line expanding with scaleX */}
+          <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: 'easeOut' }}
+            className="mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#38BDF8] to-[#0066CC] shadow-[0_0_12px_rgba(0,212,255,0.5)] origin-left"
+          />
         </motion.div>
 
         {/* Main 2-Column Grid: 32px desktop, 24px tablet/mobile gap */}

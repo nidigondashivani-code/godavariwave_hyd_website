@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { Layers, Brain, Database, Cloud, Palette, Wrench, ChevronDown } from 'lucide-react';
 import { cn } from '../utils/cn';
+import SectionHeader from './SectionHeader';
 import { techStack } from '../data/companyData';
 
 const techIcons: Record<string, React.ReactNode> = {
@@ -19,25 +20,20 @@ export default function TechStack() {
   return (
     <section id="technologies" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center"
-        >
-          <p className="eyebrow mb-3">Technologies</p>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
-            Capsules of{' '}
-            <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
-              capability.
-            </span>
-          </h2>
-          <p className="mx-auto mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
-            Click any capsule to explore our technical capabilities, frameworks, and production experience.
-          </p>
-        </motion.div>
+        {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
+        <SectionHeader
+          label="OUR TECHNOLOGIES"
+          title={
+            <>
+              Architected with{' '}
+              <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
+                battle-tested technologies.
+              </span>
+            </>
+          }
+          description="A transparent look at the modern frameworks, databases, and infrastructure tools we trust to ship resilient products."
+          align="center"
+        />
 
         {/* Capsules Container with Staggered Entrance & Blue Glow Hover */}
         <LayoutGroup id="tech-stack-capsules">

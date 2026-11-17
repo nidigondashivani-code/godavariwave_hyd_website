@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '../utils/cn';
+import SectionHeader from './SectionHeader';
 import { portfolioProjects } from '../data/companyData';
 
 const categories = ['All', 'E-commerce', 'Food', 'Mobility', 'Dashboards', 'Marketing'];
@@ -35,27 +36,20 @@ export default function Portfolio() {
   return (
     <section ref={sectionRef} id="portfolio" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
-        {/* Header with consistent layout: Label -> 12px -> Heading (42px) -> 18px -> Description (18px) */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
-        >
-          <div>
-            <p className="eyebrow mb-3">Portfolio</p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
+        {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
+        <SectionHeader
+          label="PORTFOLIO"
+          title={
+            <>
               Engineered for{' '}
               <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
                 real impact.
               </span>
-            </h2>
-          </div>
-          <p className="max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed mt-[18px] lg:mt-0">
-            A glimpse into production-grade consumer apps, logistics dispatchers, and SaaS platforms delivered by Godavari Wave.
-          </p>
-        </motion.div>
+            </>
+          }
+          description="A glimpse into production-grade consumer apps, logistics dispatchers, and SaaS platforms delivered by Godavari Wave."
+          align="left"
+        />
 
         {/* Category Filter Pills (40px spacing to content) */}
         <motion.div

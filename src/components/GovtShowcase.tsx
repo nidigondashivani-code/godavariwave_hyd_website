@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '../utils/cn';
 import SplitText from './SplitText';
+import SectionHeader from './SectionHeader';
 import { govtProjects } from '../data/companyData';
 
 interface ShowcaseCardProps {
@@ -97,51 +98,35 @@ export default function GovtShowcase() {
           </h1>
         </motion.div>
 
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.7, delay: 0.08, ease: 'easeOut' }}
-          className="flex flex-col justify-between gap-6 md:flex-row md:items-end mb-12 sm:mb-16 lg:mb-20"
-        >
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: 0.12, ease: 'easeOut' }}
-              className="eyebrow mb-3"
-            >
-              Selected work
-            </motion.p>
-            <SplitText
-              text="Platforms a state runs on."
-              className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
-              highlight={[0]}
-            />
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: 0.16, ease: 'easeOut' }}
-              className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed"
-            >
-              Mission-critical governance portals, disaster response apps, and public distribution pipelines engineered for millions of citizens.
-            </motion.p>
-          </div>
+        {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end mb-10 sm:mb-12 lg:mb-14">
+          <SectionHeader
+            label="OUR SOLUTIONS"
+            title={
+              <>
+                Platforms a state{' '}
+                <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
+                  runs on.
+                </span>
+              </>
+            }
+            description="Mission-critical governance portals, disaster response apps, and public distribution pipelines engineered for millions of citizens."
+            align="left"
+            className="mb-0"
+          />
+
           <motion.a
             href="#portfolio"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-            className="glass inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-white/10 hover:border-[#00D4FF]/40 hover:-translate-y-0.5 hover:shadow-lg self-start md:self-auto shrink-0 mb-2 cursor-pointer"
+            className="glass inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-white/10 hover:border-[#00D4FF]/40 hover:-translate-y-0.5 hover:shadow-lg self-start md:self-auto shrink-0 mb-4 cursor-pointer"
           >
-            <span>All projects</span>
-            <ArrowUpRight className="h-4 w-4" />
+            <span>View All Projects</span>
+            <ArrowUpRight className="h-4 w-4 text-[#00D4FF]" />
           </motion.a>
-        </motion.div>
+        </div>
 
         {/* Bento 12-Column Grid - 32px desktop, 24px tablet, 20px mobile gap */}
         <div className="grid gap-5 md:gap-6 lg:gap-8 md:grid-cols-12">

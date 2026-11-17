@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } fr
 import { Code2, Smartphone, TrendingUp, Palette, Cloud, CreditCard, ArrowUpRight, LucideIcon, Waves } from 'lucide-react';
 import { cn } from '../utils/cn';
 import SplitText from './SplitText';
+import SectionHeader from './SectionHeader';
 import { services } from '../data/companyData';
 
 const iconMap: Record<string, LucideIcon> = {
@@ -54,7 +55,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         delay: (i % 3) * 0.1,
         ease: 'easeOut'
       }}
-      className={cn('w-full', i % 3 === 1 && 'lg:translate-y-6')}
+      className="w-full"
     >
       <motion.div
         ref={cardRef}
@@ -161,31 +162,20 @@ export default function Services() {
       </div>
 
       <div className="mx-auto max-w-[1450px]">
-        {/* Section Header with consistent spacing: Label -> 12px -> Heading (42px) -> 18px -> Description (18px) -> 40px -> Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-12 sm:mb-16 lg:mb-20"
-        >
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <Waves className="h-4 w-4 text-[#0066CC]" />
-              <p className="eyebrow text-[#0066CC]">
-                Our Services
-              </p>
-            </div>
-            <SplitText
-              text="Six currents. One flow."
-              className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
-              highlight={[3]}
-            />
-            <p className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
-              Helping businesses build modern digital products — from responsive web apps and cloud architecture to AI solutions and enterprise platforms.
-            </p>
-          </div>
-        </motion.div>
+        {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
+        <SectionHeader
+          label="OUR SERVICES"
+          title={
+            <>
+              Helping Businesses Build{' '}
+              <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
+                Modern Digital Products
+              </span>
+            </>
+          }
+          description="We create scalable websites, mobile apps, CRM solutions and enterprise software engineered for high reliability."
+          align="left"
+        />
 
         {/* 6 Services Grid - 32px desktop gap, 24px tablet, 20px mobile gap */}
         <div className="grid gap-5 md:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">

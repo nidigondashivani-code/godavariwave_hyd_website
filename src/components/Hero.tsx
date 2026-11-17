@@ -38,7 +38,7 @@ export default function Hero() {
 
         {/* Display Heading: 60px on Desktop, 18px spacing to description */}
         <motion.h1
-          className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[60px] font-bold leading-[1.1] max-w-4xl mx-auto text-foreground tracking-tight"
+          className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[60px] font-extrabold leading-[1.1] max-w-4xl mx-auto text-foreground tracking-tight"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
@@ -50,6 +50,15 @@ export default function Hero() {
           </span>{' '}
           Digital Experiences
         </motion.h1>
+
+        {/* Decorative Accent Underline */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+          className="mt-4 h-1 w-24 rounded-full bg-gradient-to-r from-[#00D4FF] via-[#38BDF8] to-[#0066CC] shadow-[0_0_12px_rgba(0,212,255,0.5)] origin-center"
+        />
 
         {/* Subtitle - 18px typography scale, Maximum 700px width, 18px from heading */}
         <motion.p

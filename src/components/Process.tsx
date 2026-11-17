@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
+import SectionHeader from './SectionHeader';
 import { processSteps } from '../data/companyData';
 
 export default function Process() {
@@ -18,25 +19,20 @@ export default function Process() {
   return (
     <section className="relative min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
-        {/* Section Header */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        >
-          <p className="eyebrow mb-3">How we work</p>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
-            Idea to impact,{' '}
-            <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
-              in one current.
-            </span>
-          </h2>
-          <p className="mx-auto mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
-            Our structured agile framework eliminates guesswork and turns complex ideas into market-ready realities.
-          </p>
-        </motion.div>
+        {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
+        <SectionHeader
+          label="OUR PROCESS"
+          title={
+            <>
+              Idea to impact,{' '}
+              <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
+                in one current.
+              </span>
+            </>
+          }
+          description="Our structured agile framework eliminates guesswork and turns complex ideas into market-ready realities."
+          align="center"
+        />
 
         {/* Desktop Connected Steps Navigation with Animated Connecting Line */}
         <motion.div

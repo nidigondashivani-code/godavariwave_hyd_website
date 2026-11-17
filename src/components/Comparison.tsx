@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, ShieldCheck, Zap, Bot, Headphones, Rocket } from 'lucide-react';
 import { cn } from '../utils/cn';
+import SectionHeader from './SectionHeader';
 import { comparisonMetrics } from '../data/companyData';
 
 const metricIcons: Record<string, React.ReactNode> = {
@@ -20,23 +21,21 @@ export default function Comparison() {
     <section className="relative min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
         <div className="grid gap-12 sm:gap-16 lg:gap-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="pl-2 sm:pl-4 md:pl-6 lg:pl-10 xl:pl-14"
-          >
-            <p className="eyebrow mb-3">Why Godavari Wave</p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]">
-              Not another{' '}
-              <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
-                IT vendor.
-              </span>
-            </h2>
-            <p className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] leading-relaxed text-muted-foreground">
-              We replace fragmented freelancers and rigid legacy IT firms with an agile, high-velocity engineering partner that cares about your bottom line.
-            </p>
+          <div className="pl-2 sm:pl-4 md:pl-6 lg:pl-10 xl:pl-14">
+            <SectionHeader
+              label="WHY GODAVARI WAVE"
+              title={
+                <>
+                  Not another{' '}
+                  <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
+                    IT vendor.
+                  </span>
+                </>
+              }
+              description="We replace fragmented freelancers and rigid legacy IT firms with an agile, high-velocity engineering partner that cares about your bottom line."
+              align="left"
+              className="mb-8"
+            />
 
             {/* Toggle Pill */}
             <div className="glass-soft mt-8 inline-flex rounded-full p-1 sm:p-1.5" role="tablist" aria-label="Comparison">
@@ -78,7 +77,7 @@ export default function Comparison() {
                 <span className="relative">Godavari Wave</span>
               </button>
             </div>
-          </motion.div>
+          </div>
 
           {/* Comparison Progress Bars with Increased Margins & Padding on all sides, shifted towards right */}
           <div className="grid gap-6 sm:gap-8 lg:gap-10 pl-2 sm:pl-4 lg:pl-8 xl:pl-12">

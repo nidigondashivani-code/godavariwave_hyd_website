@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
 import { cn } from '../utils/cn';
 import SplitText from './SplitText';
+import SectionHeader from './SectionHeader';
 import { testimonials } from '../data/companyData';
 
 function RibbonWaves({ className, count = 5 }: { className?: string; count?: number }) {
@@ -59,23 +60,20 @@ export default function Testimonials() {
       <RibbonWaves className="top-1/2 h-[420px] -translate-y-1/3 opacity-70" count={6} />
 
       <div className="relative mx-auto max-w-[1450px]">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-12 sm:mb-16 lg:mb-20"
-        >
-          <p className="eyebrow mb-3">In their words</p>
-          <SplitText
-            text="Voices from the current."
-            className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
-            highlight={[0]}
-          />
-          <p className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
-            Real feedback from enterprise leaders, startup founders, and public sector partners across India.
-          </p>
-        </motion.div>
+        {/* Section Header: Standardized 56px/46px/34px typography, uppercase 14px label, gradient accent line */}
+        <SectionHeader
+          label="TESTIMONIALS"
+          title={
+            <>
+              Voices from the{' '}
+              <span className="bg-gradient-to-r from-sea via-mint to-ember bg-clip-text text-transparent">
+                current.
+              </span>
+            </>
+          }
+          description="Real feedback from enterprise leaders, startup founders, and public sector partners across India."
+          align="left"
+        />
 
         {/* Testimonials Grid - 32px desktop gap, 24px tablet, 20px mobile, 28px internal padding */}
         <div className="grid gap-5 md:gap-6 lg:gap-8 lg:grid-cols-3">
