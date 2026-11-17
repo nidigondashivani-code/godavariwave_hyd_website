@@ -36,9 +36,9 @@ export default function Portfolio() {
       <div className="mx-auto max-w-[1450px]">
         {/* Header with consistent layout: Label -> 12px -> Heading (42px) -> 18px -> Description (18px) */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
         >
@@ -58,9 +58,9 @@ export default function Portfolio() {
 
         {/* Category Filter Pills (40px spacing to content) */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
           className="mt-10 sm:mt-12 mb-12 sm:mb-16 flex flex-wrap items-center gap-2.5"
         >
@@ -127,14 +127,14 @@ export default function Portfolio() {
                     <motion.div
                       initial={{
                         opacity: 0,
-                        y: 40
+                        y: 50
                       }}
                       whileInView={{
                         opacity: 1,
                         y: 0
                       }}
                       exit={{ opacity: 0, scale: 0.95 }}
-                      viewport={{ once: true, amount: 0.15 }}
+                      viewport={{ once: false, amount: 0.15 }}
                       transition={{
                         duration: 0.6,
                         delay: (idx % 3) * 0.1,

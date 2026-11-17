@@ -22,10 +22,10 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, scale: 0.95, y: 40 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6, delay: (index % 2) * 0.1, ease: 'easeOut' }}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.12 }}
+      transition={{ duration: 0.7, delay: (index % 3) * 0.1, ease: 'easeOut' }}
     >
       <Wrapper
         {...linkProps}
@@ -47,7 +47,13 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
         <div className="absolute inset-0 bg-gradient-to-t from-ocean via-ocean/40 to-transparent" />
 
         {/* Bottom Glass Card - 28px desktop, 22px mobile padding */}
-        <div className="glass absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6 rounded-2xl p-[22px] lg:p-[28px] transition-transform duration-500 group-hover:-translate-y-1">
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.6, delay: (index % 3) * 0.1 + 0.15, ease: 'easeOut' }}
+          className="glass absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6 rounded-2xl p-[22px] lg:p-[28px] transition-transform duration-500 group-hover:-translate-y-1"
+        >
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="eyebrow text-[0.65rem] text-secondary">{tag}</p>
@@ -65,7 +71,7 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
               {text}
             </p>
           )}
-        </div>
+        </motion.div>
       </Wrapper>
     </motion.div>
   );
@@ -75,32 +81,66 @@ export default function GovtShowcase() {
   return (
     <section id="solutions" className="relative scroll-mt-28 lg:scroll-mt-36 min-h-screen min-h-[100dvh] flex flex-col justify-center px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
+        {/* Solutions Main H1 Display Heading (Bold, White and Blue Combination) */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="mb-6 sm:mb-8"
+        >
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold tracking-tight leading-tight">
+            <span className="text-white">SOLU</span>
+            <span className="bg-gradient-to-r from-[#00D4FF] via-[#38BDF8] to-[#0066CC] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(0,212,255,0.45)]">
+              TIONS
+            </span>
+          </h1>
+        </motion.div>
+
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.08, ease: 'easeOut' }}
           className="flex flex-col justify-between gap-6 md:flex-row md:items-end mb-12 sm:mb-16 lg:mb-20"
         >
           <div>
-            <p className="eyebrow mb-3">Selected work</p>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.12, ease: 'easeOut' }}
+              className="eyebrow mb-3"
+            >
+              Selected work
+            </motion.p>
             <SplitText
               text="Platforms a state runs on."
               className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-foreground leading-[1.15]"
               highlight={[0]}
             />
-            <p className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.16, ease: 'easeOut' }}
+              className="mt-[18px] max-w-[700px] text-[16px] sm:text-[18px] text-muted-foreground leading-relaxed"
+            >
               Mission-critical governance portals, disaster response apps, and public distribution pipelines engineered for millions of citizens.
-            </p>
+            </motion.p>
           </div>
-          <a
+          <motion.a
             href="#portfolio"
-            className="glass inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-white/10 hover:border-[#00D4FF]/40 hover:-translate-y-0.5 hover:shadow-lg self-start md:self-auto shrink-0 mb-2"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            className="glass inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-white/10 hover:border-[#00D4FF]/40 hover:-translate-y-0.5 hover:shadow-lg self-start md:self-auto shrink-0 mb-2 cursor-pointer"
           >
             <span>All projects</span>
             <ArrowUpRight className="h-4 w-4" />
-          </a>
+          </motion.a>
         </motion.div>
 
         {/* Bento 12-Column Grid - 32px desktop, 24px tablet, 20px mobile gap */}

@@ -48,7 +48,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.15 }}
       transition={{
         duration: 0.7,
         delay: (i % 3) * 0.1,
@@ -167,11 +167,11 @@ export default function Services() {
       <div className="mx-auto max-w-[1450px]">
         {/* Section Header with consistent spacing: Label -> 12px -> Heading (42px) -> 18px -> Description (18px) -> 40px -> Cards */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-10 sm:mb-12"
+          className="mb-12 sm:mb-16 lg:mb-20"
         >
           <div>
             <div className="flex items-center gap-2 mb-3">
