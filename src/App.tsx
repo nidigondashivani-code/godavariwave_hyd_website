@@ -36,8 +36,10 @@ const checkIsLeadPath = () => {
 
 function SectionDivider() {
   return (
-    <div className="relative h-px w-full max-w-[1450px] mx-auto overflow-hidden pointer-events-none select-none opacity-25" aria-hidden="true">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00D4FF]/50 to-transparent" />
+    <div className="relative w-full max-w-[1450px] mx-auto py-8 sm:py-12 md:py-16 lg:py-20 px-5 md:px-8 xl:px-12 pointer-events-none select-none" aria-hidden="true">
+      <div className="relative h-px w-full overflow-hidden opacity-35">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00D4FF]/60 to-transparent" />
+      </div>
     </div>
   );
 }

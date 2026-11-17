@@ -54,7 +54,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
+    <section className="relative overflow-hidden px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       {/* Background Oscillating Ribbon Waves */}
       <RibbonWaves className="top-1/2 h-[420px] -translate-y-1/3 opacity-70" count={6} />
 
@@ -64,7 +64,7 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-10 sm:mb-12"
+          className="mb-12 sm:mb-16 lg:mb-20"
         >
           <p className="eyebrow mb-3">In their words</p>
           <SplitText

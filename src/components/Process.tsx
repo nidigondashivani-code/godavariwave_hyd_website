@@ -16,7 +16,7 @@ export default function Process() {
   }, [isAutoPlay]);
 
   return (
-    <section className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
+    <section className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div
@@ -40,7 +40,7 @@ export default function Process() {
 
         {/* Desktop Connected Steps Navigation with Animated Connecting Line */}
         <motion.div
-          className="relative mt-10 sm:mt-14 hidden md:block"
+          className="relative mt-12 sm:mt-16 lg:mt-20 hidden md:block"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}

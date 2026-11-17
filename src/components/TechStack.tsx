@@ -17,7 +17,7 @@ export default function TechStack() {
   const [activeTab, setActiveTab] = useState<string | null>('ai');
 
   return (
-    <section id="technologies" className="relative px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
+    <section id="technologies" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div
@@ -41,7 +41,7 @@ export default function TechStack() {
 
         {/* Capsules Container with Staggered Entrance & Blue Glow Hover */}
         <LayoutGroup id="tech-stack-capsules">
-          <div className="mt-10 sm:mt-12 flex flex-wrap items-start justify-center gap-5 md:gap-6 lg:gap-8">
+          <div className="mt-12 sm:mt-16 lg:mt-20 flex flex-wrap items-start justify-center gap-6 sm:gap-8 lg:gap-10">
             {techStack.map((item, idx) => {
               const icon = techIcons[item.id] ?? <Layers className="h-4 w-4" />;
               const isActive = activeTab === item.id;

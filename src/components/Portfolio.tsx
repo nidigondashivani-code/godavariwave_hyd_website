@@ -32,7 +32,7 @@ export default function Portfolio() {
     : portfolioProjects.filter((p) => p.cat === activeCategory);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px]">
+    <section ref={sectionRef} id="portfolio" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
         {/* Header with consistent layout: Label -> 12px -> Heading (42px) -> 18px -> Description (18px) */}
         <motion.div
@@ -62,7 +62,7 @@ export default function Portfolio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-          className="mt-8 mb-10 flex flex-wrap items-center gap-2"
+          className="mt-10 sm:mt-12 mb-12 sm:mb-16 flex flex-wrap items-center gap-2.5"
         >
           {categories.map((cat) => {
             const count = cat === 'All'

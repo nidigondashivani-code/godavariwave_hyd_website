@@ -55,11 +55,14 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px] bg-[#0B1F3A]">
-      <div className="mx-auto max-w-[1450px]">
-        {/* Section Header: Left-aligned with 40px spacing before cards */}
+    <section id="contact" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A]">
+      {/* Top Transition Vignette for Smooth Section Breathing Gap */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent z-10" />
+
+      <div className="mx-auto max-w-[1450px] relative z-20">
+        {/* Section Header: Left-aligned with generous spacing before cards */}
         <motion.div
-          className="mb-10 sm:mb-12 text-left"
+          className="mb-12 sm:mb-16 lg:mb-20 text-left"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}

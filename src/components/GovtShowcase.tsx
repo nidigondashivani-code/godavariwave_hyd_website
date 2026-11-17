@@ -73,7 +73,7 @@ function ShowcaseCard({ title, tag, image, text, link, className, index }: Showc
 
 export default function GovtShowcase() {
   return (
-    <section id="solutions" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[120px]">
+    <section id="solutions" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px]">
       <div className="mx-auto max-w-[1450px]">
         {/* Section Header */}
         <motion.div
@@ -81,7 +81,7 @@ export default function GovtShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="flex flex-col justify-between gap-6 md:flex-row md:items-end mb-10 sm:mb-12"
+          className="flex flex-col justify-between gap-6 md:flex-row md:items-end mb-12 sm:mb-16 lg:mb-20"
         >
           <div>
             <p className="eyebrow mb-3">Selected work</p>

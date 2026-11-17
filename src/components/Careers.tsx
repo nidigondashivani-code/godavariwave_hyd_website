@@ -136,12 +136,16 @@ export default function Careers() {
   };
 
   return (
-    <section id="careers" className="relative scroll-mt-20 px-5 md:px-8 lg:px-10 xl:px-12 py-[80px] md:py-[100px] lg:py-[140px] bg-[#0B1F3A] overflow-hidden text-foreground">
+    <section id="careers" className="relative scroll-mt-28 lg:scroll-mt-36 px-5 md:px-8 lg:px-10 xl:px-12 py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] bg-[#0B1F3A] overflow-hidden text-foreground">
+      {/* Top and Bottom Transition Vignettes for Smooth Section Breathing Gap */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-background to-transparent z-10" />
+
       {/* Background Decorative Gradient Blobs */}
       <div className="pointer-events-none absolute -top-40 right-0 h-[450px] w-[450px] rounded-full bg-[#0066CC]/15 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-40 left-0 h-[450px] w-[450px] rounded-full bg-[#00D4FF]/10 blur-[130px]" />
 
-      <div className="relative mx-auto max-w-[1450px]">
+      <div className="relative mx-auto max-w-[1450px] z-20">
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#00D4FF]/30 bg-[#004E9A]/30 px-3.5 sm:px-4 py-1.5 text-xs font-mono uppercase tracking-[0.2em] text-[#38BDF8] shadow-sm mb-3">

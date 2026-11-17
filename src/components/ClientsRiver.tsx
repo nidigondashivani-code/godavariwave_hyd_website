@@ -60,7 +60,7 @@ export default function ClientsRiver() {
   const row3 = clientLogos.slice(20);
 
   return (
-    <section className="relative overflow-hidden py-[80px] md:py-[100px] lg:py-[120px] px-5 md:px-8 lg:px-10 xl:px-12">
+    <section className="relative overflow-hidden py-[100px] sm:py-[120px] md:py-[140px] lg:py-[160px] px-5 md:px-8 lg:px-10 xl:px-12">
       {/* Background Ambient River Glow */}
       <div
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-full max-w-[1450px] bg-gradient-to-r from-transparent via-[#0066CC]/15 to-transparent blur-3xl"
@@ -91,7 +91,7 @@ export default function ClientsRiver() {
       </motion.div>
 
       <motion.div
-        className="mt-10 sm:mt-14 [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
+        className="mt-12 sm:mt-16 lg:mt-20 [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
