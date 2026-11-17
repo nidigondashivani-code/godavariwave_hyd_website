@@ -78,7 +78,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         }}
         animate={{ y: hovered ? -14 : 0 }}
         transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-        className="glass border-flow group relative h-full min-h-[280px] sm:min-h-[340px] overflow-hidden rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 outline-none cursor-pointer flex flex-col justify-between w-full"
+        className="glass border-flow group relative h-full min-h-[320px] sm:min-h-[380px] overflow-hidden rounded-2xl sm:rounded-[2rem] p-7 sm:p-9 lg:p-11 outline-none cursor-pointer flex flex-col justify-between w-full"
         data-cursor="true"
       >
         {/* Wave Passing Shimmer Flare */}
@@ -91,7 +91,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         />
 
         {/* Card Header & Icon */}
-        <div className="relative flex items-start justify-between">
+        <div className="relative flex items-start justify-between mb-2">
           <motion.div
             className="grid h-16 w-16 place-items-center rounded-2xl bg-sea-gradient text-primary-foreground shadow-glow-sea"
             animate={hovered ? { rotate: [0, -12, 10, 0], scale: 1.08 } : { rotate: 0, scale: 1 }}
@@ -103,31 +103,35 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
         </div>
 
         {/* Title & Short Summary */}
-        <h3 className="relative mt-10 font-display text-2xl font-semibold text-foreground md:text-[1.7rem]">
-          {s.title}
-        </h3>
-        <p className="relative mt-3 text-muted-foreground leading-relaxed">{s.short}</p>
+        <div className="flex-1">
+          <h3 className="relative mt-8 sm:mt-12 font-display text-2xl font-semibold text-foreground md:text-[1.7rem]">
+            {s.title}
+          </h3>
+          <p className="relative mt-3.5 sm:mt-4 text-muted-foreground leading-relaxed text-sm sm:text-base">
+            {s.short}
+          </p>
 
-        {/* Expanding Points on Hover */}
-        <motion.ul
-          className="relative mt-6 space-y-2 overflow-hidden text-sm"
-          initial={false}
-          animate={{
-            height: hovered ? 'auto' : 0,
-            opacity: hovered ? 1 : 0
-          }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {s.points.map((pt) => (
-            <li key={pt} className="flex items-center gap-3 text-foreground/85">
-              <span className="h-1 w-4 rounded-full bg-flow" />
-              <span>{pt}</span>
-            </li>
-          ))}
-        </motion.ul>
+          {/* Expanding Points on Hover */}
+          <motion.ul
+            className="relative mt-6 sm:mt-8 space-y-2.5 overflow-hidden text-sm"
+            initial={false}
+            animate={{
+              height: hovered ? 'auto' : 0,
+              opacity: hovered ? 1 : 0
+            }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {s.points.map((pt) => (
+              <li key={pt} className="flex items-center gap-3 text-foreground/85">
+                <span className="h-1.5 w-4 rounded-full bg-flow shrink-0" />
+                <span>{pt}</span>
+              </li>
+            ))}
+          </motion.ul>
+        </div>
 
         {/* Corner Indicator Arrow */}
-        <ArrowUpRight className="absolute right-8 bottom-8 h-5 w-5 text-mint opacity-40 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100 group-hover:text-[#00D4FF]" />
+        <ArrowUpRight className="absolute right-7 bottom-7 sm:right-9 sm:bottom-9 h-5 w-5 text-mint opacity-40 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100 group-hover:text-[#00D4FF]" />
       </motion.div>
     </motion.div>
   );
@@ -135,7 +139,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[0]; i: number }) {
 
 export default function Services() {
   return (
-    <section id="services" className="relative scroll-mt-20 px-4 sm:px-6 py-14 sm:py-24 md:py-36 lg:py-44 overflow-hidden">
+    <section id="services" className="relative scroll-mt-24 px-4 sm:px-6 py-28 sm:py-40 md:py-52 lg:py-60 overflow-hidden">
       {/* FLOWING DIGITAL WATER WAVE SWEEPING ACROSS SECTION */}
       <div className="pointer-events-none absolute inset-x-0 top-12 h-32 overflow-hidden opacity-40">
         <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-[200%] animate-pulse">
@@ -165,7 +169,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 sm:mb-12 lg:mb-16"
+          className="mb-14 sm:mb-20 lg:mb-28"
         >
           <div>
             <div className="flex items-center gap-2 mb-3 sm:mb-4">
@@ -182,8 +186,8 @@ export default function Services() {
           </div>
         </motion.div>
 
-        {/* 6 Services Grid (Each appears cleanly aligned on all screen sizes) */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:pb-16 items-stretch">
+        {/* 6 Services Grid (Extra margins and spacing between cards on all screens) */}
+        <div className="grid gap-8 sm:gap-10 lg:gap-12 sm:grid-cols-2 lg:grid-cols-3 pb-12 sm:pb-20 lg:pb-28 items-stretch">
           {services.map((s, i) => (
             <ServiceCard key={s.id} s={s} i={i} />
           ))}
