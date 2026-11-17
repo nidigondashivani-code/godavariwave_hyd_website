@@ -1,31 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, LayoutGroup, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight, ExternalLink } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { portfolioProjects } from '../data/companyData';
 
 const categories = ['All', 'E-commerce', 'Food', 'Mobility', 'Dashboards', 'Marketing'];
 
+const projectTechTags: Record<string, string[]> = {
+  'Yoloo': ['React', 'Next.js', 'Stripe'],
+  'Fresho Zapcart': ['React Native', 'Node.js', 'Maps API'],
+  'Abhi24': ['Mobile App', 'Node.js', 'Fleet GPS'],
+  'Wedzing': ['Next.js', 'PostgreSQL', 'Tailwind'],
+  'Intlo Kitchen': ['React Native', 'Express', 'Razorpay'],
+  'Varadhi': ['React', 'Firebase', 'Live Track'],
+  'MeLocal': ['React Native', 'Node.js', 'MongoDB'],
+  'Quickee': ['Node.js', 'Socket.io', 'Dispatch'],
+  'Cabrastey': ['React Native', 'Google Maps', 'Node.js'],
+  'Zig Zag': ['Mobile App', 'GPS Engine', 'AWS'],
+  'Manasavari': ['React Native', 'Routing API', 'Cloud'],
+  'Nagzo': ['Next.js', 'Fleet Ops', 'PostgreSQL'],
+  'Hospital Management': ['React', 'TypeScript', 'Analytics'],
+  'Truedoit': ['Next.js', 'Telemetry', 'PostgreSQL'],
+  'Complete Digital Marketing': ['SEO', 'Meta Ads', 'Analytics']
+};
+
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('All');
   const sectionRef = useRef<HTMLElement>(null);
-
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth >= 1024);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  // Parallax flow while user scrolls across the portfolio on desktop
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start']
-  });
-
-  const parallaxUp = useTransform(scrollYProgress, [0, 1], [25, -25]);
-  const parallaxDown = useTransform(scrollYProgress, [0, 1], [-25, 25]);
 
   const filtered = activeCategory === 'All'
     ? portfolioProjects
@@ -106,9 +107,9 @@ export default function Portfolio() {
           })}
         </motion.div>
 
-        {/* Projects Grid with 32px desktop gap, 24px tablet, 20px mobile, animated entrance */}
+        {/* Projects Grid with 32px desktop gap, 24px tablet, 20px mobile, 4-col desktop, 3-col laptop, 2-col tablet, 1-col mobile */}
         <LayoutGroup id="portfolio-cards-layout">
-          <motion.div layout className="grid gap-5 md:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6 lg:gap-8 items-stretch">
             <AnimatePresence mode="popLayout">
               {filtered.map((item, idx) => {
                 const isLink = Boolean(item.link);
@@ -116,48 +117,41 @@ export default function Portfolio() {
                 const linkAttributes = isLink
                   ? { href: item.link, target: '_blank', rel: 'noreferrer' }
                   : {};
+                const tags = projectTechTags[item.name] || ['Web App', 'Cloud', 'API'];
 
                 return (
                   <motion.div
                     layout
                     key={item.name}
-                    style={{ y: isDesktop ? (idx % 2 === 0 ? parallaxUp : parallaxDown) : 0 }}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    viewport={{ once: false, amount: 0.15 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: (idx % 4) * 0.08,
+                      ease: 'easeOut'
+                    }}
                     className="h-full"
                   >
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        y: 50
-                      }}
-                      whileInView={{
-                        opacity: 1,
-                        y: 0
-                      }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      viewport={{ once: false, amount: 0.15 }}
-                      transition={{
-                        duration: 0.6,
-                        delay: (idx % 3) * 0.1,
-                        ease: 'easeOut'
-                      }}
-                      className="h-full"
+                    <CardWrapper
+                      {...linkAttributes}
+                      data-cursor="true"
+                      className="group relative flex flex-col justify-between h-[530px] w-full rounded-2xl bg-[#0B1F3A]/90 border border-white/15 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-[#38BDF8]/50 hover:shadow-[0_20px_45px_rgba(0,102,204,0.3)] hover:-translate-y-1 block text-left cursor-pointer overflow-hidden"
                     >
-                      <CardWrapper
-                        {...linkAttributes}
-                        data-cursor="true"
-                        className="border-flow group relative flex h-[420px] sm:h-[480px] lg:h-[500px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl bg-ocean-raised [--flow-opacity:0] transition-all duration-500 hover:[--flow-opacity:1] hover:shadow-2xl"
-                      >
-                        {/* Ambient Gradient Background */}
-                        <div
-                          className={cn(
-                            'absolute inset-0 bg-gradient-to-br opacity-40 transition-opacity duration-700 group-hover:opacity-75',
-                            item.accent || 'from-sea/20 via-mint/10 to-ocean-deep'
-                          )}
-                        />
+                      {/* Ambient Accent Glow inside card */}
+                      <div
+                        className={cn(
+                          'pointer-events-none absolute inset-0 bg-gradient-to-br opacity-25 transition-opacity duration-700 group-hover:opacity-45',
+                          item.accent || 'from-sea/20 via-mint/10 to-ocean-deep'
+                        )}
+                      />
 
-                        {/* Top Visual: Photo or Brand Visual Showcase */}
-                        <div className="relative flex flex-1 items-center justify-center overflow-hidden p-6">
-                          {item.image && (
+                      {/* Top Content Block */}
+                      <div className="relative z-10 flex flex-col">
+                        {/* 1. Image Container (Fixed 16:9 Aspect Ratio) */}
+                        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/10 bg-ocean-deep/60">
+                          {item.image ? (
                             <img
                               src={item.image}
                               alt={item.name}
@@ -165,85 +159,87 @@ export default function Portfolio() {
                               onError={(e) => {
                                 (e.target as HTMLElement).style.display = 'none';
                               }}
-                              className="absolute inset-0 h-full w-full object-cover opacity-60 transition-transform duration-700 ease-out group-hover:scale-110 group-hover:opacity-75"
+                              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                             />
-                          )}
-
-                          {/* Brand Logo Card overlay */}
-                          {item.logo ? (
-                            <div className="glass-soft relative z-10 flex h-14 w-32 sm:h-20 sm:w-44 md:h-24 md:w-52 items-center justify-center rounded-xl sm:rounded-2xl border border-glass-border/60 p-2.5 sm:p-4 shadow-xl backdrop-blur-md transition-transform duration-500 group-hover:scale-105">
-                              <img
-                                src={item.logo}
-                                alt={`${item.name} logo`}
-                                loading="lazy"
-                                className="max-h-7 sm:max-h-10 md:max-h-12 max-w-[85%] object-contain filter drop-shadow"
-                              />
-                            </div>
                           ) : (
-                            <div className="glass-soft relative z-10 flex h-12 sm:h-18 items-center justify-center rounded-xl sm:rounded-2xl border border-glass-border/60 px-3.5 sm:px-6 py-1.5 sm:py-3 shadow-xl backdrop-blur-md transition-transform duration-500 group-hover:scale-105">
-                              <span className="font-display text-sm sm:text-lg md:text-xl font-bold tracking-tight text-foreground">
-                                {item.name}
-                              </span>
+                            <div className="h-full w-full bg-gradient-to-br from-sea/20 via-ocean to-ocean-deep" />
+                          )}
+
+                          {/* Gradient Vignette */}
+                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/80 via-transparent to-transparent" />
+
+                          {/* Brand Logo in center if available */}
+                          {item.logo && (
+                            <div className="absolute inset-0 flex items-center justify-center p-3">
+                              <div className="glass-soft flex h-11 w-28 sm:h-12 sm:w-32 items-center justify-center rounded-lg border border-white/15 p-2 shadow-lg backdrop-blur-md transition-transform duration-500 group-hover:scale-105">
+                                <img
+                                  src={item.logo}
+                                  alt={`${item.name} logo`}
+                                  loading="lazy"
+                                  className="max-h-8 max-w-[85%] object-contain filter drop-shadow"
+                                />
+                              </div>
                             </div>
                           )}
 
-                          {/* Top Category Tag Badge */}
-                          <div className="absolute top-4 left-4 z-20">
-                            <span className="glass rounded-full border border-glass-border/70 px-3 py-1 font-mono text-[0.65rem] tracking-wider text-secondary uppercase shadow-sm">
-                              {item.cat}
+                          {/* Shimmer Flare Swipe */}
+                          <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-[1.2s] ease-out group-hover:translate-x-full" />
+                        </div>
+
+                        {/* 2. Project Category (Image → Category: 16px) */}
+                        <div className="mt-4 flex items-center justify-between">
+                          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#38BDF8]">
+                            {item.cat}
+                          </span>
+                          <span className="font-mono text-[11px] text-slate-400 truncate max-w-[140px]">
+                            {item.type.split('·')[0].trim()}
+                          </span>
+                        </div>
+
+                        {/* 3. Project Title (Category → Title: 12px, Max 2 lines with fixed height) */}
+                        <h3 className="mt-3 font-display text-lg sm:text-xl font-bold text-white tracking-tight line-clamp-2 h-14 flex items-center leading-snug group-hover:text-[#38BDF8] transition-colors">
+                          {item.name}
+                        </h3>
+
+                        {/* 4. Short Description (Title → Description: 16px, Max 3 lines with ellipsis) */}
+                        <p className="mt-4 text-xs sm:text-sm text-slate-300/80 leading-relaxed line-clamp-3 h-[4.5rem] overflow-hidden">
+                          {item.desc || 'Engineered scalable digital solution delivering high reliability and seamless user experience.'}
+                        </p>
+
+                        {/* 5. Technology Tags (Description → Tags: 20px, Equal height, padding and spacing) */}
+                        <div className="mt-5 flex items-center gap-2 overflow-hidden h-7">
+                          {tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="inline-flex items-center justify-center h-6 rounded-md bg-white/5 border border-white/10 px-2.5 text-[11px] font-mono text-sky-200 shrink-0"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* 6. Action Button (Tags → Button: 24px, Always positioned at the bottom) */}
+                      <div className="relative z-10 mt-auto pt-6">
+                        {isLink ? (
+                          <div className="inline-flex w-full h-11 items-center justify-between rounded-xl bg-white/5 group-hover:bg-[#0066CC]/30 border border-white/10 group-hover:border-[#38BDF8]/50 px-4 text-xs sm:text-sm font-semibold text-white transition-all duration-300">
+                            <span className="flex items-center gap-1.5 text-slate-200 group-hover:text-white">
+                              Visit Platform
+                            </span>
+                            <span className="grid h-6 w-6 place-items-center rounded-full bg-[#0066CC]/40 text-[#38BDF8] group-hover:bg-[#38BDF8] group-hover:text-slate-900 transition-colors">
+                              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-45" />
                             </span>
                           </div>
-
-                          {/* Link Indicator in Top Right if live link */}
-                          {isLink && (
-                            <div className="absolute top-4 right-4 z-20">
-                              <span className="grid h-8 w-8 place-items-center rounded-full bg-glass text-muted-foreground backdrop-blur-md transition-all duration-300 group-hover:bg-flow group-hover:text-primary-foreground">
-                                <ExternalLink className="h-3.5 w-3.5" />
-                              </span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Flare Swipe Hover Effect */}
-                        <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-ivory/15 to-transparent transition-transform duration-[1.3s] ease-out group-hover:translate-x-full" />
-
-                        {/* Vignette Shadow */}
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ocean via-ocean/40 to-transparent" />
-
-                        {/* Bottom Glass Card Sheet - 28px desktop, 22px mobile padding */}
-                        <div className="glass relative z-10 m-4 rounded-2xl p-[22px] lg:p-[28px] transition-transform duration-500 group-hover:-translate-y-1">
-                          <div className="flex items-center justify-between gap-4">
-                            <div className="flex-1 min-w-0">
-                              <p className="font-mono text-[0.65rem] tracking-wider text-accent uppercase">
-                                {item.type}
-                              </p>
-                              <h3 className="mt-1 truncate font-display text-lg sm:text-xl md:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                                {item.name}
-                              </h3>
-                              {item.desc && (
-                                <p className="mt-1.5 line-clamp-2 text-xs sm:text-sm leading-relaxed text-muted-foreground">
-                                  {item.desc}
-                                </p>
-                              )}
-                            </div>
-
-                            {isLink ? (
-                              <span
-                                className="grid h-9 w-9 sm:h-10 sm:w-10 shrink-0 place-items-center rounded-full bg-flow text-primary-foreground shadow-glow-sea transition-transform duration-500 group-hover:rotate-45"
-                                title="Visit live project"
-                                aria-hidden="true"
-                              >
-                                <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5" />
-                              </span>
-                            ) : (
-                              <span className="mt-1 shrink-0 rounded-full bg-glass-strong border border-glass-border px-2.5 py-1 text-xs font-mono text-muted-foreground">
-                                SaaS / ERP
-                              </span>
-                            )}
+                        ) : (
+                          <div className="inline-flex w-full h-11 items-center justify-between rounded-xl bg-white/5 border border-white/10 px-4 text-xs sm:text-sm font-semibold text-slate-400">
+                            <span className="text-slate-300">Enterprise Solution</span>
+                            <span className="grid h-6 w-6 place-items-center rounded-full bg-white/10 text-slate-300">
+                              <ArrowUpRight className="h-3.5 w-3.5 opacity-50" />
+                            </span>
                           </div>
-                        </div>
-                      </CardWrapper>
-                    </motion.div>
+                        )}
+                      </div>
+                    </CardWrapper>
                   </motion.div>
                 );
               })}
