@@ -164,10 +164,10 @@ export default function Careers() {
 
         {/* Dedicated Direct HR Connect Showcase (Renusri) - Centered & Perfectly Symmetrical on Desktop */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 70 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.15 }}
-          transition={{ duration: 0.65, delay: 0.1, ease: 'easeOut' }}
+          transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto max-w-5xl mt-8 sm:mt-16 lg:mt-20 rounded-2xl sm:rounded-3xl border border-white/20 bg-gradient-to-b from-[#0e2a4a]/95 via-[#0B1F3A]/95 to-[#061426] p-5 sm:p-8 md:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden w-full"
         >
           {/* Subtle Ambient Glows */}
@@ -206,10 +206,14 @@ export default function Careers() {
             </p>
           </div>
 
-          {/* 3-Column Info Cards Grid: Email, Phone/WhatsApp, Campus */}
+          {/* 3-Column Info Cards Grid: Email, Phone/WhatsApp, Campus - Bidirectional entrance */}
           <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 relative z-10 w-full">
             {/* Card 1: Official HR Email */}
-            <a
+            <motion.a
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               href={`mailto:${hrContact.email}?subject=Career%20Inquiry%20-%20Godavari%20Wave%20Technologies`}
               className="group relative rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-4 sm:p-5 transition-all duration-300 hover:border-[#00D4FF]/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0066CC]/25 flex flex-col items-center text-center cursor-pointer min-h-[56px] justify-center"
             >
@@ -226,10 +230,14 @@ export default function Careers() {
                 <span>Send direct email</span>
                 <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
               </span>
-            </a>
+            </motion.a>
 
             {/* Card 2: Phone & WhatsApp */}
-            <a
+            <motion.a
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               href={`tel:${hrContact.phoneRaw}`}
               className="group relative rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 p-4 sm:p-5 transition-all duration-300 hover:border-emerald-400/50 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/25 flex flex-col items-center text-center cursor-pointer min-h-[56px] justify-center"
             >
@@ -246,10 +254,16 @@ export default function Careers() {
                 <span>Click to call or message</span>
                 <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
               </span>
-            </a>
+            </motion.a>
 
             {/* Card 3: Hyderabad Campus */}
-            <div className="rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 flex flex-col items-center text-center min-h-[56px] justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-xl sm:rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-5 flex flex-col items-center text-center min-h-[56px] justify-center"
+            >
               <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#004E9A]/40 border border-[#38BDF8]/40 text-[#38BDF8] mb-2">
                 <MapPin className="h-5 w-5 text-[#38BDF8]" />
               </div>
@@ -262,7 +276,7 @@ export default function Careers() {
               <span className="mt-2 text-[11px] text-sky-200/70">
                 Mon – Fri · 9:30 AM – 6:30 PM
               </span>
-            </div>
+            </motion.div>
           </div>
 
           {/* Centered Direct Action Buttons - Full width stacked on mobile */}
@@ -300,8 +314,14 @@ export default function Careers() {
           </div>
         </motion.div>
 
-        {/* Filter Navigation Bar (Centered & Symmetrical on Desktop, Touch-Friendly on Mobile) */}
-        <div className="mt-12 sm:mt-16 mx-auto max-w-5xl space-y-4">
+        {/* Filter Navigation Bar with Bi-directional Scroll Animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12 sm:mt-16 mx-auto max-w-5xl space-y-4"
+        >
           {/* Department Category Filter */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <span className="text-xs font-mono uppercase tracking-wider text-sky-200/70 shrink-0">
@@ -364,23 +384,26 @@ export default function Careers() {
               Showing <span className="font-bold text-[#00D4FF]">{filteredJobs.length}</span> positions
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Job Listings Grid with 32px Desktop Gap and 20px Mobile Gap */}
+        {/* Job Listings Grid with 32px Desktop Gap and 20px Mobile Gap - Bi-directional bottom-to-up animations */}
         <div className="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 lg:gap-8 w-full">
           <AnimatePresence mode="popLayout">
-            {filteredJobs.map((job) => {
+            {filteredJobs.map((job, idx) => {
               const isFresher = job.level === 'Fresher';
 
               return (
                 <motion.div
                   key={job.id}
-                  layout
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 75 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.15 }}
+                  viewport={{ once: false, amount: 0.12 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  transition={{
+                    duration: 0.75,
+                    delay: (idx % 2) * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className="group relative flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-white/15 bg-gradient-to-b from-[#0B1F3A]/95 to-[#004E9A]/20 p-5 sm:p-6 lg:p-[28px] backdrop-blur-xl shadow-xl hover:border-[#00D4FF]/50 transition-all duration-300 hover:shadow-[0_20px_45px_rgba(0,102,204,0.35)] w-full overflow-hidden"
                 >
                   <div>
@@ -481,8 +504,14 @@ export default function Careers() {
           </AnimatePresence>
         </div>
 
-        {/* Bottom Help Desk Bar */}
-        <div className="mt-12 sm:mt-16 rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-6 text-center backdrop-blur-md">
+        {/* Bottom Help Desk Bar with Bi-directional Animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12 sm:mt-16 rounded-2xl border border-white/15 bg-white/5 p-4 sm:p-6 text-center backdrop-blur-md"
+        >
           <p className="text-xs sm:text-sm text-sky-100 font-medium">
             Don't see your specific role? Send your resume directly to{' '}
             <a
@@ -497,7 +526,7 @@ export default function Careers() {
             </a>
             . We are always hiring talented freshers and experienced minds!
           </p>
-        </div>
+        </motion.div>
       </div>
 
       {/* Quick Application Modal (Mobile-Optimized) */}
