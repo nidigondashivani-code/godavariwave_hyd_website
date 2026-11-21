@@ -4,12 +4,19 @@ import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { navLinks } from '../data/companyData';
 
+const normalizePath = (path: string) => {
+  if (!path) return '/';
+  const p = path.toLowerCase();
+  if (p === '' || p === '/' || p === '/home') return '/';
+  return p;
+};
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState<string>(() => {
     if (typeof window !== 'undefined') {
-      return window.location.pathname.toLowerCase() || '/';
+      return normalizePath(window.location.pathname);
     }
     return '/';
   });
@@ -20,7 +27,7 @@ export default function Header() {
     };
 
     const handleLocationChange = () => {
-      setCurrentPath(window.location.pathname.toLowerCase() || '/');
+      setCurrentPath(normalizePath(window.location.pathname));
     };
 
     handleScroll();
@@ -40,10 +47,18 @@ export default function Header() {
   const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>, to: string) => {
     e.preventDefault();
     setMobileOpen(false);
+    const targetPath = normalizePath(to);
+    const isSamePage = currentPath === targetPath;
+
     window.history.pushState(null, '', to);
     window.dispatchEvent(new Event('popstate'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setCurrentPath(to.toLowerCase());
+
+    if (isSamePage) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    setCurrentPath(targetPath);
   };
 
   return (
@@ -79,9 +94,9 @@ export default function Header() {
         </a>
 
         {/* Desktop Navigation with Sliding Glass Pill Indicator */}
-        <nav className="hidden items-center gap-2 lg:flex" aria-label="Main">
+        <nav className="hidden items-center gap-1 xl:gap-2 lg:flex" aria-label="Main">
           {navLinks.map((link) => {
-            const isActive = currentPath === link.to.toLowerCase();
+            const isActive = currentPath === normalizePath(link.to);
 
             return (
               <a
@@ -90,7 +105,7 @@ export default function Header() {
                 onClick={(e) => handleNavigate(e, link.to)}
                 data-cursor="true"
                 className={cn(
-                  'relative inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300',
+                  'relative inline-flex items-center gap-1.5 rounded-full px-3 xl:px-4 py-2 text-sm font-medium transition-colors duration-300',
                   isActive
                     ? 'text-white font-semibold'
                     : 'text-slate-300/80 hover:text-white hover:bg-white/5'
@@ -168,7 +183,7 @@ export default function Header() {
           <div className="glass fixed inset-x-4 top-24 z-50 max-h-[82dvh] overflow-y-auto rounded-3xl p-6 shadow-2xl lg:hidden">
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => {
-                const isActive = currentPath === link.to.toLowerCase();
+                const isActive = currentPath === normalizePath(link.to);
 
                 return (
                   <a

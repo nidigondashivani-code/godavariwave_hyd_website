@@ -808,6 +808,7 @@ export const careersPositions: CareerPosition[] = [
 ];
 
 export const navLinks = [
+  { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/solutions", label: "Solutions" },
   { to: "/portfolio", label: "Portfolio" },
